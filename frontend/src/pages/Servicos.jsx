@@ -94,15 +94,23 @@ export default function Servicos() {
                 <Link
                   to={`/servicos/${s.slug}`}
                   data-testid={`servicos-card-${s.slug}`}
-                  className="group flex h-full flex-col rounded-2xl border border-white/10 bg-ink p-7 transition-all duration-300 hover:-translate-y-1 hover:border-acid/50"
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-ink p-7 transition-all duration-300 hover:-translate-y-1 hover:border-acid/50"
                 >
+                  <div className="-mx-7 -mt-7 mb-6 h-36 overflow-hidden border-b border-white/10">
+                    <img
+                      src={s.image}
+                      alt={`Serviço ${s.name} — EXEKUTA`}
+                      className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
+                      loading="lazy"
+                    />
+                  </div>
                   <div className="flex items-start justify-between">
                     <span className="font-mono text-xs tracking-[0.25em] text-acid">{s.num}</span>
                     <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 transition-all duration-300 group-hover:rotate-45 group-hover:border-acid group-hover:text-acid">
                       <ArrowUpRight className="h-4 w-4" />
                     </span>
                   </div>
-                  <h3 className="mt-12 font-display text-xl font-bold tracking-tight">{s.name}</h3>
+                  <h3 className="mt-8 font-display text-xl font-bold tracking-tight">{s.name}</h3>
                   <p className="mt-3 flex-1 text-sm leading-relaxed text-zinc-400">{s.card}</p>
                   <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-zinc-300 transition-colors group-hover:text-acid">
                     Conhecer serviço
@@ -130,6 +138,12 @@ export default function Servicos() {
                       <span className="text-outline font-display text-6xl font-extrabold">{cat.num}</span>
                       <h3 className="mt-6 font-display text-2xl font-bold tracking-tight sm:text-3xl">{cat.title}</h3>
                       <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.22em] text-acid">{cat.tagline}</p>
+                      <img
+                        src={cat.image}
+                        alt={`Serviços de ${cat.title} — EXEKUTA`}
+                        className="mt-7 h-40 w-full max-w-xs rounded-2xl border border-white/10 object-cover grayscale transition-all duration-500 hover:grayscale-0"
+                        loading="lazy"
+                      />
                     </div>
                   </Reveal>
                 </div>

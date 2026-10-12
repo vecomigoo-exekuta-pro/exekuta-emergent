@@ -228,8 +228,16 @@ function Services() {
               <Link
                 to={`/servicos/${s.slug}`}
                 data-testid={`home-service-card-${s.slug}`}
-                className="group flex h-full flex-col rounded-2xl border border-white/10 bg-ink p-7 transition-all duration-300 hover:-translate-y-1 hover:border-acid/50"
+                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-ink p-7 transition-all duration-300 hover:-translate-y-1 hover:border-acid/50"
               >
+                <div className="-mx-7 -mt-7 mb-6 h-36 overflow-hidden border-b border-white/10">
+                  <img
+                    src={s.image}
+                    alt={`Serviço ${s.name} — EXEKUTA`}
+                    className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
+                    loading="lazy"
+                  />
+                </div>
                 <div className="flex items-start justify-between">
                   <span className="font-mono text-xs tracking-[0.25em] text-acid">{s.num}</span>
                   <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 transition-all duration-300 group-hover:rotate-45 group-hover:border-acid group-hover:text-acid">

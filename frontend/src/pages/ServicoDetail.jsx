@@ -59,6 +59,19 @@ export default function ServicoDetail() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Reveal>
+          <div className="overflow-hidden rounded-2xl border border-white/10">
+            <img
+              src={s.image}
+              alt={`Serviço ${s.name} — EXEKUTA`}
+              className="h-64 w-full object-cover grayscale sm:h-80"
+              loading="lazy"
+            />
+          </div>
+        </Reveal>
+      </section>
+
       <section className="py-24 lg:py-32" id="problema" data-testid="servico-problema">
         <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
           <div className="lg:col-span-5">

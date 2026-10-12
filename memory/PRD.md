@@ -37,6 +37,9 @@ Swiss high-contrast monochrome editorial: black #000, white, acid accent #E2FE00
 - Home reconstruída na estrutura do pacote: hero com analisador rápido, ticker Analisar→Otimizar, marquee, showcases, outcomes, pilares, 6 serviços, método, diferenciais, cases com screenshots, painel de performance SVG, FAQ (7 perguntas reais), CTA.
 - Conteúdo 100% real do pacote (manifesto "Não fazemos marketing. Executamos crescimento.", Instagram @exekuta.agencia).
 
+## Implemented (2026-10-12, 4a iteração — imagens reais de serviços)
+- Fotos reais (Unsplash) nos 6 serviços de SEO (cards da home e de /servicos em grayscale com cor no hover), faixa de imagem nos detalhes /servicos/:slug e imagem por categoria no catálogo completo (5 pilares). 11 imagens verificadas carregando, nenhuma quebrada.
+
 ## Backlog (P2+)
 - Analisador de 10 páginas com relatório (pacote usa Supabase; versão atual analisa 1 página).
 - Páginas legais (Privacidade, Termos, Cookies) do pacote.

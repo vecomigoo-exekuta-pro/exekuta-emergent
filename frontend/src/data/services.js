@@ -11,6 +11,7 @@ export const SERVICES = [
       "Sem direção, a operação tende a produzir conteúdo disperso, corrigir problemas de baixo impacto e acompanhar métricas que não explicam crescimento. A estratégia reduz esse ruído e cria uma sequência executável.",
     problemRest:
       "O diagnóstico separa sintomas, causas, dependências e oportunidades para evitar esforço em ações que não alteram o cenário.",
+    image: "https://images.unsplash.com/photo-1622295023368-8d348ed7140e?q=80&w=1200&auto=format&fit=crop",
   },
   {
     slug: "seo-tecnico",
@@ -24,6 +25,7 @@ export const SERVICES = [
       "Um site pode ter bom conteúdo e ainda perder visibilidade por arquitetura confusa, indexação inadequada, lentidão, duplicidade, redirecionamentos incorretos ou sinais técnicos contraditórios.",
     problemRest:
       "O diagnóstico separa sintomas, causas, dependências e oportunidades para evitar esforço em ações que não alteram o cenário.",
+    image: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1200&auto=format&fit=crop",
   },
   {
     slug: "seo-on-page",
@@ -37,6 +39,7 @@ export const SERVICES = [
       "Páginas genéricas, sobrepostas ou mal estruturadas dificultam a compreensão do tema, reduzem a utilidade do conteúdo e dispersam sinais entre URLs que competem entre si.",
     problemRest:
       "O diagnóstico separa sintomas, causas, dependências e oportunidades para evitar esforço em ações que não alteram o cenário.",
+    image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1200&auto=format&fit=crop",
   },
   {
     slug: "seo-local",
@@ -50,6 +53,7 @@ export const SERVICES = [
       "Informações inconsistentes, perfil incompleto, páginas locais fracas e reputação mal acompanhada reduzem confiança e dificultam a descoberta em buscas de proximidade.",
     problemRest:
       "O diagnóstico separa sintomas, causas, dependências e oportunidades para evitar esforço em ações que não alteram o cenário.",
+    image: "https://images.unsplash.com/photo-1758578484467-52d57a339904?q=80&w=1200&auto=format&fit=crop",
   },
   {
     slug: "autoridade-digital",
@@ -63,6 +67,7 @@ export const SERVICES = [
       "Conteúdo sem profundidade, reputação fragmentada e aquisição artificial de links podem gerar pouco valor, risco e uma imagem de autoridade que não se sustenta.",
     problemRest:
       "O diagnóstico separa sintomas, causas, dependências e oportunidades para evitar esforço em ações que não alteram o cenário.",
+    image: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=1200&auto=format&fit=crop",
   },
   {
     slug: "analytics-performance",
@@ -76,6 +81,7 @@ export const SERVICES = [
       "Relatórios extensos podem informar sem orientar. Quando posição, tráfego, conversão e execução não são analisados em conjunto, a equipe reage a variações sem compreender contexto.",
     problemRest:
       "O diagnóstico separa sintomas, causas, dependências e oportunidades para evitar esforço em ações que não alteram o cenário.",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
@@ -85,6 +91,7 @@ export const FULL_CATALOG = [
     num: "01",
     title: "Desenvolvimento",
     tagline: "Presença digital construída para crescer.",
+    image: "https://images.unsplash.com/photo-1629904853893-c2c8981a1dc5?q=80&w=1200&auto=format&fit=crop",
     items: [
       { title: "Criação de Sites", desc: "Sites profissionais, institucionais e WordPress com estratégia, performance e estrutura preparada para aquisição." },
       { title: "Landing Pages", desc: "Páginas de conversão com mensagem, experiência e mensuração conectadas a uma ação de negócio." },
@@ -96,6 +103,7 @@ export const FULL_CATALOG = [
     num: "02",
     title: "Marketing & Performance",
     tagline: "Aquisição e dados com direção.",
+    image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1200&auto=format&fit=crop",
     items: [
       { title: "Gestão de Tráfego Pago", desc: "Campanhas pagas com estratégia, rastreamento e otimização para transformar investimento em demanda qualificada." },
       { title: "Marketing Digital", desc: "Estratégia digital que organiza canais, conteúdo, aquisição e mensuração em torno de objetivos claros de negócio." },
@@ -107,6 +115,7 @@ export const FULL_CATALOG = [
     num: "03",
     title: "SEO & Google",
     tagline: "Visibilidade com estrutura, relevância e intenção.",
+    image: "https://images.unsplash.com/photo-1641951820920-c90394aef512?q=80&w=1200&auto=format&fit=crop",
     items: [
       { title: "Estratégia SEO", desc: "Diagnóstico, pesquisa e priorização para definir onde competir e por quê." },
       { title: "SEO Técnico", desc: "Rastreamento, indexação, arquitetura, performance e integridade técnica." },
@@ -120,6 +129,7 @@ export const FULL_CATALOG = [
     num: "04",
     title: "Automação & IA",
     tagline: "Processos digitais com menos atrito.",
+    image: "https://images.unsplash.com/photo-1771503735122-22405ba958f9?q=80&w=1200&auto=format&fit=crop",
     items: [
       { title: "Automação & IA", desc: "Automação, inteligência artificial e integrações para reduzir tarefas manuais, organizar dados e acelerar processos comerciais." },
     ],
@@ -129,6 +139,7 @@ export const FULL_CATALOG = [
     num: "05",
     title: "Suporte & Infraestrutura",
     tagline: "Continuidade, velocidade e segurança.",
+    image: "https://images.unsplash.com/photo-1691435828932-911a7801adfb?q=80&w=1200&auto=format&fit=crop",
     items: [
       { title: "Manutenção & Performance", desc: "Manutenção técnica, velocidade, segurança, backup e monitoramento para manter o site estável e pronto para performar." },
     ],
