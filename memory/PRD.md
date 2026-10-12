@@ -43,6 +43,10 @@ Swiss high-contrast monochrome editorial: black #000, white, acid accent #E2FE00
 ## Implemented (2026-10-12, 5a iteração — vídeo no hero)
 - Hero da home com vídeo de fundo (equipe trabalhando, stock Pexels): WebM/VP9 (1,9 MB) + MP4/H.264 de fallback, servidos localmente, autoplay mudo em loop, poster e overlays escuros + grid para legibilidade. Reprodução verificada (currentTime avançando).
 
+## Bugfix (2026-10-12) — "Link is not defined" no build de produção
+- Causa: Contato.jsx e Insights.jsx usavam `Link` / `ArrowUpRight` sem importação (quebrou o build minificado).
+- Correção: importações adicionadas; auditoria completa com oxlint (0 erros no src) e `yarn build` de produção executado com sucesso (EXIT:0). Nota: react-router-dom instalado na v7.18.4 — API compatível (BrowserRouter/Routes/Route/Link/NavLink/useParams/useSearchParams), sem conflito com react-scripts 5.0.1 + CRACO 7.1.0. deployment_agent: PASS, sem blockers.
+
 ## Backlog (P2+)
 - Analisador de 10 páginas com relatório (pacote usa Supabase; versão atual analisa 1 página).
 - Páginas legais (Privacidade, Termos, Cookies) do pacote.
