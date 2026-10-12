@@ -39,7 +39,27 @@ function Hero() {
 
   return (
     <section ref={ref} onMouseMove={onMouseMove} className="relative overflow-hidden pt-32 lg:pt-40" data-testid="home-hero">
-      <div className="hero-grid absolute inset-0" aria-hidden="true" />
+      <video
+        ref={(v) => {
+          if (v) {
+            v.play().catch(() => {});
+          }
+        }}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        poster="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1600&auto=format&fit=crop"
+        className="absolute inset-0 h-full w-full object-cover opacity-30"
+        data-testid="hero-video"
+        aria-hidden="true"
+      >
+        <source src="/videos/team-hero.webm" type="video/webm" />
+        <source src="/videos/team-hero.mp4" type="video/mp4" />
+      </video>
+      <div className="absolute inset-0 bg-gradient-to-b from-ink/80 via-ink/55 to-ink" aria-hidden="true" />
+      <div className="hero-grid absolute inset-0 opacity-60" aria-hidden="true" />
       <div className="hero-glow pointer-events-none absolute -top-32 left-1/2 h-[560px] w-[860px] -translate-x-1/2" aria-hidden="true" />
       <motion.div style={{ x: sx, y: sy }} className="pointer-events-none absolute -right-20 top-16 hidden opacity-80 lg:block" aria-hidden="true">
         <img src="/brand/logo-exekuta-angular.png" alt="" className="h-72 w-72 opacity-40" />

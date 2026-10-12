@@ -40,6 +40,9 @@ Swiss high-contrast monochrome editorial: black #000, white, acid accent #E2FE00
 ## Implemented (2026-10-12, 4a iteração — imagens reais de serviços)
 - Fotos reais (Unsplash) nos 6 serviços de SEO (cards da home e de /servicos em grayscale com cor no hover), faixa de imagem nos detalhes /servicos/:slug e imagem por categoria no catálogo completo (5 pilares). 11 imagens verificadas carregando, nenhuma quebrada.
 
+## Implemented (2026-10-12, 5a iteração — vídeo no hero)
+- Hero da home com vídeo de fundo (equipe trabalhando, stock Pexels): WebM/VP9 (1,9 MB) + MP4/H.264 de fallback, servidos localmente, autoplay mudo em loop, poster e overlays escuros + grid para legibilidade. Reprodução verificada (currentTime avançando).
+
 ## Backlog (P2+)
 - Analisador de 10 páginas com relatório (pacote usa Supabase; versão atual analisa 1 página).
 - Páginas legais (Privacidade, Termos, Cookies) do pacote.
