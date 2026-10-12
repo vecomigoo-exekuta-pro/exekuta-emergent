@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Ambiente de escritório com análise de SEO</title>
+  <desc id="desc">Ilustração premium de um escritório moderno com painéis de análise, telas com gráficos, mesa de reunião e iluminação em verde.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#050605"/>
+      <stop offset="60%" stop-color="#0B0D0C"/>
+      <stop offset="100%" stop-color="#151914"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#B7FF00" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#20FF38" stop-opacity="0.28"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#101412"/>
+      <stop offset="100%" stop-color="#0A0D0B"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1200" fill="url(#bg)" rx="36"/>
+  <g opacity="0.24">
+    <path d="M0 1080h1600" stroke="#293028"/>
+    <path d="M0 990h1600" stroke="#293028"/>
+    <path d="M0 900h1600" stroke="#293028"/>
+    <path d="M180 0v1200" stroke="#293028"/>
+    <path d="M410 0v1200" stroke="#293028"/>
+    <path d="M640 0v1200" stroke="#293028"/>
+    <path d="M870 0v1200" stroke="#293028"/>
+    <path d="M1100 0v1200" stroke="#293028"/>
+    <path d="M1330 0v1200" stroke="#293028"/>
+  </g>
+  <rect x="88" y="88" width="1424" height="1024" rx="30" fill="none" stroke="#253022"/>
+  <rect x="100" y="100" width="1400" height="160" rx="28" fill="#0E120F" stroke="#273325"/>
+  <circle cx="170" cy="180" r="10" fill="#B7FF00"/>
+  <circle cx="210" cy="180" r="10" fill="#3D4A3B"/>
+  <circle cx="250" cy="180" r="10" fill="#3D4A3B"/>
+  <rect x="310" y="150" width="430" height="24" rx="12" fill="#202720"/>
+  <rect x="310" y="190" width="330" height="18" rx="9" fill="#161B17"/>
+  <rect x="1100" y="146" width="280" height="62" rx="18" fill="url(#glow)" stroke="#395032"/>
+  <text x="1135" y="186" fill="#F5F7F5" font-size="32" font-family="Arial, Helvetica, sans-serif" font-weight="700">SEO · Strategy Room</text>
+
+  <g transform="translate(120,310)">
+    <rect width="820" height="470" rx="28" fill="url(#screen)" stroke="#2B3527"/>
+    <rect x="36" y="36" width="190" height="120" rx="20" fill="#0F1410" stroke="#32402D"/>
+    <text x="60" y="82" fill="#A6ADA6" font-size="24" font-family="Arial, Helvetica, sans-serif">Painel</text>
+    <text x="60" y="126" fill="#F5F7F5" font-size="40" font-family="Arial, Helvetica, sans-serif" font-weight="700">Visibilidade</text>
+    <rect x="250" y="36" width="534" height="290" rx="22" fill="#090C0A" stroke="#313F2C"/>
+    <path d="M280 266C340 250 380 230 432 224s90-34 130-60 68-18 120-40 80-66 132-80" fill="none" stroke="#B7FF00" stroke-width="8" stroke-linecap="round"/>
+    <path d="M280 266C340 250 380 230 432 224s90-34 130-60 68-18 120-40 80-66 132-80V294H280Z" fill="#B7FF00" opacity="0.14"/>
+    <g fill="#F5F7F5" opacity="0.7" font-size="18" font-family="Arial, Helvetica, sans-serif">
+      <text x="290" y="80">Crescimento orgânico</text>
+      <text x="290" y="110">visualização demonstrativa</text>
+    </g>
+    <rect x="36" y="190" width="190" height="236" rx="20" fill="#0F1410" stroke="#32402D"/>
+    <rect x="62" y="236" width="138" height="14" rx="7" fill="#222A22"/>
+    <rect x="62" y="274" width="100" height="14" rx="7" fill="#222A22"/>
+    <rect x="62" y="312" width="120" height="14" rx="7" fill="#222A22"/>
+    <rect x="62" y="350" width="90" height="14" rx="7" fill="#222A22"/>
+    <rect x="62" y="388" width="130" height="14" rx="7" fill="#222A22"/>
+    <circle cx="170" cy="210" r="8" fill="#20FF38"/>
+    <rect x="250" y="350" width="160" height="76" rx="18" fill="#101612" stroke="#33432E"/>
+    <rect x="438" y="350" width="160" height="76" rx="18" fill="#101612" stroke="#33432E"/>
+    <rect x="626" y="350" width="158" height="76" rx="18" fill="#101612" stroke="#33432E"/>
+    <text x="275" y="382" fill="#A6ADA6" font-size="18" font-family="Arial, Helvetica, sans-serif">Diagnóstico</text>
+    <text x="275" y="411" fill="#F5F7F5" font-size="28" font-family="Arial, Helvetica, sans-serif" font-weight="700">Prioridades</text>
+    <text x="463" y="382" fill="#A6ADA6" font-size="18" font-family="Arial, Helvetica, sans-serif">Execução</text>
+    <text x="463" y="411" fill="#F5F7F5" font-size="28" font-family="Arial, Helvetica, sans-serif" font-weight="700">Implementação</text>
+    <text x="649" y="382" fill="#A6ADA6" font-size="18" font-family="Arial, Helvetica, sans-serif">Resultados</text>
+    <text x="649" y="411" fill="#F5F7F5" font-size="28" font-family="Arial, Helvetica, sans-serif" font-weight="700">Acompanhamento</text>
+  </g>
+
+  <g transform="translate(995,330)">
+    <rect width="385" height="250" rx="28" fill="#0D110E" stroke="#2B3527"/>
+    <rect x="28" y="28" width="329" height="28" rx="14" fill="#1A201A"/>
+    <rect x="28" y="86" width="240" height="16" rx="8" fill="#202820"/>
+    <rect x="28" y="124" width="300" height="16" rx="8" fill="#202820"/>
+    <rect x="28" y="162" width="270" height="16" rx="8" fill="#202820"/>
+    <rect x="28" y="198" width="180" height="16" rx="8" fill="#B7FF00" opacity="0.7"/>
+  </g>
+
+  <g transform="translate(980,620)">
+    <rect width="420" height="330" rx="30" fill="#0C0F0C" stroke="#2C3628"/>
+    <rect x="35" y="35" width="350" height="20" rx="10" fill="#1A1F1A"/>
+    <g transform="translate(45,95)">
+      <rect x="0" y="122" width="48" height="58" rx="14" fill="#202820"/>
+      <rect x="70" y="84" width="48" height="96" rx="14" fill="#263024"/>
+      <rect x="140" y="46" width="48" height="134" rx="14" fill="#31402B"/>
+      <rect x="210" y="0" width="48" height="180" rx="14" fill="#B7FF00" opacity="0.85"/>
+      <rect x="280" y="66" width="48" height="114" rx="14" fill="#263024"/>
+    </g>
+    <text x="36" y="288" fill="#A6ADA6" font-size="20" font-family="Arial, Helvetica, sans-serif">Fluxo contínuo entre análise, conteúdo, técnica e conversão.</text>
+  </g>
+</svg>

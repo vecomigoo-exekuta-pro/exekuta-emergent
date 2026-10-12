@@ -15,11 +15,11 @@ module.exports = {
         sm: 'calc(var(--radius) - 4px)'
       },
       colors: {
-        ink: "#000000",
-        paper: "#FFFFFF",
-        acid: "#E2FE00",
-        surface: "#09090B",
-        card2: "#121215",
+        ink: "#050605",
+        paper: "#F5F7F5",
+        acid: "#B7FF00",
+        surface: "#0B0D0C",
+        card2: "#111411",
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

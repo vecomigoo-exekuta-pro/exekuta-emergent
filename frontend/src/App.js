@@ -7,12 +7,18 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import Home from "@/pages/Home";
-import Servicos from "@/pages/Servicos";
 import Sobre from "@/pages/Sobre";
+import Servicos from "@/pages/Servicos";
+import ServicoDetail from "@/pages/ServicoDetail";
+import Metodo from "@/pages/Metodo";
 import Cases from "@/pages/Cases";
 import CaseDetail from "@/pages/CaseDetail";
 import Insights from "@/pages/Insights";
+import ArtigoDetail from "@/pages/ArtigoDetail";
 import Contato from "@/pages/Contato";
+import Diagnostico from "@/pages/Diagnostico";
+import AnaliseSeo from "@/pages/AnaliseSeo";
+import NotFound from "@/pages/NotFound";
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -77,13 +83,18 @@ function App() {
           <main>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/servicos" element={<Servicos />} />
               <Route path="/sobre" element={<Sobre />} />
+              <Route path="/servicos" element={<Servicos />} />
+              <Route path="/servicos/:slug" element={<ServicoDetail />} />
+              <Route path="/metodo" element={<Metodo />} />
               <Route path="/cases" element={<Cases />} />
               <Route path="/cases/:slug" element={<CaseDetail />} />
               <Route path="/insights" element={<Insights />} />
+              <Route path="/insights/:slug" element={<ArtigoDetail />} />
               <Route path="/contato" element={<Contato />} />
-              <Route path="*" element={<Home />} />
+              <Route path="/diagnostico" element={<Diagnostico />} />
+              <Route path="/analise-seo" element={<AnaliseSeo />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
           <Footer />

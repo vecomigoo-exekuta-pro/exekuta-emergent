@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Reunião estratégica em escritório</title>
+  <desc id="desc">Ilustração editorial de um escritório moderno com mesa de reunião, monitor com dashboard e ambiente corporativo.</desc>
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0B0D0C"/>
+      <stop offset="100%" stop-color="#171C17"/>
+    </linearGradient>
+    <linearGradient id="accent2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#B7FF00" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#20FF38" stop-opacity="0.28"/>
+    </linearGradient>
+  </defs>
+  <rect width="1400" height="1000" fill="url(#bg2)" rx="28"/>
+  <rect x="76" y="76" width="1248" height="848" rx="28" fill="none" stroke="#263024"/>
+  <rect x="110" y="120" width="520" height="640" rx="26" fill="#101411" stroke="#2F3A2B"/>
+  <rect x="150" y="170" width="440" height="54" rx="18" fill="#1B221B"/>
+  <rect x="150" y="260" width="360" height="18" rx="9" fill="#232B23"/>
+  <rect x="150" y="300" width="310" height="18" rx="9" fill="#232B23"/>
+  <rect x="150" y="340" width="390" height="18" rx="9" fill="#232B23"/>
+  <rect x="150" y="420" width="400" height="250" rx="22" fill="#090C0A" stroke="#31402C"/>
+  <path d="M182 600C232 570 270 554 324 546s82-26 122-58 64-20 110-34" fill="none" stroke="#B7FF00" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="322" cy="546" r="8" fill="#B7FF00"/>
+  <circle cx="446" cy="500" r="8" fill="#B7FF00"/>
+  <circle cx="556" cy="454" r="8" fill="#B7FF00"/>
+
+  <g transform="translate(690,150)">
+    <rect width="560" height="240" rx="28" fill="#0F1310" stroke="#2F392B"/>
+    <rect x="35" y="35" width="490" height="170" rx="22" fill="url(#accent2)" stroke="#395032"/>
+    <text x="60" y="90" fill="#F5F7F5" font-size="34" font-family="Arial, Helvetica, sans-serif" font-weight="700">Ambiente de operação</text>
+    <text x="60" y="132" fill="#D5DAD5" font-size="23" font-family="Arial, Helvetica, sans-serif">Planejamento, documentação e acompanhamento</text>
+    <text x="60" y="170" fill="#D5DAD5" font-size="23" font-family="Arial, Helvetica, sans-serif">de projetos de SEO em fluxo contínuo.</text>
+  </g>
+
+  <g transform="translate(690,450)">
+    <rect width="560" height="310" rx="28" fill="#111511" stroke="#2D382A"/>
+    <ellipse cx="280" cy="255" rx="210" ry="34" fill="#090C0A"/>
+    <rect x="140" y="146" width="280" height="34" rx="17" fill="#151A16"/>
+    <rect x="165" y="110" width="230" height="46" rx="23" fill="#1C241C"/>
+    <rect x="240" y="32" width="80" height="96" rx="22" fill="#B7FF00" opacity="0.24"/>
+    <circle cx="218" cy="120" r="48" fill="#D9DDD9"/>
+    <circle cx="346" cy="120" r="48" fill="#D9DDD9"/>
+    <circle cx="282" cy="178" r="54" fill="#E8EDE8"/>
+    <rect x="182" y="88" width="72" height="14" rx="7" fill="#0D0F0D"/>
+    <rect x="310" y="88" width="72" height="14" rx="7" fill="#0D0F0D"/>
+    <path d="M248 188c22 18 46 18 68 0" fill="none" stroke="#0D0F0D" stroke-width="10" stroke-linecap="round"/>
+    <text x="34" y="44" fill="#A6ADA6" font-size="18" font-family="Arial, Helvetica, sans-serif">Clareza estratégica + documentação de execução</text>
+  </g>
+</svg>

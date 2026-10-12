@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1400" role="img" aria-labelledby="title desc">
+  <title id="title">Capa do case Synteco</title>
+  <desc id="desc">Capa editorial do case Synteco com layout premium escuro e indicadores conceituais de SEO.</desc>
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#050605"/>
+      <stop offset="100%" stop-color="#111511"/>
+    </linearGradient>
+    <linearGradient id="band3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#B7FF00" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#20FF38" stop-opacity="0.32"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1400" fill="url(#bg3)" rx="32"/>
+  <rect x="52" y="52" width="796" height="1296" rx="28" fill="none" stroke="#283225"/>
+  <rect x="92" y="110" width="716" height="92" rx="26" fill="#0E120F" stroke="#313F2C"/>
+  <text x="126" y="168" fill="#F5F7F5" font-size="44" font-family="Arial, Helvetica, sans-serif" font-weight="700">SYNTECO.COM.BR</text>
+  <rect x="92" y="238" width="716" height="430" rx="28" fill="url(#band3)" stroke="#395032"/>
+  <text x="128" y="326" fill="#F5F7F5" font-size="34" font-family="Arial, Helvetica, sans-serif" font-weight="700">PORTFÓLIO AUTORIZADO</text>
+  <text x="128" y="378" fill="#D5DAD5" font-size="24" font-family="Arial, Helvetica, sans-serif">Projeto adicionado ao site institucional da EXEKUTA</text>
+  <text x="128" y="420" fill="#D5DAD5" font-size="24" font-family="Arial, Helvetica, sans-serif">com espaço preparado para aprofundamento de métricas.</text>
+  <path d="M128 580C216 560 266 532 336 506s110-18 174-58 112-48 170-100" fill="none" stroke="#B7FF00" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="336" cy="506" r="11" fill="#B7FF00"/>
+  <circle cx="510" cy="448" r="11" fill="#B7FF00"/>
+  <circle cx="680" cy="348" r="11" fill="#B7FF00"/>
+  <rect x="92" y="720" width="228" height="210" rx="24" fill="#0E120F" stroke="#303B2C"/>
+  <rect x="92" y="960" width="228" height="210" rx="24" fill="#0E120F" stroke="#303B2C"/>
+  <rect x="350" y="720" width="458" height="450" rx="24" fill="#0E120F" stroke="#303B2C"/>
+  <text x="126" y="786" fill="#A6ADA6" font-size="19" font-family="Arial, Helvetica, sans-serif">SEGMENTO</text>
+  <text x="126" y="834" fill="#F5F7F5" font-size="28" font-family="Arial, Helvetica, sans-serif" font-weight="700">Serviços especializados</text>
+  <text x="126" y="1026" fill="#A6ADA6" font-size="19" font-family="Arial, Helvetica, sans-serif">STATUS</text>
+  <text x="126" y="1074" fill="#B7FF00" font-size="28" font-family="Arial, Helvetica, sans-serif" font-weight="700">1ª página informada</text>
+  <text x="382" y="786" fill="#A6ADA6" font-size="19" font-family="Arial, Helvetica, sans-serif">FOCOS DE SEO</text>
+  <text x="382" y="842" fill="#F5F7F5" font-size="26" font-family="Arial, Helvetica, sans-serif">• presença orgânica</text>
+  <text x="382" y="890" fill="#F5F7F5" font-size="26" font-family="Arial, Helvetica, sans-serif">• páginas comerciais</text>
+  <text x="382" y="938" fill="#F5F7F5" font-size="26" font-family="Arial, Helvetica, sans-serif">• estrutura de conteúdo</text>
+  <text x="382" y="1048" fill="#D5DAD5" font-size="22" font-family="Arial, Helvetica, sans-serif">Métricas detalhadas e período podem ser</text>
+  <text x="382" y="1086" fill="#D5DAD5" font-size="22" font-family="Arial, Helvetica, sans-serif">adicionados em uma página individual de estudo.</text>
+</svg>

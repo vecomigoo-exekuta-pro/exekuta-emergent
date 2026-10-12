@@ -30,6 +30,15 @@ Swiss high-contrast monochrome editorial: black #000, white, acid accent #E2FE00
 ## Implemented (2026-10-12, 2a iteração)
 - Página de detalhe por case em `/cases/:slug` com Desafio / Solução / Resultados (conteúdo real dos cases publicados), tags de serviços, domínio quando confirmado, link para a publicação original, navegação "próximo case" e CTA final.
 - Cards da listagem de cases agora abrem a página interna do case (antes: link externo).
-- Blog próprio com artigos completos (hoje linkam ao site original).
-- E-mail transacional (Resend) para resposta automática de contato.
-- Painel admin simples para ler contatos recebidos.
+
+## Implemented (2026-10-12, 3a iteração — base premium do usuário)
+- Identidade oficial adotada do pacote exekuta-site-premium: verde #B7FF00, fundo #050605, logos oficiais (horizontal, angular, símbolo circular no favicon) e capturas reais de cases.
+- Novas páginas: /metodo, /diagnostico (formulário completo → POST /api/diagnostico), /analise-seo (analisador SEO real → POST /api/seo/analyze, 10 verificações + score), /servicos/:slug (6 detalhes), /insights/:slug (3 artigos completos do pacote), 404.
+- Home reconstruída na estrutura do pacote: hero com analisador rápido, ticker Analisar→Otimizar, marquee, showcases, outcomes, pilares, 6 serviços, método, diferenciais, cases com screenshots, painel de performance SVG, FAQ (7 perguntas reais), CTA.
+- Conteúdo 100% real do pacote (manifesto "Não fazemos marketing. Executamos crescimento.", Instagram @exekuta.agencia).
+
+## Backlog (P2+)
+- Analisador de 10 páginas com relatório (pacote usa Supabase; versão atual analisa 1 página).
+- Páginas legais (Privacidade, Termos, Cookies) do pacote.
+- E-mail transacional (Resend) para resposta automática de contatos.
+- Painel admin simples para ler contatos e diagnósticos recebidos.
