@@ -1,57 +1,8 @@
 import { ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Eyebrow, FadeIn, Reveal } from "@/components/ui-motions";
+import { CASES } from "@/data/cases";
 import { WHATSAPP_URL } from "@/data/content";
-
-const CASES = [
-  {
-    name: "Wishclean",
-    segment: "Limpeza profissional",
-    desc: "Estrutura comercial orientada à busca local, páginas de serviços e contato direcionado.",
-    url: "https://exekuta.com.br/cases/wishclean/",
-  },
-  {
-    name: "Rio Quadras",
-    segment: "Engenharia esportiva",
-    desc: "Construção, reforma e manutenção de quadras e espaços esportivos com arquitetura comercial e conteúdo setorial.",
-    url: "https://exekuta.com.br/cases/rio-quadras/",
-  },
-  {
-    name: "Terraplanagem Rio",
-    segment: "Terraplanagem e locação",
-    desc: "Captação orgânica para locação de equipamentos e serviços de terraplanagem com cobertura regional.",
-    url: "https://exekuta.com.br/cases/terraplanagem-rio/",
-  },
-  {
-    name: "Sinteko",
-    segment: "Pisos e acabamentos",
-    desc: "Serviços de sinteco e renovação de pisos com páginas comerciais e conteúdo ligado à jornada de busca.",
-    url: "https://exekuta.com.br/cases/sinteko/",
-  },
-  {
-    name: "Loca Rental",
-    segment: "Locação de máquinas pesadas",
-    desc: "Páginas comerciais para locação de máquinas pesadas, autoridade setorial e captação de orçamento.",
-    url: "https://exekuta.com.br/cases/loca-rental/",
-  },
-  {
-    name: "Rio Pintura",
-    segment: "Pintura residencial",
-    desc: "Apresentação de pintura residencial e serviços correlatos com arquitetura voltada à descoberta orgânica.",
-    url: "https://exekuta.com.br/cases/rio-pintura/",
-  },
-  {
-    name: "Rio Elétrica",
-    segment: "Engenharia elétrica",
-    desc: "Linguagem técnica, vitrine de serviços e estrutura de páginas para posicionamento orgânico no setor elétrico.",
-    url: "https://exekuta.com.br/cases/rio-eletrica/",
-  },
-  {
-    name: "Synteco",
-    segment: "Serviços especializados",
-    desc: "Projeto incluído no portfólio autorizado, com estrutura preparada para aprofundamento editorial e métricas documentadas.",
-    url: "https://exekuta.com.br/cases/synteco/",
-  },
-];
 
 export default function Cases() {
   return (
@@ -89,12 +40,10 @@ export default function Cases() {
       <section className="mx-auto max-w-7xl px-4 pb-28 sm:px-6 lg:px-8" data-testid="cases-grid">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {CASES.map((c, i) => (
-            <Reveal key={c.name} delay={(i % 4) * 0.08} className="h-full">
-              <a
-                href={c.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-testid={`case-card-${c.name.toLowerCase().replace(/\s+/g, "-")}`}
+            <Reveal key={c.slug} delay={(i % 4) * 0.08} className="h-full">
+              <Link
+                to={`/cases/${c.slug}`}
+                data-testid={`case-card-${c.slug}`}
                 className="group flex h-full flex-col rounded-2xl border border-white/10 bg-card2 p-7 transition-all duration-300 hover:-translate-y-1 hover:border-acid/50"
               >
                 <div className="flex items-start justify-between">
@@ -112,7 +61,7 @@ export default function Cases() {
                   {c.segment}
                 </p>
                 <p className="mt-4 text-sm leading-relaxed text-zinc-400">{c.desc}</p>
-              </a>
+              </Link>
             </Reveal>
           ))}
         </div>

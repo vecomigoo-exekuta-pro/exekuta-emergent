@@ -10,6 +10,7 @@ import Home from "@/pages/Home";
 import Servicos from "@/pages/Servicos";
 import Sobre from "@/pages/Sobre";
 import Cases from "@/pages/Cases";
+import CaseDetail from "@/pages/CaseDetail";
 import Insights from "@/pages/Insights";
 import Contato from "@/pages/Contato";
 
@@ -79,6 +80,7 @@ function App() {
               <Route path="/servicos" element={<Servicos />} />
               <Route path="/sobre" element={<Sobre />} />
               <Route path="/cases" element={<Cases />} />
+              <Route path="/cases/:slug" element={<CaseDetail />} />
               <Route path="/insights" element={<Insights />} />
               <Route path="/contato" element={<Contato />} />
               <Route path="*" element={<Home />} />

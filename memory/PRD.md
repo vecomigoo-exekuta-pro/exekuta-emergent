@@ -27,8 +27,9 @@ Swiss high-contrast monochrome editorial: black #000, white, acid accent #E2FE00
 - Formulário de contato end-to-end (UI → API → MongoDB).
 - Favicon SVG original (marca X angular) + logo no navbar/footer.
 
-## Backlog (P2+)
-- Páginas de detalhe por case (hoje linkam ao site original).
+## Implemented (2026-10-12, 2a iteração)
+- Página de detalhe por case em `/cases/:slug` com Desafio / Solução / Resultados (conteúdo real dos cases publicados), tags de serviços, domínio quando confirmado, link para a publicação original, navegação "próximo case" e CTA final.
+- Cards da listagem de cases agora abrem a página interna do case (antes: link externo).
 - Blog próprio com artigos completos (hoje linkam ao site original).
 - E-mail transacional (Resend) para resposta automática de contato.
 - Painel admin simples para ler contatos recebidos.
