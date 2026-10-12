@@ -69,7 +69,7 @@ export default function CaseDetail() {
                   Case {num} — {c.segment}
                 </Eyebrow>
               </FadeIn>
-              <h1 className="mt-6 font-display text-5xl font-extrabold tracking-tighter leading-[0.95] sm:text-7xl">
+              <h1 className="mt-6 font-display text-5xl font-extrabold tracking-tight leading-[0.95] sm:text-7xl">
                 <span className="block overflow-hidden">
                   <FadeIn delay={0.2}>{c.name}</FadeIn>
                 </span>
@@ -149,7 +149,7 @@ export default function CaseDetail() {
           >
             <div>
               <Eyebrow>Próximo case</Eyebrow>
-              <p className="mt-4 font-display text-3xl font-extrabold tracking-tighter transition-colors group-hover:text-acid sm:text-5xl">
+              <p className="mt-4 font-display text-3xl font-extrabold tracking-tight transition-colors group-hover:text-acid sm:text-5xl">
                 {next.name}
               </p>
               <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">
@@ -166,7 +166,7 @@ export default function CaseDetail() {
       <section className="border-t border-white/10 py-24" data-testid="case-cta">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
           <Reveal>
-            <h2 className="font-display text-3xl font-extrabold tracking-tighter sm:text-5xl">
+            <h2 className="font-display text-3xl font-extrabold tracking-tight sm:text-5xl">
               Seu negócio pode ser<br className="hidden sm:block" /> o próximo <span className="text-acid">case.</span>
             </h2>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">

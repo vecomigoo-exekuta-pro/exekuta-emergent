@@ -58,7 +58,7 @@ export default function Contato() {
               Contato
             </Eyebrow>
           </FadeIn>
-          <h1 className="mt-8 font-display text-3xl font-extrabold tracking-tighter leading-[1.02] sm:text-5xl lg:text-6xl">
+          <h1 className="mt-8 font-display text-3xl font-extrabold tracking-tight leading-[1.02] sm:text-5xl lg:text-6xl">
             <span className="block overflow-hidden">
               <FadeIn delay={0.15}>
                 <span>Vamos entender o cenário</span>

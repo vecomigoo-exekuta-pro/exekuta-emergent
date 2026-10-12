@@ -71,7 +71,7 @@ function Hero() {
           </Eyebrow>
         </FadeIn>
 
-        <h1 className="mt-8 font-display text-4xl font-extrabold tracking-tighter leading-[0.98] sm:text-6xl lg:text-7xl">
+        <h1 className="mt-8 font-display text-4xl font-extrabold tracking-tight leading-[0.98] sm:text-6xl lg:text-7xl">
           <MaskedLines
             lines={["SEO que gera", <span key="l2"><span className="text-acid">resultados</span> reais.</span>]}
             baseDelay={0.15}
@@ -365,7 +365,7 @@ function Cta() {
       <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6">
         <Reveal>
           <Eyebrow className="justify-center">Próximo passo</Eyebrow>
-          <h2 className="mt-6 font-display text-3xl font-extrabold tracking-tighter leading-[1.02] sm:text-5xl lg:text-6xl">
+          <h2 className="mt-6 font-display text-3xl font-extrabold tracking-tight leading-[1.02] sm:text-5xl lg:text-6xl">
             Vamos entender o cenário antes de propor a solução.
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-zinc-400">

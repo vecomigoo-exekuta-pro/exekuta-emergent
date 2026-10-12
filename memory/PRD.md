@@ -4,7 +4,7 @@
 "https://exekuta.com.br/ com base desse site recrie com todas as paginas, quero um site novo e mais bonito" — recreate the EXEKUTA site (Brazilian data-driven SEO agency) with all pages, in a more beautiful modern execution. User confirmed: "sim, mas bonito".
 
 ## Art direction
-Swiss high-contrast monochrome editorial: black #000, white, acid accent #E2FE00. Syne (display) + Archivo (body) + JetBrains Mono (labels). Grain overlay, hairline borders, outlined display numbers, kinetic hero with masked line-by-line reveal, slow editorial marquee, lenis smooth scroll, framer-motion reveals, hero parallax + rotating X mark (original SVG logo, also favicon).
+Swiss high-contrast monochrome editorial: black #000, white, acid accent #E2FE00. Bricolage Grotesque (display; trocada de Syne por ficar esticada — feedback do usuário) + Archivo (body) + JetBrains Mono (labels). Grain overlay, hairline borders, outlined display numbers, kinetic hero with masked line-by-line reveal, slow editorial marquee, lenis smooth scroll, framer-motion reveals, hero parallax + rotating X mark (original SVG logo, also favicon).
 
 ## User personas
 - Dono de PME no Rio de Janeiro buscando visibilidade no Google → quer diagnóstico.

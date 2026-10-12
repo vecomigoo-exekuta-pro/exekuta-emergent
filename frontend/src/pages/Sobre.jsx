@@ -15,7 +15,7 @@ export default function Sobre() {
               Sobre a EXEKUTA
             </Eyebrow>
           </FadeIn>
-          <h1 className="mt-8 font-display text-4xl font-extrabold tracking-tighter leading-[0.98] sm:text-6xl lg:text-7xl">
+          <h1 className="mt-8 font-display text-4xl font-extrabold tracking-tight leading-[0.98] sm:text-6xl lg:text-7xl">
             <span className="block overflow-hidden">
               <FadeIn delay={0.15}>
                 <span>Estratégia que</span>

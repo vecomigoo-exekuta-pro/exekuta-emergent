@@ -16,7 +16,7 @@ export default function Cases() {
               Cases
             </Eyebrow>
           </FadeIn>
-          <h1 className="mt-8 font-display text-4xl font-extrabold tracking-tighter leading-[0.98] sm:text-6xl lg:text-7xl">
+          <h1 className="mt-8 font-display text-4xl font-extrabold tracking-tight leading-[0.98] sm:text-6xl lg:text-7xl">
             <span className="block overflow-hidden">
               <FadeIn delay={0.15}>
                 <span>Posições ocupadas,</span>
@@ -47,7 +47,7 @@ export default function Cases() {
                 className="group flex h-full flex-col rounded-2xl border border-white/10 bg-card2 p-7 transition-all duration-300 hover:-translate-y-1 hover:border-acid/50"
               >
                 <div className="flex items-start justify-between">
-                  <span className="font-display text-5xl font-extrabold tracking-tighter text-paper transition-colors duration-300 group-hover:text-acid">
+                  <span className="font-display text-5xl font-extrabold tracking-tight text-paper transition-colors duration-300 group-hover:text-acid">
                     {c.name.charAt(0)}
                   </span>
                   <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 transition-all duration-300 group-hover:rotate-45 group-hover:border-acid group-hover:text-acid">

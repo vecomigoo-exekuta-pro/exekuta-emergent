@@ -76,7 +76,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-16 select-none overflow-hidden" aria-hidden="true">
-          <p className="text-outline whitespace-nowrap font-display text-[16vw] font-extrabold leading-none tracking-tighter">
+          <p className="text-outline whitespace-nowrap font-display text-[16vw] font-extrabold leading-none tracking-tight">
             EXEKUTA
           </p>
         </div>

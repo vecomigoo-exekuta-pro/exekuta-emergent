@@ -55,7 +55,7 @@ module.exports = {
         }
       },
       fontFamily: {
-        display: ["Syne", "sans-serif"],
+        display: ["'Bricolage Grotesque'", "sans-serif"],
         sans: ["Archivo", "sans-serif"],
         mono: ["'JetBrains Mono'", "monospace"]
       },

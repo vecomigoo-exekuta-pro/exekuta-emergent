@@ -15,7 +15,7 @@ export default function Servicos() {
               Serviços
             </Eyebrow>
           </FadeIn>
-          <h1 className="mt-8 font-display text-4xl font-extrabold tracking-tighter leading-[0.98] sm:text-6xl lg:text-7xl">
+          <h1 className="mt-8 font-display text-4xl font-extrabold tracking-tight leading-[0.98] sm:text-6xl lg:text-7xl">
             <span className="block overflow-hidden">
               <FadeIn delay={0.15}>
                 <span>Toda a operação,</span>
@@ -77,7 +77,7 @@ export default function Servicos() {
       <section className="border-t border-white/10 py-24" data-testid="servicos-cta">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
           <Reveal>
-            <h2 className="font-display text-3xl font-extrabold tracking-tighter sm:text-5xl">
+            <h2 className="font-display text-3xl font-extrabold tracking-tight sm:text-5xl">
               Não sabe por onde começar?
             </h2>
             <p className="mx-auto mt-5 max-w-lg text-zinc-400">
