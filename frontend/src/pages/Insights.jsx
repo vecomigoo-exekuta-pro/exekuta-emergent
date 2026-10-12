@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Search } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Search } from "lucide-react";
 import { Eyebrow, FadeIn, Reveal } from "@/components/ui-motions";
 import PerformanceBoard from "@/components/PerformanceBoard";
 import { INSIGHTS } from "@/data/insights";
