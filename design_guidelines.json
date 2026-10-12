@@ -1,0 +1,135 @@
+{
+  "project_name": "EXEKUTA - Redesign Editorial Agency",
+  "archetype": "ARCHETYPE 4: SWISS & HIGH-CONTRAST + ARCHETYPE 7: MONOCHROME EDITORIAL",
+  "theme": "Dark Solid Minimalist Editorial",
+  "language": "pt-BR",
+  "colors": {
+    "background_primary": "#000000",
+    "background_secondary": "#09090B",
+    "background_card": "#121215",
+    "background_glass": "rgba(18, 18, 21, 0.75)",
+    "border_subtle": "rgba(255, 255, 255, 0.12)",
+    "border_strong": "rgba(255, 255, 255, 0.3)",
+    "text_primary": "#FFFFFF",
+    "text_secondary": "#A1A1AA",
+    "text_muted": "#71717A",
+    "accent_sharp": "#E2FE00",
+    "accent_secondary": "#FF3333"
+  },
+  "typography": {
+    "heading_font": "Space Grotesk, Syne, or Cabinet Grotesk (Fallbacks: sans-serif)",
+    "body_font": "Plus Jakarta Sans, Inter, or system-ui",
+    "mono_font": "JetBrains Mono, Fira Code, monospace",
+    "h1_hero": "text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tighter leading-[1.05]",
+    "h2_section": "text-3xl sm:text-5xl font-bold tracking-tight leading-[1.1]",
+    "h3_card": "text-xl sm:text-2xl font-semibold tracking-tight",
+    "overline_label": "text-xs font-mono uppercase tracking-[0.25em] text-[#E2FE00]"
+  },
+  "spacing_and_layout": {
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "section_padding": "py-24 lg:py-36",
+    "bento_grid": "grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8",
+    "header_height": "h-20"
+  },
+  "visual_enhancers": {
+    "grain_overlay": "pointer-events-none fixed inset-0 opacity-[0.035] z-50 mix-blend-overlay bg-[url('data:image/svg+xml,...')]",
+    "glassmorphism": "backdrop-blur-xl bg-black/70 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]",
+    "tracing_border": "relative before:absolute before:inset-0 before:p-[1px] before:bg-gradient-to-r before:from-white/20 before:via-[#E2FE00]/50 before:to-white/20 before:rounded-xl",
+    "hero_masked_text": "overflow-hidden inline-block line-reveal"
+  },
+  "motion_and_effects": {
+    "lenis_smooth_scroll": "Enable Lenis smooth scrolling wrapper across all routes",
+    "hero_parallax": "Mouse tilt effect on kinetic hero elements + scroll-driven Y transforms",
+    "masked_text_reveal": "framer-motion initial={{ y: '100%', opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}",
+    "marquee": "react-fast-marquee or custom horizontal loop moving slowly (speed 30-40px/s)",
+    "card_hover": "transition-all duration-300 hover:border-white/40 hover:-translate-y-1 hover:shadow-2xl hover:shadow-white/5"
+  },
+  "required_pages": [
+    {
+      "path": "/",
+      "name": "Home",
+      "sections": [
+        "Kinetic Hero with line-by-line reveal of 'SEO que gera resultados reais'",
+        "Slow Editorial Marquee with clients, metrics & focus areas",
+        "Services Preview (Interactive 5-column accordion or grid)",
+        "Methodology Showcase (Diagnóstico -> Estratégia -> Execução -> Monitoramento -> Escala)",
+        "Key Metrics & Interactive Cases Highlights",
+        "FAQ Accordion (Dynamic questions on SEO, performance, timeline)",
+        "High-Impact Dark Monochrome CTA Section"
+      ]
+    },
+    {
+      "path": "/servicos",
+      "name": "Serviços",
+      "categories": [
+        "Desenvolvimento (Websites, Web Apps, Headless CMS, Landing Pages de Alta Conversão)",
+        "Marketing & Performance (Mídia Paga, Google Ads, Meta Ads, CRO, Copywriting)",
+        "SEO & Google (SEO Técnico, Link Building, Content Strategy, Google Business Profile, Local SEO)",
+        "Automação & IA (Automação de Leads, Chatbots Inteligentes, Workflows n8n/Make, CRM Setup)",
+        "Suporte & Infraestrutura (Hospedagem de Alta Performance, Segurança Web, Manutenção Contínua)"
+      ]
+    },
+    {
+      "path": "/sobre",
+      "name": "Sobre A EXEKUTA",
+      "sections": [
+        "Missão & Visão Editorial",
+        "Valores da Agência (Transparência Radical, Orientação a Dados, Execução Implacável)",
+        "Método EXEKUTA de 5 Etapas em Detalhes",
+        "Diferenciais de Mercado vs Agências Tradicionais",
+        "Founder Spotlight: Alessandro Pimentel (CEO & Founder) com foto oficial monochrome e manifesto"
+      ]
+    },
+    {
+      "path": "/cases",
+      "name": "Cases de Sucesso",
+      "features": [
+        "Grid de Cases de Sucesso com filtro por categoria (SEO, E-commerce, SaaS, B2B)",
+        "Métricas destacadas em badge monocromático com accent volt (+340% Tráfego, 5.2x ROI, 12.000+ Keywords #1)",
+        "Modal ou Drawer de Detalhes do Case com Desafio, Solução e Resultados"
+      ]
+    },
+    {
+      "path": "/insights",
+      "name": "Insights & Artigos",
+      "features": [
+        "Grid de artigos técnicos e estratégicos sobre SEO 2026, IA na Pesquisa, CRO",
+        "Filtro por tag (SEO, IA, Analytics, Growth)",
+        "Modal/Drawer de leitura rápida com tempo estimado de leitura e autor"
+      ]
+    },
+    {
+      "path": "/contato",
+      "name": "Contato",
+      "features": [
+        "Formulário completo: Nome, E-mail, WhatsApp, Empresa, Mensagem, Checkbox de Privacidade LGPD",
+        "Canal direto do WhatsApp (+55 21 2038-1079) com botão de ação rápida",
+        "Informações de localização (Rio de Janeiro - RJ, Brasil) e horário de atendimento"
+      ]
+    }
+  ],
+  "image_urls": {
+    "ceo_alessandro_pimentel": "https://images.unsplash.com/photo-1640531005390-38bd92755d6a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NjZ8MHwxfHNlYXJjaHwxfHxleGVjdXRpdmUlMjBwb3J0cmFpdCUyMENFTyUyMHRlY2glMjBmb3VuZGVyJTIwbW9ub2Nocm9tZSUyMGRhcmslMjBtb2RlfGVufDB8fHx8MTc5MTgxNDAzMXww&ixlib=rb-4.1.0&q=85",
+    "ceo_alternate": "https://images.unsplash.com/photo-1453396450673-3fe83d2db2c4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NjZ8MHwxfHNlYXJjaHwyfHxleGVjdXRpdmUlMjBwb3J0cmFpdCUyMENFTyUyMHRlY2glMjBmb3VuZGVyJTIwbW9ub2Nocm9tZSUyMGRhcmslMjBtb2RlfGVufDB8fHx8MTc5MTgxNDAzMXww&ixlib=rb-4.1.0&q=85",
+    "analytics_dark_1": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwxfHxkYXRhJTIwYW5hbHl0aWNzJTIwZGFzaGJvYXJkJTIwZGFyayUyMG1vZGUlMjBtaW5pbWFsfGVufDB8fHx8MTc5MTgxNDAzOXww&ixlib=rb-4.1.0&q=85",
+    "analytics_dark_2": "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwzfHxkYXRhJTIwYW5hbHl0aWNzJTIwZGFzaGJvYXJkJTIwZGFyayUyMG1vZGUlMjBtaW5pbWFsfGVufDB8fHx8MTc5MTgxNDAzOXww&ixlib=rb-4.1.0&q=85",
+    "analytics_dark_3": "https://images.unsplash.com/photo-1666875753105-c63a6f3bdc86?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwyfHxkYXRhJTIwYW5hbHl0aWNzJTIwZGFzaGJvYXJkJTIwZGFyayUyMG1vZGUlMjBtaW5pbWFsfGVufDB8fHx8MTc5MTgxNDAzOXww&ixlib=rb-4.1.0&q=85",
+    "studio_office_1": "https://images.unsplash.com/photo-1641060272821-df59e2c0b5ed?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MTJ8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBvZmZpY2UlMjBhcmNoaXRlY3R1cmFsJTIwbWluaW1hbCUyMG1vbm9jaHJvbWUlMjBzdHVkaW98ZW58MHx8fHwxNzkxODE0MDM5fDA&ixlib=rb-4.1.0&q=85",
+    "studio_office_2": "https://images.unsplash.com/photo-1548123325-525b8e0cde7c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MTJ8MHwxfHNlYXJjaHw0fHxtb2Rlcm4lMjBvZmZpY2UlMjBhcmNoaXRlY3R1cmFsJTIwbWluaW1hbCUyMG1vbm9jaHJvbWUlMjBzdHVkaW98ZW58MHx8fHwxNzkxODE0MDM5fDA&ixlib=rb-4.1.0&q=85"
+  },
+  "instructions_to_main_agent": [
+    "Use standard React JSX (.js / .jsx) components.",
+    "Ensure Lenis smooth scroll and Framer Motion reveals are integrated smoothly.",
+    "Add 'data-testid' to all buttons, links, form fields, filter tabs, modal toggles, and key data points.",
+    "Implement an SVG logo mark for EXEKUTA in the navbar, footer, and favicon.svg.",
+    "Strictly maintain Portuguese language throughout all UI labels, headlines, buttons, and content.",
+    "Include a floating WhatsApp contact button for quick reach out to +55 21 2038-1079."
+  ],
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "Avoid generic centered layouts; create depth with asymmetrical grids and layer hierarchy.",
+    "Never use generic AI emojis (🤖, 🧠, 💡) as icons; use Lucide-react or Phosphor icons.",
+    "Every interactive element must have smooth transition and hover states with explicit text colors.",
+    "Add generous padding and clear negative space between sections.",
+    "Maintain contrast accessibility using high-contrast white text on dark surfaces with #E2FE00 accent highlights."
+  ]
+}
