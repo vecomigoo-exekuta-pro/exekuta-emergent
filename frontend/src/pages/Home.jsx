@@ -12,15 +12,23 @@ import { MaskedLines, FadeIn, Eyebrow, Reveal, Marquee } from "@/components/ui-m
 import QuickAnalyzer from "@/components/QuickAnalyzer";
 import PerformanceBoard from "@/components/PerformanceBoard";
 import { LogoMark } from "@/components/Logo";
-import { TICKER, OUTCOMES, DIFFERENTIALS, FAQ, PILLARS, INSTAGRAM } from "@/data/site";
-import { SERVICES } from "@/data/services";
-import { METHOD_STEPS } from "@/data/method";
-import { CASES, CASE_DISCLAIMER } from "@/data/cases";
-import { INSIGHTS } from "@/data/insights";
+import { useSiteData } from "@/cms/CmsContext";
+import { INSTAGRAM } from "@/data/site";
 
 const EASE = [0.16, 1, 0.3, 1];
 
+const splitAcid = (text) => {
+  const i = (text || "").indexOf(". ");
+  if (i === -1) return <>{text}</>;
+  return (
+    <>
+      {text.slice(0, i + 1)} <span className="text-acid">{text.slice(i + 2)}</span>
+    </>
+  );
+};
+
 function Hero() {
+  const { cms, home } = useSiteData();
   const ref = useRef(null);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -37,14 +45,11 @@ function Hero() {
     my.set(((e.clientY - r.top) / r.height - 0.5) * 22);
   };
 
+  const tickerItems = (home.ticker || "").split("•").map((t) => t.trim()).filter(Boolean);
+
   return (
     <section ref={ref} onMouseMove={onMouseMove} className="relative overflow-hidden pt-32 lg:pt-40" data-testid="home-hero">
       <video
-        ref={(v) => {
-          if (v) {
-            v.play().catch(() => {});
-          }
-        }}
         autoPlay
         muted
         loop
@@ -70,21 +75,19 @@ function Hero() {
           <FadeIn>
             <Eyebrow className="flex items-center gap-3">
               <span className="inline-block h-2 w-2 rounded-full bg-acid" />
-              SEO • Performance • Crescimento
+              {home.heroEyebrow}
             </Eyebrow>
           </FadeIn>
           <h1 className="mt-7 font-display text-4xl font-extrabold uppercase tracking-tight leading-[0.98] sm:text-6xl lg:text-7xl">
             <MaskedLines
-              lines={["SEO que gera", <strong key="l2" className="text-acid">resultados reais.</strong>]}
+              lines={[home.heroTitle1, <strong key="l2" className="text-acid">{home.heroTitle2}</strong>]}
               baseDelay={0.15}
               delayStep={0.16}
             />
           </h1>
           <FadeIn delay={0.55} className="mt-7 max-w-xl">
             <p className="text-base leading-relaxed text-zinc-400 sm:text-lg">
-              Estratégia avançada, execução técnica e foco total em crescimento
-              orgânico para marcas que não querem apenas aparecer — querem
-              ocupar posições, gerar oportunidades e crescer com consistência.
+              {home.heroLead}
             </p>
           </FadeIn>
           <FadeIn delay={0.7} className="mt-9 flex flex-wrap gap-4">
@@ -93,7 +96,7 @@ function Hero() {
               data-testid="hero-cta-diagnostico"
               className="group inline-flex items-center gap-2 rounded-full bg-acid px-7 py-3.5 text-sm font-bold uppercase tracking-wide text-ink transition-transform duration-300 hover:scale-[1.04]"
             >
-              Solicitar diagnóstico
+              {home.heroCta1}
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
             </Link>
             <Link
@@ -101,7 +104,7 @@ function Hero() {
               data-testid="hero-cta-cases"
               className="inline-flex items-center gap-2 rounded-full border border-white/25 px-7 py-3.5 text-sm font-semibold text-paper transition-colors duration-300 hover:border-acid hover:text-acid"
             >
-              Ver cases
+              {home.heroCta2}
             </Link>
           </FadeIn>
           <FadeIn delay={0.85} className="mt-10 flex flex-wrap gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">
@@ -118,10 +121,10 @@ function Hero() {
 
       <FadeIn delay={0.9} className="relative border-t border-white/10 bg-surface/60 backdrop-blur">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-4 font-mono text-[11px] uppercase tracking-[0.24em] text-zinc-400 sm:px-6 lg:px-8">
-          {TICKER.map((t, i) => (
-            <span key={t} className="flex items-center gap-4">
-              <span className={i === 2 ? "text-acid" : ""}>{t}</span>
-              {i < TICKER.length - 1 && <ArrowRight className="h-3 w-3 text-acid" />}
+          {tickerItems.map((t, i) => (
+            <span key={`${t}-${i}`} className="flex items-center gap-4">
+              <span className={i === Math.min(2, tickerItems.length - 1) ? "text-acid" : ""}>{t}</span>
+              {i < tickerItems.length - 1 && <ArrowRight className="h-3 w-3 text-acid" />}
             </span>
           ))}
         </div>
@@ -131,6 +134,8 @@ function Hero() {
 }
 
 function Showcase() {
+  const { home } = useSiteData();
+  const items = (home.showcaseItems || "").split("\n").map((s) => s.trim()).filter(Boolean);
   return (
     <section className="py-24 lg:py-32" data-testid="home-showcase">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
@@ -142,19 +147,13 @@ function Showcase() {
         <Reveal delay={0.12}>
           <Eyebrow>Operação estratégica</Eyebrow>
           <h2 className="mt-4 font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
-            Análise, planejamento e execução no mesmo fluxo.
+            {home.showcaseTitle}
           </h2>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-zinc-400">
-            O trabalho de SEO precisa sair da abstração: leitura de cenário,
-            priorização, documentação e acompanhamento contínuo em um mesmo
-            fluxo de execução.
+            {home.showcaseLead}
           </p>
           <ul className="mt-7 space-y-3.5">
-            {[
-              "Diagnóstico com leitura técnica e comercial",
-              "Planejamento com prioridades documentadas",
-              "Execução acompanhada por indicadores e contexto",
-            ].map((item) => (
+            {items.map((item) => (
               <li key={item} className="flex items-start gap-3 text-sm text-zinc-300">
                 <Check className="mt-0.5 h-4 w-4 shrink-0 text-acid" />
                 {item}
@@ -168,52 +167,68 @@ function Showcase() {
 }
 
 function Outcomes() {
+  const { home } = useSiteData();
   return (
     <section className="border-y border-white/10 bg-surface py-24 lg:py-32" data-testid="home-outcomes">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <Eyebrow>Visibilidade com objetivo</Eyebrow>
           <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
-            SEO não é apenas posição. É crescimento com direção.
+            {home.outcomesTitle}
           </h2>
           <p className="mt-5 max-w-xl text-zinc-400">
-            Aparecer é um sinal. O valor surge quando a presença orgânica atrai
-            demanda relevante, sustenta uma experiência clara e contribui para
-            uma ação de negócio.
+            {home.outcomesLead}
           </p>
         </Reveal>
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {OUTCOMES.map((o, i) => (
-            <Reveal key={o.tag} delay={i * 0.1} className="h-full">
-              <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-ink p-8 transition-all duration-300 hover:-translate-y-1 hover:border-acid/50">
-                <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-acid">{o.tag}</span>
-                <h3 className="mt-8 font-display text-xl font-bold tracking-tight">{o.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-zinc-400">{o.desc}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+        <OutcomesCards />
       </div>
     </section>
   );
 }
 
+function OutcomesCards() {
+  const { cms } = useSiteData();
+  const defaults = [
+    { tag: "Presença", title: "Mais presença nas buscas", desc: "Ampliar a cobertura de temas e páginas que representam demanda relevante." },
+    { tag: "Qualidade", title: "Mais tráfego qualificado", desc: "Atrair pessoas com intenção compatível com a oferta e com o estágio da jornada." },
+    { tag: "Negócio", title: "Mais oportunidades comerciais", desc: "Conectar descoberta, experiência e ação sem prometer resultado garantido." },
+  ];
+  return (
+    <div className="mt-12 grid gap-5 md:grid-cols-3">
+      {defaults.map((o, i) => (
+        <Reveal key={o.tag} delay={i * 0.1} className="h-full">
+          <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-ink p-8 transition-all duration-300 hover:-translate-y-1 hover:border-acid/50">
+            <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-acid">{o.tag}</span>
+            <h3 className="mt-8 font-display text-xl font-bold tracking-tight">{o.title}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-zinc-400">{o.desc}</p>
+          </div>
+        </Reveal>
+      ))}
+    </div>
+  );
+}
+
 function Pillars() {
+  const { home, cms } = useSiteData();
+  const pillars = cms.home?.pilares || [
+    { num: "01", title: "Estratégia", desc: "Análise profunda. Planejamento inteligente. Decisões que geram valor." },
+    { num: "02", title: "Execução", desc: "Implementação técnica. Processos ágeis. Foco em performance." },
+    { num: "03", title: "Resultados", desc: "Crescimento orgânico. Métricas reais. Performance contínua." },
+  ];
   return (
     <section className="py-24 lg:py-32" data-testid="home-pilares">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <Eyebrow>Essência Exekuta</Eyebrow>
           <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
-            Três pilares. Uma disciplina de crescimento.
+            {home.pilaresTitle}
           </h2>
           <p className="mt-5 max-w-xl text-zinc-400">
-            A estratégia define a direção. A execução transforma prioridade em
-            entrega. Os resultados realimentam o próximo ciclo.
+            {home.pilaresLead}
           </p>
         </Reveal>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {PILLARS.map((p, i) => (
+          {pillars.map((p, i) => (
             <Reveal key={p.num} delay={i * 0.1} className="h-full">
               <div className="group flex h-full flex-col rounded-2xl border border-white/10 bg-card2 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-acid/50">
                 <span className="text-outline font-display text-5xl font-extrabold">{p.num}</span>
@@ -229,21 +244,21 @@ function Pillars() {
 }
 
 function Services() {
+  const { services, home } = useSiteData();
   return (
     <section className="border-y border-white/10 bg-surface py-24 lg:py-32" data-testid="home-servicos">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <Eyebrow>Serviços</Eyebrow>
           <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
-            Da direção estratégica à melhoria contínua.
+            {home.servicesTitle}
           </h2>
           <p className="mt-5 max-w-xl text-zinc-400">
-            Cada frente resolve um tipo de barreira. O diagnóstico mostra quais
-            delas realmente merecem prioridade.
+            {home.servicesLead}
           </p>
         </Reveal>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map((s, i) => (
+          {services.map((s, i) => (
             <Reveal key={s.slug} delay={(i % 3) * 0.08} className="h-full">
               <Link
                 to={`/servicos/${s.slug}`}
@@ -259,7 +274,7 @@ function Services() {
                   />
                 </div>
                 <div className="flex items-start justify-between">
-                  <span className="font-mono text-xs tracking-[0.25em] text-acid">{s.num}</span>
+                  <span className="font-mono text-xs tracking-[0.25em] text-acid">{s.num || String(i + 1).padStart(2, "0")}</span>
                   <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 transition-all duration-300 group-hover:rotate-45 group-hover:border-acid group-hover:text-acid">
                     <ArrowUpRight className="h-4 w-4" />
                   </span>
@@ -280,26 +295,17 @@ function Services() {
 }
 
 function Method() {
+  const { home } = useSiteData();
   return (
     <section className="py-24 lg:py-32" data-testid="home-metodo">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <Eyebrow>Método Exekuta</Eyebrow>
           <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
-            Um processo que reduz ruído e aumenta clareza.
+            {home.methodTitle}
           </h2>
         </Reveal>
-        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-5">
-          {METHOD_STEPS.map((m, i) => (
-            <Reveal key={m.num} delay={i * 0.07} className="h-full">
-              <div className="flex h-full flex-col bg-ink p-7 transition-colors duration-300 hover:bg-card2">
-                <span className="text-outline font-display text-5xl font-extrabold">{m.num}</span>
-                <h3 className="mt-8 font-display text-lg font-bold tracking-tight">{m.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-zinc-400">{m.desc}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+        <MethodSteps />
         <Reveal delay={0.2}>
           <Link
             to="/metodo"
@@ -315,22 +321,54 @@ function Method() {
   );
 }
 
+function MethodSteps() {
+  const { cms } = useSiteData();
+  const steps = cms.home?.etapas || [
+    { num: "01", title: "Diagnóstico", desc: "Entender cenário, dados, limitações e oportunidades antes de propor ações." },
+    { num: "02", title: "Estratégia", desc: "Definir direção, prioridades e critérios para transformar análise em plano." },
+    { num: "03", title: "Execução", desc: "Implementar com clareza de responsabilidade, sequência e padrão de qualidade." },
+    { num: "04", title: "Monitoramento", desc: "Observar evolução, desvios e sinais que exigem nova investigação." },
+    { num: "05", title: "Escala", desc: "Consolidar aprendizados e ampliar o que demonstra utilidade e consistência." },
+  ];
+  return (
+    <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-5">
+      {steps.map((m, i) => (
+        <Reveal key={m.num} delay={i * 0.07} className="h-full">
+          <div className="flex h-full flex-col bg-ink p-7 transition-colors duration-300 hover:bg-card2">
+            <span className="text-outline font-display text-5xl font-extrabold">{m.num}</span>
+            <h3 className="mt-8 font-display text-lg font-bold tracking-tight">{m.title}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-zinc-400">{m.desc}</p>
+          </div>
+        </Reveal>
+      ))}
+    </div>
+  );
+}
+
 function Differentials() {
+  const { cms, home } = useSiteData();
+  const points = cms.home?.diferenciais || [
+    "Decisões baseadas em dados",
+    "Execução técnica priorizada",
+    "Estratégia adaptada ao cenário",
+    "Acompanhamento contínuo",
+    "Comunicação transparente",
+    "Foco em indicadores de negócio",
+  ];
   return (
     <section className="border-y border-white/10 bg-surface py-24 lg:py-32" data-testid="home-diferenciais">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
         <Reveal>
           <Eyebrow>Diferenciais</Eyebrow>
           <h2 className="mt-4 font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
-            Não entregamos tarefas. Construímos <span className="text-acid">performance.</span>
+            {cms.home?.diffTitle ? splitAcid(home.diffTitle) : <>Não entregamos tarefas. Construímos <span className="text-acid">performance.</span></>}
           </h2>
           <p className="mt-5 max-w-md text-zinc-400">
-            O trabalho precisa indicar por que uma ação existe, como será
-            validada e qual decisão pode surgir depois dela.
+            {home.diffLead}
           </p>
         </Reveal>
         <div className="grid gap-x-8 sm:grid-cols-2">
-          {DIFFERENTIALS.map((d, i) => (
+          {points.map((d, i) => (
             <Reveal key={d} delay={i * 0.06}>
               <div className="flex items-start gap-3 border-b border-white/10 py-4 text-sm text-zinc-300">
                 <Check className="mt-0.5 h-4 w-4 shrink-0 text-acid" />
@@ -345,17 +383,18 @@ function Differentials() {
 }
 
 function CasesPreview() {
+  const { cases, home } = useSiteData();
   return (
     <section className="py-24 lg:py-32" data-testid="home-cases">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <Eyebrow>Cases</Eyebrow>
           <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
-            Projetos reais já cadastrados no portfólio.
+            {home.casesTitle}
           </h2>
         </Reveal>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {CASES.slice(0, 4).map((c, i) => (
+          {cases.slice(0, 4).map((c, i) => (
             <Reveal key={c.slug} delay={(i % 4) * 0.08} className="h-full">
               <Link
                 to={`/cases/${c.slug}`}
@@ -383,7 +422,7 @@ function CasesPreview() {
         </div>
         <Reveal delay={0.15}>
           <p className="mt-8 max-w-3xl font-mono text-[11px] uppercase leading-relaxed tracking-[0.14em] text-zinc-600">
-            {CASE_DISCLAIMER}
+            Esta seção documenta somente projetos autorizados. Não são publicados percentuais, volumes de tráfego ou prazos que não tenham sido fornecidos.
           </p>
         </Reveal>
       </div>
@@ -392,18 +431,17 @@ function CasesPreview() {
 }
 
 function DashboardSection() {
+  const { home } = useSiteData();
   return (
     <section className="border-y border-white/10 bg-surface py-24 lg:py-32" data-testid="home-dashboard">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
         <Reveal>
           <Eyebrow>Painel de performance</Eyebrow>
           <h2 className="mt-4 font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
-            Menos vaidade. Mais sinal para decidir.
+            {home.dashTitle}
           </h2>
           <p className="mt-5 max-w-xl text-zinc-400">
-            Visibilidade, páginas estratégicas, saúde técnica e conversões
-            precisam ser lidas em conjunto. O painel demonstra a arquitetura
-            visual sem usar dados de clientes.
+            {home.dashLead}
           </p>
         </Reveal>
         <Reveal delay={0.12}>
@@ -415,6 +453,7 @@ function DashboardSection() {
 }
 
 function AboutPreview() {
+  const { home } = useSiteData();
   return (
     <section className="py-24 lg:py-32" data-testid="home-sobre">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
@@ -428,12 +467,10 @@ function AboutPreview() {
         <Reveal delay={0.12}>
           <Eyebrow>Sobre a Exekuta</Eyebrow>
           <h2 className="mt-4 font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
-            Precisão na análise. Disciplina na execução.
+            {home.aboutTitle}
           </h2>
           <p className="mt-5 max-w-xl text-zinc-400">
-            A EXEKUTA traduz mecanismos de busca, dados e estratégia digital em
-            uma operação de crescimento orgânico. Um compromisso simples: dar
-            direção ao esforço e contexto aos resultados.
+            {home.aboutLead}
           </p>
           <div className="founder-line mt-7 flex items-center gap-4 border-l-2 border-acid pl-4">
             <div>
@@ -457,17 +494,23 @@ function AboutPreview() {
 }
 
 function Insights() {
+  const { home } = useSiteData();
+  const articles = [
+    { slug: "estrategia-seo-conectada-ao-negocio", category: "Estratégia SEO", title: "Como funciona uma estratégia de SEO conectada ao negócio", excerpt: "Um roteiro para transformar demanda, arquitetura, conteúdo, técnica e conversão em prioridades executáveis.", readTime: "7 min de leitura" },
+    { slug: "seo-tecnico", category: "SEO Técnico", title: "SEO técnico: o que priorizar antes de produzir mais conteúdo", excerpt: "Por que rastreamento, indexação, arquitetura e performance precisam entrar na ordem correta de execução.", readTime: "8 min de leitura" },
+    { slug: "seo-local", category: "SEO Local", title: "SEO local: como organizar presença, relevância e confiança", excerpt: "Os pilares para uma presença regional consistente, útil e alinhada à operação real da empresa.", readTime: "6 min de leitura" },
+  ];
   return (
     <section className="border-y border-white/10 bg-surface py-24 lg:py-32" data-testid="home-insights">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <Eyebrow>Insights</Eyebrow>
           <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
-            Conhecimento que melhora a próxima decisão.
+            {home.insightsTitle}
           </h2>
         </Reveal>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {INSIGHTS.map((a, i) => (
+          {articles.map((a, i) => (
             <Reveal key={a.slug} delay={i * 0.1} className="h-full">
               <Link
                 to={`/insights/${a.slug}`}
@@ -494,6 +537,7 @@ function Insights() {
 }
 
 function Faq() {
+  const { faq, home } = useSiteData();
   const [open, setOpen] = useState(0);
   return (
     <section className="py-24 lg:py-32" data-testid="home-faq">
@@ -502,13 +546,13 @@ function Faq() {
           <Reveal>
             <Eyebrow>FAQ</Eyebrow>
             <h2 className="mt-4 font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
-              Respostas claras para decisões responsáveis.
+              {home.faqTitle}
             </h2>
           </Reveal>
         </div>
         <div className="lg:col-span-8">
-          {FAQ.map((f, i) => (
-            <Reveal key={f.q} delay={i * 0.04}>
+          {faq.map((f, i) => (
+            <Reveal key={`${f.q}-${i}`} delay={i * 0.04}>
               <div className="border-b border-white/10">
                 <button
                   onClick={() => setOpen(open === i ? -1 : i)}
@@ -539,6 +583,7 @@ function Faq() {
 }
 
 function Cta() {
+  const { cms, home } = useSiteData();
   return (
     <section className="relative overflow-hidden py-24 lg:py-32" data-testid="home-cta">
       <div className="hero-glow pointer-events-none absolute left-1/2 top-1/2 h-[520px] w-[820px] -translate-x-1/2 -translate-y-1/2" />
@@ -547,11 +592,10 @@ function Cta() {
           <div className="rounded-3xl border border-acid/25 bg-card2 p-10 text-center sm:p-16">
             <Eyebrow className="justify-center text-center">Próximo passo</Eyebrow>
             <h2 className="mt-6 font-display text-3xl font-extrabold uppercase tracking-tight leading-[1.02] sm:text-5xl">
-              Não fazemos marketing. <span className="text-acid">Executamos crescimento.</span>
+              {cms.home?.ctaTitle ? splitAcid(home.ctaTitle) : <>Não fazemos marketing. <span className="text-acid">Executamos crescimento.</span></>}
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-zinc-400">
-              Descubra onde sua empresa está perdendo visibilidade e quais
-              oportunidades podem ser transformadas em crescimento.
+              {home.ctaLead}
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Link
@@ -581,10 +625,12 @@ function Cta() {
 }
 
 export default function Home() {
+  const { home } = useSiteData();
+  const marqueeItems = (home.marqueeItems || "").split("•").map((t) => t.trim()).filter(Boolean);
   return (
     <>
       <Hero />
-      <Marquee items={["Não fazemos marketing", "Executamos crescimento", "Estratégia", "Execução", "Resultados"]} />
+      <Marquee items={marqueeItems} />
       <Showcase />
       <Outcomes />
       <Pillars />

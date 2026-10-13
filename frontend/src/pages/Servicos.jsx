@@ -2,10 +2,12 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ArrowUpRight, Search } from "lucide-react";
 import { Eyebrow, FadeIn, Reveal, SectionHead } from "@/components/ui-motions";
 import PerformanceBoard from "@/components/PerformanceBoard";
-import { SERVICES, FULL_CATALOG } from "@/data/services";
+import { useSiteData } from "@/cms/CmsContext";
+import { FULL_CATALOG } from "@/data/services";
 import { CHALLENGES } from "@/data/site";
 
 export default function Servicos() {
+  const { services } = useSiteData();
   return (
     <div data-testid="servicos-page">
       <section className="relative overflow-hidden pb-14 pt-40 lg:pb-20 lg:pt-48">
@@ -89,7 +91,7 @@ export default function Servicos() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHead eyebrow="Frentes de SEO" title="Da direção estratégica à melhoria contínua." />
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map((s, i) => (
+            {services.map((s, i) => (
               <Reveal key={s.slug} delay={(i % 3) * 0.08} className="h-full">
                 <Link
                   to={`/servicos/${s.slug}`}
@@ -105,7 +107,7 @@ export default function Servicos() {
                     />
                   </div>
                   <div className="flex items-start justify-between">
-                    <span className="font-mono text-xs tracking-[0.25em] text-acid">{s.num}</span>
+                    <span className="font-mono text-xs tracking-[0.25em] text-acid">{s.num || String(i + 1).padStart(2, "0")}</span>
                     <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 transition-all duration-300 group-hover:rotate-45 group-hover:border-acid group-hover:text-acid">
                       <ArrowUpRight className="h-4 w-4" />
                     </span>

@@ -2,10 +2,12 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Eyebrow, FadeIn, Reveal } from "@/components/ui-motions";
 import PerformanceBoard from "@/components/PerformanceBoard";
-import { CASES, CASE_DISCLAIMER, CASE_NOTE } from "@/data/cases";
+import { useSiteData } from "@/cms/CmsContext";
+import { CASE_DISCLAIMER, CASE_NOTE } from "@/data/cases";
 import { CASE_CRITERIA } from "@/data/site";
 
 export default function Cases() {
+  const { cases } = useSiteData();
   return (
     <div data-testid="cases-page">
       <section className="relative overflow-hidden pb-14 pt-40 lg:pb-20 lg:pt-48">
@@ -86,7 +88,7 @@ export default function Cases() {
             </p>
           </Reveal>
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {CASES.map((c, i) => (
+            {cases.map((c, i) => (
               <Reveal key={c.slug} delay={(i % 4) * 0.07} className="h-full">
                 <Link
                   to={`/cases/${c.slug}`}

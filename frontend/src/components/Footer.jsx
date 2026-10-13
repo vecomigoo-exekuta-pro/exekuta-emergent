@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Logo } from "@/components/Logo";
+import { useSiteData } from "@/cms/CmsContext";
 import { SERVICES } from "@/data/services";
-import { INSTAGRAM } from "@/data/site";
-import { WHATSAPP_URL, PHONE } from "@/data/content";
 
 const INSTITUTIONAL = [
   { to: "/sobre", label: "Sobre" },
@@ -13,20 +12,20 @@ const INSTITUTIONAL = [
 ];
 
 export default function Footer() {
+  const { footer } = useSiteData();
   return (
     <footer className="border-t border-white/10 bg-ink" data-testid="site-footer">
       <div className="mx-auto max-w-7xl px-4 pb-10 pt-16 sm:px-6 lg:px-8">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-4">
-            <Logo className="h-10 w-auto" />
+            <Logo footer className="h-10 w-auto" />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-zinc-400">
-              Estratégia de SEO, execução técnica e crescimento orientado por
-              dados.
+              {footer.institutionalText}
             </p>
             <p className="mt-6 font-display text-sm font-bold uppercase leading-relaxed tracking-tight text-paper">
-              Não fazemos marketing.
+              {footer.signatureLine1}
               <br />
-              <span className="text-acid">Executamos crescimento.</span>
+              <span className="text-acid">{footer.signatureLine2}</span>
             </p>
           </div>
 
@@ -86,7 +85,7 @@ export default function Footer() {
             </Link>
             <div className="mt-6 space-y-2 text-sm">
               <a
-                href={INSTAGRAM}
+                href={footer.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 data-testid="footer-instagram"
@@ -95,15 +94,27 @@ export default function Footer() {
                 @exekuta.agencia
                 <ArrowUpRight className="h-3.5 w-3.5" />
               </a>
+              {footer.email && (
+                <a
+                  href={`mailto:${footer.email}`}
+                  data-testid="footer-email-link"
+                  className="block text-zinc-300 transition-colors hover:text-acid"
+                >
+                  {footer.email}
+                </a>
+              )}
               <a
-                href={WHATSAPP_URL}
+                href={footer.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 data-testid="footer-whatsapp-link"
                 className="block text-zinc-300 transition-colors hover:text-acid"
               >
-                {PHONE}
+                {footer.phone}
               </a>
+              <p className="text-zinc-500" data-testid="footer-address">
+                {footer.address}
+              </p>
             </div>
           </div>
         </div>
@@ -116,10 +127,10 @@ export default function Footer() {
 
         <div className="mt-6 flex flex-col items-start justify-between gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500">
-            © EXEKUTA — Todos os direitos reservados
+            {footer.copyright}
           </p>
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500">
-            Rio de Janeiro · Brasil
+            {footer.address}
           </p>
         </div>
       </div>

@@ -2,11 +2,13 @@ import { useParams, Link } from "react-router-dom";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Eyebrow, FadeIn, Reveal } from "@/components/ui-motions";
 import PerformanceBoard from "@/components/PerformanceBoard";
+import { useSiteData } from "@/cms/CmsContext";
 import { SERVICES } from "@/data/services";
 
 export default function ServicoDetail() {
   const { slug } = useParams();
-  const s = SERVICES.find((x) => x.slug === slug);
+  const { services } = useSiteData();
+  const s = services.find((x) => x.slug === slug);
 
   if (!s) {
     return (
@@ -96,7 +98,12 @@ export default function ServicoDetail() {
 
       <section className="border-y border-white/10 bg-surface py-24 lg:py-32" data-testid="servico-outros">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHead2 />
+          <Reveal>
+            <Eyebrow>Outras frentes</Eyebrow>
+            <h2 className="mt-4 font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
+              Cada frente resolve um tipo de barreira.
+            </h2>
+          </Reveal>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {SERVICES.filter((x) => x.slug !== s.slug).map((o, i) => (
               <Reveal key={o.slug} delay={(i % 3) * 0.07} className="h-full">
@@ -134,16 +141,5 @@ export default function ServicoDetail() {
         </div>
       </section>
     </div>
-  );
-}
-
-function SectionHead2() {
-  return (
-    <Reveal>
-      <Eyebrow>Outras frentes</Eyebrow>
-      <h2 className="mt-4 font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
-        Cada frente resolve um tipo de barreira.
-      </h2>
-    </Reveal>
   );
 }

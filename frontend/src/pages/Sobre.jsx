@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
 import { Eyebrow, FadeIn, Reveal, SectionHead } from "@/components/ui-motions";
+import { useSiteData } from "@/cms/CmsContext";
 import { VALUES, IMAGES } from "@/data/content";
 import { PILLARS, INSTAGRAM } from "@/data/site";
 
 export default function Sobre() {
+  const { cms, about } = useSiteData();
+  const hasOverride = !!cms.about;
+
   return (
     <div data-testid="sobre-page">
       <section className="relative overflow-hidden pb-14 pt-40 lg:pb-20 lg:pt-48">
@@ -19,20 +23,24 @@ export default function Sobre() {
             </FadeIn>
             <h1 className="mt-7 font-display text-4xl font-extrabold uppercase tracking-tight leading-[0.98] sm:text-6xl">
               <span className="block overflow-hidden">
-                <FadeIn delay={0.15}>Execução é o que transforma</FadeIn>
+                <FadeIn delay={0.15}>{about.sobreTitle1}</FadeIn>
               </span>
               <span className="block overflow-hidden">
                 <FadeIn delay={0.3}>
-                  <span>estratégia em <span className="text-acid">crescimento.</span></span>
+                  {hasOverride ? (
+                    <span className="text-acid">{about.sobreTitle2}</span>
+                  ) : (
+                    <span>
+                      {about.sobreTitle2.split(" ").slice(0, -1).join(" ")}{" "}
+                      <span className="text-acid">{about.sobreTitle2.split(" ").slice(-1)}</span>
+                    </span>
+                  )}
                 </FadeIn>
               </span>
             </h1>
             <FadeIn delay={0.5} className="mt-7 max-w-xl">
               <p className="text-base leading-relaxed text-zinc-400 sm:text-lg">
-                A EXEKUTA é uma agência de SEO orientada por dados. Seu
-                posicionamento une análise profunda, execução técnica e
-                acompanhamento responsável para transformar visibilidade em
-                crescimento com direção.
+                {about.sobreLead}
               </p>
             </FadeIn>
             <FadeIn delay={0.65} className="mt-9 flex flex-wrap gap-4">
@@ -60,17 +68,8 @@ export default function Sobre() {
           </div>
           <div className="lg:col-span-7">
             <Reveal delay={0.1}>
-              <p className="text-lg leading-relaxed text-zinc-300">
-                A marca expressa capacidade de execução. Não basta identificar
-                uma oportunidade ou apresentar um gráfico: o valor aparece
-                quando a estratégia se transforma em prioridade clara,
-                implementação consistente e aprendizado mensurável.
-              </p>
-              <p className="mt-5 leading-relaxed text-zinc-400">
-                Por isso, a comunicação evita promessas absolutas e concentra
-                atenção no processo que pode ser controlado: analisar,
-                planejar, executar, medir e otimizar.
-              </p>
+              <p className="text-lg leading-relaxed text-zinc-300">{about.nomeLead1}</p>
+              <p className="mt-5 leading-relaxed text-zinc-400">{about.nomeLead2}</p>
             </Reveal>
           </div>
         </div>
@@ -183,10 +182,7 @@ export default function Sobre() {
                 <p className="mt-8 font-display text-2xl font-bold tracking-tight sm:text-3xl">Alessandro Pimentel</p>
                 <p className="mt-2 font-mono text-xs uppercase tracking-[0.25em] text-zinc-500">CEO &amp; Founder</p>
                 <p className="mt-6 max-w-xl leading-relaxed text-zinc-400">
-                  À frente da EXEKUTA, Alessandro une análise profunda, execução
-                  técnica e acompanhamento responsável — uma abordagem que
-                  conecta SEO ao negócio, garantindo que cada ação tenha um
-                  papel definido dentro de uma arquitetura e jornada.
+                  {about.fundadorBio}
                 </p>
                 <div className="mt-8 space-y-3">
                   {["Diagnóstico com leitura técnica e comercial", "Execução acompanhada por indicadores", "Comunicação transparente em cada etapa"].map((item) => (

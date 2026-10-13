@@ -183,6 +183,236 @@ async def seo_analyze(input: AnalyzeRequest):
 
     return {"ok": True, "url": final_url, "title": title, "description": description, "h1s": h1s[:3], "score": score, "checks": checks}
 
+# ============ ADMIN & CMS ============
+import bcrypt
+import jwt
+from datetime import timedelta
+from typing import Any
+from bson import ObjectId
+from fastapi import Request, UploadFile, File, HTTPException
+from fastapi.responses import Response, JSONResponse
+from motor.motor_asyncio import AsyncIOMotorGridFSBucket
+
+JWT_ALGORITHM = "HS256"
+CMS_SCOPES = {"brand", "footer", "home", "about", "faq", "services", "cases"}
+fs_bucket = AsyncIOMotorGridFSBucket(db)
+
+
+def hash_password(password: str) -> str:
+    return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+
+
+def verify_password(plain: str, hashed: str) -> bool:
+    return bcrypt.checkpw(plain.encode("utf-8"), hashed.encode("utf-8"))
+
+
+def create_admin_token(email: str) -> str:
+    payload = {
+        "sub": email,
+        "type": "access",
+        "exp": datetime.now(timezone.utc) + timedelta(hours=12),
+    }
+    return jwt.encode(payload, os.environ["JWT_SECRET"], algorithm=JWT_ALGORITHM)
+
+
+async def require_admin(request: Request) -> str:
+    auth = request.headers.get("Authorization", "")
+    token = auth[7:] if auth.startswith("Bearer ") else None
+    if not token:
+        raise HTTPException(status_code=401, detail="Não autenticado")
+    try:
+        payload = jwt.decode(token, os.environ["JWT_SECRET"], algorithms=[JWT_ALGORITHM])
+        if payload.get("type") != "access":
+            raise HTTPException(status_code=401, detail="Token inválido")
+        return payload.get("sub", "")
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Sessão expirada. Faça login novamente.")
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=401, detail="Token inválido")
+
+
+class AdminLogin(BaseModel):
+    email: str
+    password: str
+
+
+class CmsSave(BaseModel):
+    data: Any
+
+
+@api_router.post("/admin/login")
+async def admin_login(input: AdminLogin, request: Request):
+    ip = request.client.host if request.client else "unknown"
+    identifier = f"{ip}:{input.email.lower().strip()}"
+    attempt = await db.login_attempts.find_one({"identifier": identifier})
+    if attempt and attempt.get("locked_until"):
+        locked_until = attempt["locked_until"]
+        if isinstance(locked_until, str):
+            locked_until = datetime.fromisoformat(locked_until)
+        if locked_until > datetime.now(timezone.utc):
+            raise HTTPException(status_code=429, detail="Muitas tentativas. Tente novamente em alguns minutos.")
+
+    admin = await db.admin_users.find_one({"email": input.email.lower().strip()})
+    if not admin or not verify_password(input.password, admin.get("password_hash", "")):
+        count = (attempt.get("count", 0) if attempt else 0) + 1
+        update = {"count": count}
+        if count >= 5:
+            update = {"count": 0, "locked_until": (datetime.now(timezone.utc) + timedelta(minutes=15)).isoformat()}
+        await db.login_attempts.update_one({"identifier": identifier}, {"$set": update}, upsert=True)
+        raise HTTPException(status_code=401, detail="Credenciais inválidas")
+
+    await db.login_attempts.delete_one({"identifier": identifier})
+    return {"ok": True, "token": create_admin_token(admin["email"]), "email": admin["email"]}
+
+
+@api_router.get("/admin/me")
+async def admin_me(request: Request):
+    email = await require_admin(request)
+    return {"ok": True, "email": email}
+
+
+@api_router.get("/cms/public")
+async def cms_public():
+    docs = {}
+    async for d in db.cms_content.find({}):
+        docs[d["scope"]] = d.get("data")
+    return JSONResponse(content=docs, headers={"Cache-Control": "public, max-age=60"})
+
+
+@api_router.get("/admin/cms")
+async def admin_get_cms(request: Request):
+    await require_admin(request)
+    docs = {}
+    async for d in db.cms_content.find({}):
+        docs[d["scope"]] = d.get("data")
+    return {"ok": True, "content": docs}
+
+
+@api_router.put("/admin/cms/{scope}")
+async def admin_save_cms(scope: str, input: CmsSave, request: Request):
+    await require_admin(request)
+    if scope not in CMS_SCOPES:
+        raise HTTPException(status_code=400, detail="Escopo inválido")
+    now = datetime.now(timezone.utc).isoformat()
+    existing = await db.cms_content.find_one({"scope": scope})
+    if existing:
+        await db.cms_backups.insert_one({"scope": scope, "data": existing.get("data"), "backup_at": now})
+    await db.cms_content.update_one(
+        {"scope": scope}, {"$set": {"data": input.data, "updated_at": now}}, upsert=True
+    )
+    return {"ok": True}
+
+
+@api_router.get("/admin/cms/backups/{scope}")
+async def admin_backups(scope: str, request: Request):
+    await require_admin(request)
+    items = []
+    async for b in db.cms_backups.find({"scope": scope}).sort("backup_at", -1).limit(20):
+        items.append({"id": str(b["_id"]), "backup_at": b.get("backup_at"), "data": b.get("data")})
+    return {"ok": True, "backups": items}
+
+
+@api_router.post("/admin/cms/backups/{scope}/{backup_id}/restore")
+async def admin_restore(scope: str, backup_id: str, request: Request):
+    await require_admin(request)
+    try:
+        bid = ObjectId(backup_id)
+    except Exception:
+        raise HTTPException(status_code=400, detail="Backup inválido")
+    b = await db.cms_backups.find_one({"_id": bid, "scope": scope})
+    if not b:
+        raise HTTPException(status_code=404, detail="Backup não encontrado")
+    now = datetime.now(timezone.utc).isoformat()
+    existing = await db.cms_content.find_one({"scope": scope})
+    if existing:
+        await db.cms_backups.insert_one({"scope": scope, "data": existing.get("data"), "backup_at": now})
+    await db.cms_content.update_one(
+        {"scope": scope}, {"$set": {"data": b.get("data"), "updated_at": now}}, upsert=True
+    )
+    return {"ok": True}
+
+
+ALLOWED_MEDIA = {"image/png", "image/jpeg", "image/webp", "image/svg+xml", "image/gif"}
+
+
+@api_router.post("/admin/upload")
+async def admin_upload(request: Request, file: UploadFile = File(...)):
+    await require_admin(request)
+    if file.content_type not in ALLOWED_MEDIA:
+        raise HTTPException(status_code=400, detail="Formato não suportado (PNG, JPG, WEBP, SVG ou GIF)")
+    data = await file.read()
+    if len(data) > 5 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="Arquivo maior que 5 MB")
+    fid = await fs_bucket.upload_from_stream(
+        file.filename or "imagem", data, metadata={"contentType": file.content_type}
+    )
+    return {"ok": True, "id": str(fid), "url": f"/api/media/{fid}"}
+
+
+@api_router.get("/admin/media")
+async def admin_media_list(request: Request):
+    await require_admin(request)
+    items = []
+    async for f in db["fs.files"].find({}).sort("uploadDate", -1).limit(200):
+        items.append({
+            "id": str(f["_id"]),
+            "filename": f.get("filename"),
+            "contentType": (f.get("metadata") or {}).get("contentType", "image/png"),
+            "url": f"/api/media/{f['_id']}",
+        })
+    return {"ok": True, "items": items}
+
+
+@api_router.delete("/admin/media/{media_id}")
+async def admin_media_delete(media_id: str, request: Request):
+    await require_admin(request)
+    try:
+        await fs_bucket.delete(ObjectId(media_id))
+    except Exception:
+        raise HTTPException(status_code=404, detail="Imagem não encontrada")
+    return {"ok": True}
+
+
+@api_router.get("/media/{media_id}")
+async def media_get(media_id: str):
+    try:
+        oid = ObjectId(media_id)
+    except Exception:
+        raise HTTPException(status_code=404, detail="Imagem não encontrada")
+    try:
+        stream = await fs_bucket.open_download_stream(oid)
+    except Exception:
+        raise HTTPException(status_code=404, detail="Imagem não encontrada")
+    data = await stream.read()
+    ct = (stream.metadata or {}).get("contentType", "image/png")
+    return Response(content=data, media_type=ct, headers={"Cache-Control": "public, max-age=31536000, immutable"})
+
+
+@app.on_event("startup")
+async def seed_admin_user():
+    try:
+        await db.admin_users.create_index("email", unique=True)
+        await db.login_attempts.create_index("identifier")
+        admin_email = os.environ.get("ADMIN_EMAIL", "admin@example.com").lower()
+        admin_password = os.environ.get("ADMIN_PASSWORD", "admin123")
+        existing = await db.admin_users.find_one({"email": admin_email})
+        if existing is None:
+            await db.admin_users.insert_one({
+                "email": admin_email,
+                "password_hash": hash_password(admin_password),
+                "role": "admin",
+                "created_at": datetime.now(timezone.utc),
+            })
+            logger.info(f"Admin user criado: {admin_email}")
+        elif not verify_password(admin_password, existing["password_hash"]):
+            await db.admin_users.update_one(
+                {"email": admin_email},
+                {"$set": {"password_hash": hash_password(admin_password)}},
+            )
+            logger.info(f"Senha do admin atualizada a partir do .env: {admin_email}")
+    except Exception as e:
+        logger.error(f"seed_admin: {e}")
+
 # Include the router in the main app
 app.include_router(api_router)
 

@@ -1,8 +1,9 @@
 import { useEffect, Component } from "react";
 import "@/App.css";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, Outlet } from "react-router-dom";
 import Lenis from "lenis";
 import { Toaster } from "sonner";
+import { CmsProvider } from "@/cms/CmsContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
@@ -19,6 +20,7 @@ import Contato from "@/pages/Contato";
 import Diagnostico from "@/pages/Diagnostico";
 import AnaliseSeo from "@/pages/AnaliseSeo";
 import NotFound from "@/pages/NotFound";
+import AdminApp from "@/admin/AdminApp";
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -56,6 +58,19 @@ function ScrollManager() {
   return null;
 }
 
+function PublicLayout() {
+  return (
+    <>
+      <Navbar />
+      <main>
+        <Outlet />
+      </main>
+      <Footer />
+      <WhatsAppFloat />
+    </>
+  );
+}
+
 function App() {
   useEffect(() => {
     const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
@@ -74,35 +89,35 @@ function App() {
   }, []);
 
   return (
-    <ErrorBoundary>
-      <BrowserRouter>
-        <ScrollManager />
-        <div className="grain" aria-hidden="true" />
-        <div className="relative min-h-screen bg-ink text-paper selection:bg-acid selection:text-ink">
-          <Navbar />
-          <main>
+    <CmsProvider>
+      <ErrorBoundary>
+        <BrowserRouter>
+          <ScrollManager />
+          <div className="grain" aria-hidden="true" />
+          <div className="relative min-h-screen bg-ink text-paper selection:bg-acid selection:text-ink">
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/sobre" element={<Sobre />} />
-              <Route path="/servicos" element={<Servicos />} />
-              <Route path="/servicos/:slug" element={<ServicoDetail />} />
-              <Route path="/metodo" element={<Metodo />} />
-              <Route path="/cases" element={<Cases />} />
-              <Route path="/cases/:slug" element={<CaseDetail />} />
-              <Route path="/insights" element={<Insights />} />
-              <Route path="/insights/:slug" element={<ArtigoDetail />} />
-              <Route path="/contato" element={<Contato />} />
-              <Route path="/diagnostico" element={<Diagnostico />} />
-              <Route path="/analise-seo" element={<AnaliseSeo />} />
-              <Route path="*" element={<NotFound />} />
+              <Route element={<PublicLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/sobre" element={<Sobre />} />
+                <Route path="/servicos" element={<Servicos />} />
+                <Route path="/servicos/:slug" element={<ServicoDetail />} />
+                <Route path="/metodo" element={<Metodo />} />
+                <Route path="/cases" element={<Cases />} />
+                <Route path="/cases/:slug" element={<CaseDetail />} />
+                <Route path="/insights" element={<Insights />} />
+                <Route path="/insights/:slug" element={<ArtigoDetail />} />
+                <Route path="/contato" element={<Contato />} />
+                <Route path="/diagnostico" element={<Diagnostico />} />
+                <Route path="/analise-seo" element={<AnaliseSeo />} />
+                <Route path="*" element={<NotFound />} />
+              </Route>
+              <Route path="/admin" element={<AdminApp />} />
             </Routes>
-          </main>
-          <Footer />
-          <WhatsAppFloat />
-          <Toaster position="bottom-left" theme="dark" />
-        </div>
-      </BrowserRouter>
-    </ErrorBoundary>
+            <Toaster position="bottom-left" theme="dark" />
+          </div>
+        </BrowserRouter>
+      </ErrorBoundary>
+    </CmsProvider>
   );
 }
 

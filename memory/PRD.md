@@ -47,6 +47,14 @@ Swiss high-contrast monochrome editorial: black #000, white, acid accent #E2FE00
 - Causa: Contato.jsx e Insights.jsx usavam `Link` / `ArrowUpRight` sem importação (quebrou o build minificado).
 - Correção: importações adicionadas; auditoria completa com oxlint (0 erros no src) e `yarn build` de produção executado com sucesso (EXIT:0). Nota: react-router-dom instalado na v7.18.4 — API compatível (BrowserRouter/Routes/Route/Link/NavLink/useParams/useSearchParams), sem conflito com react-scripts 5.0.1 + CRACO 7.1.0. deployment_agent: PASS, sem blockers.
 
+## Implemented (2026-10-12, 6a iteração — CMS administrativo)
+- Painel protegido em /admin (login JWT 12h, bcrypt, lockout 5 tentativas/15min; seed admin via .env; credenciais em test_credentials.md).
+- CMS com fallback: GET /api/cms/public (Cache-Control 60s + sessionStorage 5min) entrega overrides por escopo (brand, footer, home, about, faq, services, cases); sem override, o site usa os textos atuais estáticos como padrão — visual, rotas e SEO intactos.
+- Editores: Marca (nome, descrição, logo, logo rodapé, favicon, Instagram), Rodapé (endereço, telefone, WhatsApp, e-mail, redes, copyright, textos), Home (hero, ticker, marquee, títulos/leads de todas as seções, checklist), Sobre, FAQ (adicionar/remover/ordenar), Serviços (nome, descrição, imagem, ordem, ativar/desativar, criar), Cases (criar/editar, imagem, descrição, ordem, ativar/desativar).
+- Biblioteca de imagens: upload ≤5MB (PNG/JPG/WEBP/SVG/GIF) em GridFS servido em /api/media/{id} com cache imutável; picker "Biblioteca" nos campos de imagem.
+- Backup automático: cada salvamento arquiva a versão anterior em cms_backups (aba Backup lista e restaura; restaurar também gera backup).
+- deployment_agent: PASS. Site público verificado idêntico após CMS (hero, marquee, 6 serviços, 7 FAQs, cases).
+
 ## Backlog (P2+)
 - Analisador de 10 páginas com relatório (pacote usa Supabase; versão atual analisa 1 página).
 - Páginas legais (Privacidade, Termos, Cookies) do pacote.
