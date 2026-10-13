@@ -8,7 +8,7 @@ import FieldsEditor from "@/admin/FieldsEditor";
 import FaqEditor from "@/admin/FaqEditor";
 import ListEditor from "@/admin/ListEditor";
 import MediaLibrary from "@/admin/MediaLibrary";
-import { getToken, setToken, me, getCms, saveCms, getBackups, restoreBackup } from "@/cms/adminApi";
+import { getToken, setToken, me, getCms, saveCms, getBackups, restoreBackup, cacheClear } from "@/cms/adminApi";
 import { BRAND, FOOTER, HOME, ABOUT } from "@/cms/defaults";
 import { FAQ } from "@/data/site";
 import { SERVICES } from "@/data/services";
@@ -240,8 +240,10 @@ export default function AdminApp() {
           <div className="mt-8 hidden rounded-2xl border border-white/10 bg-card2 p-5 lg:block">
             <LogoMark className="h-14 w-14" />
             <p className="mt-4 text-xs leading-relaxed text-zinc-500">
-              Alterações aparecem no site em até 1 minuto (cache). O conteúdo do banco tem prioridade;
-              sem conteúdo salvo, o site usa os textos atuais como padrão.
+              Alterações aparecem no site assim que novos visitantes abrirem
+              cada página. Sem conteúdo salvo no banco, o site usa os textos
+              atuais como padrão. Use "Publicar atualizações" para reforçar a
+              renovação do cache.
             </p>
             <Link to="/" className="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-acid" data-testid="admin-view-site">
               Ver site
@@ -251,14 +253,28 @@ export default function AdminApp() {
         </aside>
 
         <main className="min-w-0 flex-1">
-          <header className="mb-8 flex items-center justify-between">
+          <header className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-acid">CMS Exekuta</p>
               <h1 className="mt-2 font-display text-2xl font-extrabold uppercase tracking-tight sm:text-3xl">
                 {TAB_TITLE[tab]}
               </h1>
             </div>
-            <ArrowUpRight className="hidden h-6 w-6 text-zinc-700 sm:block" />
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() =>
+                  cacheClear()
+                    .then(() => toast.success("Publicado — visitantes já recebem o conteúdo atualizado."))
+                    .catch((e) => toast.error(e.message))
+                }
+                data-testid="admin-publish-button"
+                className="inline-flex items-center gap-2 rounded-full border border-acid/50 px-5 py-2.5 text-xs font-bold uppercase tracking-wide text-acid transition-colors hover:bg-acid hover:text-ink"
+              >
+                Publicar atualizações
+              </button>
+              <ArrowUpRight className="hidden h-6 w-6 text-zinc-700 sm:block" />
+            </div>
           </header>
 
           {tab === "imagens" ? (

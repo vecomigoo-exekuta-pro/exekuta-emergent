@@ -55,6 +55,11 @@ Swiss high-contrast monochrome editorial: black #000, white, acid accent #E2FE00
 - Backup automático: cada salvamento arquiva a versão anterior em cms_backups (aba Backup lista e restaura; restaurar também gera backup).
 - deployment_agent: PASS. Site público verificado idêntico após CMS (hero, marquee, 6 serviços, 7 FAQs, cases).
 
+## Bugfix (2026-10-12) — cache de conteúdo não atualizava
+- Causa: cache de 5 min no navegador (sessionStorage) + resposta cacheável seguravam edições do CMS.
+- Correção: /api/cms/public agora é no-store e devolve versão incrementada a cada salvamento/restauração; frontend busca sempre fresco por carregamento de página (site continua renderizando estático na hora — SEO/perf mantidos); botão "Publicar atualizações" no painel incrementa a versão sob demanda. Testado: v 0→1 no PUT, →2 no clear, toast de confirmação.
+- Nota de operação: edições feitas no preview não vão para o site no ar (bancos separados); para editar conteúdo no site ao vivo, use o /admin do próprio site no ar.
+
 ## Backlog (P2+)
 - Analisador de 10 páginas com relatório (pacote usa Supabase; versão atual analisa 1 página).
 - Páginas legais (Privacidade, Termos, Cookies) do pacote.

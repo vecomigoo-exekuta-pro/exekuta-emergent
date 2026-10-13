@@ -3,6 +3,7 @@ const TOKEN_KEY = "exk_admin_token";
 
 export const getToken = () => localStorage.getItem(TOKEN_KEY);
 export const setToken = (t) => (t ? localStorage.setItem(TOKEN_KEY, t) : localStorage.removeItem(TOKEN_KEY));
+export const cacheClear = () => request("/admin/cache/clear", { method: "POST" });
 
 async function request(path, options = {}) {
   const res = await fetch(`${API}${path}`, {

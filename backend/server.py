@@ -271,12 +271,27 @@ async def admin_me(request: Request):
     return {"ok": True, "email": email}
 
 
+async def get_content_version() -> int:
+    meta = await db.cms_meta.find_one({"key": "version"})
+    return (meta or {}).get("v", 0)
+
+
+async def bump_content_version() -> int:
+    await db.cms_meta.update_one({"key": "version"}, {"$inc": {"v": 1}}, upsert=True)
+    meta = await db.cms_meta.find_one({"key": "version"})
+    return (meta or {}).get("v", 0)
+
+
 @api_router.get("/cms/public")
 async def cms_public():
     docs = {}
     async for d in db.cms_content.find({}):
         docs[d["scope"]] = d.get("data")
-    return JSONResponse(content=docs, headers={"Cache-Control": "public, max-age=60"})
+    version = await get_content_version()
+    return JSONResponse(
+        content={"v": version, "content": docs},
+        headers={"Cache-Control": "no-store, must-revalidate"},
+    )
 
 
 @api_router.get("/admin/cms")
@@ -285,7 +300,8 @@ async def admin_get_cms(request: Request):
     docs = {}
     async for d in db.cms_content.find({}):
         docs[d["scope"]] = d.get("data")
-    return {"ok": True, "content": docs}
+    version = await get_content_version()
+    return {"ok": True, "content": docs, "v": version}
 
 
 @api_router.put("/admin/cms/{scope}")
@@ -300,7 +316,15 @@ async def admin_save_cms(scope: str, input: CmsSave, request: Request):
     await db.cms_content.update_one(
         {"scope": scope}, {"$set": {"data": input.data, "updated_at": now}}, upsert=True
     )
-    return {"ok": True}
+    version = await bump_content_version()
+    return {"ok": True, "v": version}
+
+
+@api_router.post("/admin/cache/clear")
+async def admin_cache_clear(request: Request):
+    await require_admin(request)
+    version = await bump_content_version()
+    return {"ok": True, "v": version}
 
 
 @api_router.get("/admin/cms/backups/{scope}")
@@ -329,7 +353,8 @@ async def admin_restore(scope: str, backup_id: str, request: Request):
     await db.cms_content.update_one(
         {"scope": scope}, {"$set": {"data": b.get("data"), "updated_at": now}}, upsert=True
     )
-    return {"ok": True}
+    version = await bump_content_version()
+    return {"ok": True, "v": version}
 
 
 ALLOWED_MEDIA = {"image/png", "image/jpeg", "image/webp", "image/svg+xml", "image/gif"}

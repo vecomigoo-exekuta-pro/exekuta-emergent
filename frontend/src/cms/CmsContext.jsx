@@ -5,36 +5,17 @@ import { SERVICES } from "@/data/services";
 import { CASES } from "@/data/cases";
 
 const CmsContext = createContext({ cms: {} });
-const CACHE_KEY = "exk_cms_v1";
-const TTL = 5 * 60 * 1000;
-
-function readCache() {
-  try {
-    const raw = sessionStorage.getItem(CACHE_KEY);
-    if (!raw) return null;
-    const { at, data } = JSON.parse(raw);
-    if (Date.now() - at > TTL) return null;
-    return data || null;
-  } catch {
-    return null;
-  }
-}
 
 export function CmsProvider({ children }) {
-  const [cms, setCms] = useState(() => readCache() || {});
+  const [cms, setCms] = useState({});
 
   useEffect(() => {
     let alive = true;
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/api/cms/public`)
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/api/cms/public`, { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
         if (!alive || !data) return;
-        setCms(data);
-        try {
-          sessionStorage.setItem(CACHE_KEY, JSON.stringify({ at: Date.now(), data }));
-        } catch (e) {
-          /* storage cheio — segue sem cache */
-        }
+        setCms(data.content || {});
       })
       .catch(() => {});
     return () => {
