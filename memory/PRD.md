@@ -60,6 +60,12 @@ Swiss high-contrast monochrome editorial: black #000, white, acid accent #E2FE00
 - Correção: /api/cms/public agora é no-store e devolve versão incrementada a cada salvamento/restauração; frontend busca sempre fresco por carregamento de página (site continua renderizando estático na hora — SEO/perf mantidos); botão "Publicar atualizações" no painel incrementa a versão sob demanda. Testado: v 0→1 no PUT, →2 no clear, toast de confirmação.
 - Nota de operação: edições feitas no preview não vão para o site no ar (bancos separados); para editar conteúdo no site ao vivo, use o /admin do próprio site no ar.
 
+## Implemented (2026-10-14 — PWA instalável "Ex Pro")
+- Manifesto (name/short_name "Ex Pro", standalone, fundo #050605, ícones any + maskable 192/512 gerados da logo oficial do site, atalhos para Diagnóstico e Análise SEO).
+- Service worker (public/sw.js, cache expro-v1): precache do shell; navegação network-first com fallback offline; assets do site cache-first; /api/ e vídeos sempre pela rede (CMS e formulários nunca ficam presos em cache). Registro via script no index.html.
+- index.html ajustado: manifest, theme-color #050605, apple-touch-icon, metas iOS/Android.
+- Verificado no preview: SW ativado, manifesto válido com 4 ícones, design público intocado.
+
 ## Backlog (P2+)
 - Analisador de 10 páginas com relatório (pacote usa Supabase; versão atual analisa 1 página).
 - Páginas legais (Privacidade, Termos, Cookies) do pacote.
