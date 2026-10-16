@@ -70,6 +70,11 @@ Swiss high-contrast monochrome editorial: black #000, white, acid accent #E2FE00
 - Paleta exata da marca em todos os tokens: fundo #050708 (Preto Carbono), superfícies/cards/painéis #101415 (Grafite Tecnológico), acento #B7FF00 (Verde Neon, CTAs/links/destaques), textos principais #F5F5F5 (Branco Claro), textos secundários #8A8F91 (Cinza Técnico — todos os tons zinc substituídos).
 - Nova logo oficial "EX.EKUTA — Agência de SEO" (enviada pelo usuário) aplicada no menu, rodapé e arte do hero. Verificado computacionalmente: body rgb(5,7,8), cards rgb(16,20,21), h1 rgb(245,245,245), acentos rgb(183,255,0), sem overflow desktop/mobile.
 
+## Bugfix (2026-10-16) — salvamento de imagens no painel
+- Causa: MediaPicker usava `require()` inválido no bundle do navegador (quebrava a aba Marca e os campos de imagem) e não havia upload direto no campo.
+- Correção: MediaPicker reescrito com 3 formas — colar URL, "Enviar do computador" (upload imediato → URL aplicada) e Biblioteca; preview com fundo xadrez para transparência PNG/SVG; hint de formatos; botão Remover. Aplicado a TODOS os campos de imagem (logo principal, logo rodapé, favicon, serviços, cases). Backend aceita image/jpg também.
+- Testado no navegador: upload de PNG aplicou a URL no campo automaticamente, salvou com backup, e /api/cms/public refletiu; SVG também testado. Restaurado o brand com a logo oficial. deployment_agent: PASS.
+
 ## Backlog (P2+)
 - Analisador de 10 páginas com relatório (pacote usa Supabase; versão atual analisa 1 página).
 - Páginas legais (Privacidade, Termos, Cookies) do pacote.

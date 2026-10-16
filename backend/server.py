@@ -357,7 +357,7 @@ async def admin_restore(scope: str, backup_id: str, request: Request):
     return {"ok": True, "v": version}
 
 
-ALLOWED_MEDIA = {"image/png", "image/jpeg", "image/webp", "image/svg+xml", "image/gif"}
+ALLOWED_MEDIA = {"image/png", "image/jpeg", "image/jpg", "image/webp", "image/svg+xml", "image/gif"}
 
 
 @api_router.post("/admin/upload")
