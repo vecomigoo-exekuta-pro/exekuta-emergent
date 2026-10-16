@@ -28,7 +28,7 @@ export default function Metodo() {
               </span>
             </h1>
             <FadeIn delay={0.5} className="mt-7 max-w-xl">
-              <p className="text-base leading-relaxed text-zinc-400 sm:text-lg">
+              <p className="text-base leading-relaxed text-muted sm:text-lg">
                 SEO exige continuidade entre análise, decisão, entrega e
                 leitura. O método organiza essas etapas para que cada ação
                 tenha origem, prioridade, responsabilidade e critério de
@@ -58,11 +58,11 @@ export default function Metodo() {
           </div>
           <div className="lg:col-span-7">
             <Reveal delay={0.1}>
-              <p className="text-lg leading-relaxed text-zinc-300">
+              <p className="text-lg leading-relaxed text-muted">
                 O método existe para evitar dois extremos: agir sem diagnóstico
                 e analisar sem chegar à implementação.
               </p>
-              <p className="mt-5 leading-relaxed text-zinc-400">
+              <p className="mt-5 leading-relaxed text-muted">
                 Cada etapa produz insumos para a próxima e registra decisões que
                 permitem compreender por que o plano mudou ao longo do tempo.
               </p>
@@ -78,7 +78,7 @@ export default function Metodo() {
             title="Um ciclo, não uma linha de produção."
           />
           <Reveal delay={0.1}>
-            <p className="mt-5 max-w-2xl text-zinc-400">
+            <p className="mt-5 max-w-2xl text-muted">
               As etapas possuem ordem lógica, mas podem se sobrepor quando uma
               descoberta técnica, comercial ou editorial exige revisão.
             </p>
@@ -90,8 +90,8 @@ export default function Metodo() {
                   <span className="text-outline font-display text-5xl font-extrabold sm:col-span-2">{m.num}</span>
                   <div className="sm:col-span-10">
                     <h3 className="font-display text-2xl font-bold tracking-tight">{m.title}</h3>
-                    <p className="mt-3 text-zinc-300">{m.desc}</p>
-                    <p className="mt-2 text-sm text-zinc-500">{m.extra}</p>
+                    <p className="mt-3 text-muted">{m.desc}</p>
+                    <p className="mt-2 text-sm text-muted">{m.extra}</p>
                   </div>
                 </div>
               </Reveal>
@@ -109,7 +109,7 @@ export default function Metodo() {
                 title={<>Quem decide, quem executa<br className="hidden sm:block" /> e como validamos.</>}
               />
               <Reveal delay={0.1}>
-                <p className="mt-6 max-w-md text-zinc-400">
+                <p className="mt-6 max-w-md text-muted">
                   Um plano perde força quando responsabilidades e dependências
                   ficam implícitas. A governança transforma recomendações em
                   compromissos observáveis.
@@ -123,7 +123,7 @@ export default function Metodo() {
                     <span className="font-mono text-xs tracking-[0.25em] text-acid">{g.num}</span>
                     <div>
                       <h3 className="font-display text-xl font-bold tracking-tight">{g.title}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-zinc-400">{g.desc}</p>
+                      <p className="mt-2 text-sm leading-relaxed text-muted">{g.desc}</p>
                     </div>
                   </div>
                 </Reveal>
@@ -150,14 +150,14 @@ export default function Metodo() {
             <h2 className="mt-4 font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
               Acompanhamento que não confunde movimento com progresso.
             </h2>
-            <p className="mt-5 text-zinc-400">
+            <p className="mt-5 text-muted">
               A cadência separa atividade, conclusão, sinal e resultado. Nem
               toda tarefa altera uma métrica imediatamente; nem toda variação
               foi causada pela última mudança.
             </p>
             <ul className="mt-7 grid gap-3 sm:grid-cols-2">
               {CADENCE.map((c) => (
-                <li key={c} className="flex items-start gap-3 text-sm text-zinc-300">
+                <li key={c} className="flex items-start gap-3 text-sm text-muted">
                   <Check className="mt-0.5 h-4 w-4 shrink-0 text-acid" />
                   {c}
                 </li>
@@ -178,7 +178,7 @@ export default function Metodo() {
               <Reveal key={r.title} delay={i * 0.1} className="h-full">
                 <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-card2 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-acid/50">
                   <h3 className="font-display text-xl font-bold tracking-tight">{r.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-zinc-400">{r.desc}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted">{r.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -192,7 +192,7 @@ export default function Metodo() {
             <h2 className="font-display text-3xl font-extrabold uppercase tracking-tight sm:text-5xl">
               O melhor plano é aquele que pode ser executado e revisado.
             </h2>
-            <p className="mx-auto mt-5 max-w-xl text-zinc-400">
+            <p className="mx-auto mt-5 max-w-xl text-muted">
               Comece com um diagnóstico que considere objetivo, capacidade,
               dependências e critérios de acompanhamento.
             </p>

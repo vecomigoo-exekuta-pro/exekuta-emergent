@@ -19,7 +19,7 @@ export default function Footer() {
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-4">
             <Logo footer className="h-10 w-auto" />
-            <p className="mt-5 max-w-xs text-sm leading-relaxed text-zinc-400">
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted">
               {footer.institutionalText}
             </p>
             <p className="mt-6 font-display text-sm font-bold uppercase leading-relaxed tracking-tight text-paper">
@@ -30,7 +30,7 @@ export default function Footer() {
           </div>
 
           <div className="md:col-span-2">
-            <p className="font-mono text-xs uppercase tracking-[0.25em] text-zinc-500">
+            <p className="font-mono text-xs uppercase tracking-[0.25em] text-muted">
               Institucional
             </p>
             <ul className="mt-5 space-y-3">
@@ -39,7 +39,7 @@ export default function Footer() {
                   <Link
                     to={l.to}
                     data-testid={`footer-link-${l.label.toLowerCase()}`}
-                    className="text-sm text-zinc-300 transition-colors hover:text-acid"
+                    className="text-sm text-muted transition-colors hover:text-acid"
                   >
                     {l.label}
                   </Link>
@@ -49,7 +49,7 @@ export default function Footer() {
           </div>
 
           <div className="md:col-span-3">
-            <p className="font-mono text-xs uppercase tracking-[0.25em] text-zinc-500">
+            <p className="font-mono text-xs uppercase tracking-[0.25em] text-muted">
               Serviços
             </p>
             <ul className="mt-5 space-y-3">
@@ -58,7 +58,7 @@ export default function Footer() {
                   <Link
                     to={`/servicos/${s.slug}`}
                     data-testid={`footer-service-${s.slug}`}
-                    className="text-sm text-zinc-300 transition-colors hover:text-acid"
+                    className="text-sm text-muted transition-colors hover:text-acid"
                   >
                     {s.name}
                   </Link>
@@ -68,10 +68,10 @@ export default function Footer() {
           </div>
 
           <div className="md:col-span-3">
-            <p className="font-mono text-xs uppercase tracking-[0.25em] text-zinc-500">
+            <p className="font-mono text-xs uppercase tracking-[0.25em] text-muted">
               Próximo passo
             </p>
-            <p className="mt-5 text-sm leading-relaxed text-zinc-400">
+            <p className="mt-5 text-sm leading-relaxed text-muted">
               Apresente o seu cenário para uma conversa inicial orientada por
               diagnóstico.
             </p>
@@ -89,7 +89,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-testid="footer-instagram"
-                className="inline-flex items-center gap-2 text-zinc-300 transition-colors hover:text-acid"
+                className="inline-flex items-center gap-2 text-muted transition-colors hover:text-acid"
               >
                 @exekuta.agencia
                 <ArrowUpRight className="h-3.5 w-3.5" />
@@ -98,7 +98,7 @@ export default function Footer() {
                 <a
                   href={`mailto:${footer.email}`}
                   data-testid="footer-email-link"
-                  className="block text-zinc-300 transition-colors hover:text-acid"
+                  className="block text-muted transition-colors hover:text-acid"
                 >
                   {footer.email}
                 </a>
@@ -108,11 +108,11 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-testid="footer-whatsapp-link"
-                className="block text-zinc-300 transition-colors hover:text-acid"
+                className="block text-muted transition-colors hover:text-acid"
               >
                 {footer.phone}
               </a>
-              <p className="text-zinc-500" data-testid="footer-address">
+              <p className="text-muted" data-testid="footer-address">
                 {footer.address}
               </p>
             </div>
@@ -126,10 +126,10 @@ export default function Footer() {
         </div>
 
         <div className="mt-6 flex flex-col items-start justify-between gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted">
             {footer.copyright}
           </p>
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted">
             {footer.address}
           </p>
         </div>

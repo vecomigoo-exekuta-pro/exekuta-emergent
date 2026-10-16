@@ -74,7 +74,7 @@ export default function ListEditor({ items, onChange, onSave, saving, kind }) {
 
   const inputCls =
     "w-full rounded-lg border border-white/15 bg-black px-3 py-2.5 text-sm text-paper outline-none focus:border-acid";
-  const labelCls = "mb-1.5 block font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-500";
+  const labelCls = "mb-1.5 block font-mono text-[11px] uppercase tracking-[0.16em] text-muted";
 
   return (
     <div className="space-y-4">
@@ -87,15 +87,15 @@ export default function ListEditor({ items, onChange, onSave, saving, kind }) {
             <button type="button" onClick={() => setExpanded(expanded === i ? -1 : i)} className="flex flex-1 items-center gap-2 text-left" data-testid={`admin-${kind}-toggle-${i}`}>
               <span className="font-display text-base font-bold tracking-tight">{it.name || "(sem nome)"}</span>
               {it.active === false && (
-                <span className="rounded-full border border-white/20 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide text-zinc-500">
+                <span className="rounded-full border border-white/20 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide text-muted">
                   inativo
                 </span>
               )}
-              <ChevronDown className={`ml-auto h-4 w-4 text-zinc-500 transition-transform ${expanded === i ? "rotate-180" : ""}`} />
+              <ChevronDown className={`ml-auto h-4 w-4 text-muted transition-transform ${expanded === i ? "rotate-180" : ""}`} />
             </button>
-            <button type="button" onClick={() => move(i, -1)} className="rounded-md border border-white/15 p-1.5 text-zinc-400 hover:text-acid" aria-label="Mover para cima"><ArrowUp className="h-3.5 w-3.5" /></button>
-            <button type="button" onClick={() => move(i, 1)} className="rounded-md border border-white/15 p-1.5 text-zinc-400 hover:text-acid" aria-label="Mover para baixo"><ArrowDown className="h-3.5 w-3.5" /></button>
-            <button type="button" onClick={() => remove(i)} className="rounded-md border border-white/15 p-1.5 text-zinc-400 hover:text-[#FF4D67]" aria-label="Remover" data-testid={`admin-${kind}-remove-${i}`}><Trash2 className="h-3.5 w-3.5" /></button>
+            <button type="button" onClick={() => move(i, -1)} className="rounded-md border border-white/15 p-1.5 text-muted hover:text-acid" aria-label="Mover para cima"><ArrowUp className="h-3.5 w-3.5" /></button>
+            <button type="button" onClick={() => move(i, 1)} className="rounded-md border border-white/15 p-1.5 text-muted hover:text-acid" aria-label="Mover para baixo"><ArrowDown className="h-3.5 w-3.5" /></button>
+            <button type="button" onClick={() => remove(i)} className="rounded-md border border-white/15 p-1.5 text-muted hover:text-[#FF4D67]" aria-label="Remover" data-testid={`admin-${kind}-remove-${i}`}><Trash2 className="h-3.5 w-3.5" /></button>
           </div>
 
           {expanded === i && (
@@ -140,7 +140,7 @@ export default function ListEditor({ items, onChange, onSave, saving, kind }) {
                 </>
               )}
               <div className="flex items-center gap-3 sm:col-span-2">
-                <label className="flex cursor-pointer items-center gap-2 text-sm text-zinc-300">
+                <label className="flex cursor-pointer items-center gap-2 text-sm text-muted">
                   <input
                     type="checkbox"
                     checked={it.active !== false}
@@ -150,7 +150,7 @@ export default function ListEditor({ items, onChange, onSave, saving, kind }) {
                   />
                   Ativo (exibir no site)
                 </label>
-                <label className="ml-auto flex items-center gap-2 text-sm text-zinc-400">
+                <label className="ml-auto flex items-center gap-2 text-sm text-muted">
                   Ordem
                   <input
                     type="number"
@@ -186,7 +186,7 @@ export default function ListEditor({ items, onChange, onSave, saving, kind }) {
               navigator.clipboard?.writeText(JSON.stringify(items, null, 2));
               toast.success("JSON copiado");
             }}
-            className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-zinc-300"
+            className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-muted"
           >
             Copiar JSON
           </button>

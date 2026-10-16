@@ -40,7 +40,7 @@ export default function Navbar() {
                 data-testid={`nav-link-${l.label.toLowerCase().replace(" ", "-")}`}
                 className={({ isActive }) =>
                   `link-underline font-mono text-[13px] uppercase tracking-[0.14em] transition-colors ${
-                    isActive ? "text-acid" : "text-zinc-300 hover:text-paper"
+                    isActive ? "text-acid" : "text-muted hover:text-paper"
                   }`
                 }
               >

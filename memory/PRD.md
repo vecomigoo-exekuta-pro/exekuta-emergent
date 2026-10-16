@@ -66,6 +66,10 @@ Swiss high-contrast monochrome editorial: black #000, white, acid accent #E2FE00
 - index.html ajustado: manifest, theme-color #050605, apple-touch-icon, metas iOS/Android.
 - Verificado no preview: SW ativado, manifesto válido com 4 ícones, design público intocado.
 
+## Implemented (2026-10-16 — identidade visual oficial aplicada)
+- Paleta exata da marca em todos os tokens: fundo #050708 (Preto Carbono), superfícies/cards/painéis #101415 (Grafite Tecnológico), acento #B7FF00 (Verde Neon, CTAs/links/destaques), textos principais #F5F5F5 (Branco Claro), textos secundários #8A8F91 (Cinza Técnico — todos os tons zinc substituídos).
+- Nova logo oficial "EX.EKUTA — Agência de SEO" (enviada pelo usuário) aplicada no menu, rodapé e arte do hero. Verificado computacionalmente: body rgb(5,7,8), cards rgb(16,20,21), h1 rgb(245,245,245), acentos rgb(183,255,0), sem overflow desktop/mobile.
+
 ## Backlog (P2+)
 - Analisador de 10 páginas com relatório (pacote usa Supabase; versão atual analisa 1 página).
 - Páginas legais (Privacidade, Termos, Cookies) do pacote.

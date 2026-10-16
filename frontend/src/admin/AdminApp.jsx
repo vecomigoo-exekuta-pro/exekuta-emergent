@@ -212,7 +212,7 @@ export default function AdminApp() {
                 setAuthed(false);
               }}
               data-testid="admin-logout"
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-zinc-300 transition-colors hover:border-[#FF4D67] hover:text-[#FF4D67]"
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-muted transition-colors hover:border-[#FF4D67] hover:text-[#FF4D67]"
             >
               <LogOut className="h-3.5 w-3.5" />
               Sair
@@ -229,7 +229,7 @@ export default function AdminApp() {
                 className={`rounded-xl border px-4 py-2.5 text-left text-sm font-semibold transition-colors ${
                   tab === t.id
                     ? "border-acid/50 bg-card2 text-acid"
-                    : "border-white/10 text-zinc-300 hover:border-white/25"
+                    : "border-white/10 text-muted hover:border-white/25"
                 }`}
               >
                 {t.label}
@@ -239,7 +239,7 @@ export default function AdminApp() {
 
           <div className="mt-8 hidden rounded-2xl border border-white/10 bg-card2 p-5 lg:block">
             <LogoMark className="h-14 w-14" />
-            <p className="mt-4 text-xs leading-relaxed text-zinc-500">
+            <p className="mt-4 text-xs leading-relaxed text-muted">
               Alterações aparecem no site assim que novos visitantes abrirem
               cada página. Sem conteúdo salvo no banco, o site usa os textos
               atuais como padrão. Use "Publicar atualizações" para reforçar a
@@ -273,7 +273,7 @@ export default function AdminApp() {
               >
                 Publicar atualizações
               </button>
-              <ArrowUpRight className="hidden h-6 w-6 text-zinc-700 sm:block" />
+              <ArrowUpRight className="hidden h-6 w-6 text-muted sm:block" />
             </div>
           </header>
 
@@ -380,7 +380,7 @@ function BackupPanel() {
     <div className="space-y-6" data-testid="admin-backup-panel">
       <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-white/10 bg-card2 p-5">
         <Database className="h-5 w-5 text-acid" />
-        <span className="text-sm text-zinc-300">Seção:</span>
+        <span className="text-sm text-muted">Seção:</span>
         <select
           value={scope}
           onChange={(e) => setScope(e.target.value)}
@@ -393,7 +393,7 @@ function BackupPanel() {
             </option>
           ))}
         </select>
-        <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-600">
+        <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
           Backup da versão anterior é criado automaticamente a cada salvamento
         </span>
       </div>
@@ -401,7 +401,7 @@ function BackupPanel() {
       {loading ? (
         <Loader2 className="h-5 w-5 animate-spin text-acid" />
       ) : backups.length === 0 ? (
-        <p className="rounded-2xl border border-dashed border-white/15 p-10 text-center text-sm text-zinc-500" data-testid="admin-backup-empty">
+        <p className="rounded-2xl border border-dashed border-white/15 p-10 text-center text-sm text-muted" data-testid="admin-backup-empty">
           Nenhum backup desta seção ainda — ele é criado na primeira alteração salva.
         </p>
       ) : (
@@ -410,7 +410,7 @@ function BackupPanel() {
             <div key={b.id} className="flex items-center justify-between gap-4 rounded-xl border border-white/10 bg-card2 p-4">
               <div className="min-w-0">
                 <p className="font-mono text-xs text-acid">{b.backup_at?.slice(0, 19).replace("T", " ")}</p>
-                <p className="mt-1 truncate text-sm text-zinc-400">
+                <p className="mt-1 truncate text-sm text-muted">
                   {typeof b.data === "string"
                     ? b.data.slice(0, 80)
                     : JSON.stringify(b.data).slice(0, 90)}

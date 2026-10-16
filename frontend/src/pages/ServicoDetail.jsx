@@ -31,7 +31,7 @@ export default function ServicoDetail() {
         <div className="hero-grid absolute inset-0" aria-hidden="true" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <FadeIn>
-            <Link to="/servicos" data-testid="servico-back-link" className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-zinc-400 transition-colors hover:text-acid">
+            <Link to="/servicos" data-testid="servico-back-link" className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-muted transition-colors hover:text-acid">
               ← Todos os serviços
             </Link>
           </FadeIn>
@@ -47,7 +47,7 @@ export default function ServicoDetail() {
             </span>
           </h1>
           <FadeIn delay={0.45} className="mt-7 max-w-2xl">
-            <p className="text-base leading-relaxed text-zinc-400 sm:text-lg">{s.lead}</p>
+            <p className="text-base leading-relaxed text-muted sm:text-lg">{s.lead}</p>
           </FadeIn>
           <FadeIn delay={0.6} className="mt-9 flex flex-wrap gap-4">
             <Link to="/diagnostico" data-testid="servico-detail-cta" className="inline-flex items-center gap-2 rounded-full bg-acid px-7 py-3.5 text-sm font-bold uppercase tracking-wide text-ink transition-transform hover:scale-[1.04]">
@@ -86,8 +86,8 @@ export default function ServicoDetail() {
           </div>
           <div className="lg:col-span-7">
             <Reveal delay={0.1}>
-              <p className="text-lg leading-relaxed text-zinc-300">{s.problemLead}</p>
-              <p className="mt-5 leading-relaxed text-zinc-400">{s.problemRest}</p>
+              <p className="text-lg leading-relaxed text-muted">{s.problemLead}</p>
+              <p className="mt-5 leading-relaxed text-muted">{s.problemRest}</p>
               <div className="mt-10">
                 <PerformanceBoard id={`servico-${s.slug}`} compact />
               </div>
@@ -129,7 +129,7 @@ export default function ServicoDetail() {
             <h2 className="font-display text-3xl font-extrabold uppercase tracking-tight sm:text-5xl">
               Não fazemos marketing. <span className="text-acid">Executamos crescimento.</span>
             </h2>
-            <p className="mx-auto mt-5 max-w-lg text-zinc-400">
+            <p className="mx-auto mt-5 max-w-lg text-muted">
               Comece com um diagnóstico que considere objetivo, capacidade,
               dependências e critérios de acompanhamento.
             </p>

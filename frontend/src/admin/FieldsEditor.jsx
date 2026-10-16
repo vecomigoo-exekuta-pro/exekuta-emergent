@@ -4,7 +4,7 @@ import { getMedia } from "@/cms/adminApi";
 
 export const Input = ({ label, value, onChange, type = "text" }) => (
   <label className="block">
-    <span className="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-500">{label}</span>
+    <span className="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.16em] text-muted">{label}</span>
     <input
       type={type}
       value={value ?? ""}
@@ -17,7 +17,7 @@ export const Input = ({ label, value, onChange, type = "text" }) => (
 
 export const Area = ({ label, value, onChange, rows = 3 }) => (
   <label className="block sm:col-span-2">
-    <span className="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-500">{label}</span>
+    <span className="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.16em] text-muted">{label}</span>
     <textarea
       rows={rows}
       value={value ?? ""}
@@ -40,7 +40,7 @@ export const SaveBar = ({ onSave, saving, extra }) => (
       Salvar alterações
     </button>
     {extra}
-    <span className="ml-auto font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-600">
+    <span className="ml-auto font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
       Um backup da versão anterior é criado a cada salvamento
     </span>
   </div>
@@ -87,7 +87,7 @@ export function MediaPicker({ value, onChange }) {
       {open && (
         <div className="mt-3 grid max-h-56 grid-cols-3 gap-2 overflow-y-auto rounded-lg border border-white/10 bg-black p-2 sm:grid-cols-5">
           {items.length === 0 && (
-            <p className="col-span-full p-3 text-center text-xs text-zinc-500">
+            <p className="col-span-full p-3 text-center text-xs text-muted">
               Nenhuma imagem enviada ainda. Envie na aba Imagens.
             </p>
           )}
@@ -123,7 +123,7 @@ export default function FieldsEditor({ groups, values, onChange, onSave, saving 
                 <Area key={f.key} label={f.label} value={values?.[f.key]} onChange={(v) => onChange(f.key, v)} rows={f.rows || 3} />
               ) : f.type === "image" ? (
                 <div key={f.key} className="sm:col-span-2">
-                  <span className="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-500">{f.label}</span>
+                  <span className="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.16em] text-muted">{f.label}</span>
                   <MediaPicker value={values?.[f.key]} onChange={(v) => onChange(f.key, v)} />
                 </div>
               ) : (

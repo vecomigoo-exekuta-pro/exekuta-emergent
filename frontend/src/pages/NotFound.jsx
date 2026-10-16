@@ -9,7 +9,7 @@ export default function NotFound() {
       <h1 className="font-display text-4xl font-extrabold uppercase tracking-tight sm:text-6xl">
         Página não <span className="text-acid">encontrada.</span>
       </h1>
-      <p className="max-w-md text-zinc-400">
+      <p className="max-w-md text-muted">
         O endereço não existe ou foi movido. Volte ao início ou fale com a
         EXEKUTA sobre o seu cenário.
       </p>

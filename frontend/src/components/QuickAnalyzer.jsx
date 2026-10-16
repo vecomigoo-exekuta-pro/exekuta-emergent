@@ -34,7 +34,7 @@ export default function QuickAnalyzer({ compact = false }) {
         </h2>
       )}
       <form onSubmit={onSubmit} className="mt-6" data-testid="quick-analyzer-form">
-        <label htmlFor="analyzer-site" className="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">
+        <label htmlFor="analyzer-site" className="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
           Digite seu domínio
         </label>
         <div className="flex flex-col gap-3 sm:flex-row">
@@ -50,7 +50,7 @@ export default function QuickAnalyzer({ compact = false }) {
             }}
             placeholder="exemplo.com.br"
             data-testid="quick-analyzer-input"
-            className="w-full rounded-xl border border-white/15 bg-ink px-4 py-3.5 text-sm text-paper placeholder:text-zinc-600 outline-none transition-colors focus:border-acid"
+            className="w-full rounded-xl border border-white/15 bg-ink px-4 py-3.5 text-sm text-paper placeholder:text-muted outline-none transition-colors focus:border-acid"
           />
           <button
             type="submit"
@@ -67,7 +67,7 @@ export default function QuickAnalyzer({ compact = false }) {
           </p>
         )}
       </form>
-      <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-500">
+      <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
         Análise rápida • 1 página • técnico + on-page • sem cadastro
       </p>
       <div className="mt-4 flex flex-wrap gap-2">

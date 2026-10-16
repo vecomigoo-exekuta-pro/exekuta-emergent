@@ -60,7 +60,7 @@ export default function MediaLibrary() {
     <div className="space-y-6">
       <div className="rounded-2xl border border-white/10 bg-card2 p-6">
         <h3 className="font-display text-lg font-bold uppercase tracking-tight">Enviar imagem</h3>
-        <p className="mt-2 text-sm text-zinc-400">
+        <p className="mt-2 text-sm text-muted">
           PNG, JPG, WEBP, SVG ou GIF até 5 MB. Depois de enviar, copie a URL e cole nos campos de imagem
           (serviços, cases, marca) ou use o botão "Biblioteca".
         </p>
@@ -78,9 +78,9 @@ export default function MediaLibrary() {
       </div>
 
       {loading ? (
-        <p className="text-sm text-zinc-500">Carregando biblioteca...</p>
+        <p className="text-sm text-muted">Carregando biblioteca...</p>
       ) : items.length === 0 ? (
-        <p className="rounded-2xl border border-dashed border-white/15 p-10 text-center text-sm text-zinc-500" data-testid="admin-media-empty">
+        <p className="rounded-2xl border border-dashed border-white/15 p-10 text-center text-sm text-muted" data-testid="admin-media-empty">
           Nenhuma imagem na biblioteca ainda.
         </p>
       ) : (
@@ -91,12 +91,12 @@ export default function MediaLibrary() {
                 <img src={m.url} alt={m.filename} className="h-full w-full object-cover" loading="lazy" />
               </div>
               <div className="flex items-center justify-between gap-2 p-3">
-                <span className="truncate font-mono text-[10px] text-zinc-500">{m.filename}</span>
+                <span className="truncate font-mono text-[10px] text-muted">{m.filename}</span>
                 <span className="flex shrink-0 gap-1.5">
-                  <button type="button" onClick={() => copyUrl(m.url)} className="rounded-md border border-white/15 p-1.5 text-zinc-400 hover:text-acid" aria-label="Copiar URL" data-testid={`admin-media-copy-${m.id}`}>
+                  <button type="button" onClick={() => copyUrl(m.url)} className="rounded-md border border-white/15 p-1.5 text-muted hover:text-acid" aria-label="Copiar URL" data-testid={`admin-media-copy-${m.id}`}>
                     <Copy className="h-3.5 w-3.5" />
                   </button>
-                  <button type="button" onClick={() => remove(m.id)} className="rounded-md border border-white/15 p-1.5 text-zinc-400 hover:text-[#FF4D67]" aria-label="Excluir" data-testid={`admin-media-delete-${m.id}`}>
+                  <button type="button" onClick={() => remove(m.id)} className="rounded-md border border-white/15 p-1.5 text-muted hover:text-[#FF4D67]" aria-label="Excluir" data-testid={`admin-media-delete-${m.id}`}>
                     <Trash2 className="h-3.5 w-3.5" />
                   </button>
                 </span>

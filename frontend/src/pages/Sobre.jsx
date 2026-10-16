@@ -39,7 +39,7 @@ export default function Sobre() {
               </span>
             </h1>
             <FadeIn delay={0.5} className="mt-7 max-w-xl">
-              <p className="text-base leading-relaxed text-zinc-400 sm:text-lg">
+              <p className="text-base leading-relaxed text-muted sm:text-lg">
                 {about.sobreLead}
               </p>
             </FadeIn>
@@ -68,8 +68,8 @@ export default function Sobre() {
           </div>
           <div className="lg:col-span-7">
             <Reveal delay={0.1}>
-              <p className="text-lg leading-relaxed text-zinc-300">{about.nomeLead1}</p>
-              <p className="mt-5 leading-relaxed text-zinc-400">{about.nomeLead2}</p>
+              <p className="text-lg leading-relaxed text-muted">{about.nomeLead1}</p>
+              <p className="mt-5 leading-relaxed text-muted">{about.nomeLead2}</p>
             </Reveal>
           </div>
         </div>
@@ -89,7 +89,7 @@ export default function Sobre() {
                 </span>
               ))}
             </div>
-            <p className="mt-8 max-w-2xl text-zinc-400">
+            <p className="mt-8 max-w-2xl text-muted">
               A EXEKUTA conecta SEO ao negócio. Cada página, correção ou
               conteúdo precisa ter papel definido dentro de uma arquitetura e de
               uma jornada.
@@ -107,7 +107,7 @@ export default function Sobre() {
                 <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-card2 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-acid/50">
                   <span className="text-outline font-display text-5xl font-extrabold">{p.num}</span>
                   <h3 className="mt-14 font-display text-2xl font-bold tracking-tight">{p.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-zinc-400">{p.desc}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted">{p.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -124,7 +124,7 @@ export default function Sobre() {
                 <div className="flex h-full flex-col bg-ink p-8 transition-colors duration-300 hover:bg-card2">
                   <span className="font-mono text-xs tracking-[0.25em] text-acid">0{i + 1}</span>
                   <h3 className="mt-10 font-display text-xl font-bold tracking-tight sm:text-2xl">{v.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-zinc-400">{v.desc}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted">{v.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -139,7 +139,7 @@ export default function Sobre() {
             <h2 className="mt-4 font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
               Uma operação de SEO estruturada.
             </h2>
-            <p className="mt-5 max-w-xl text-zinc-400">
+            <p className="mt-5 max-w-xl text-muted">
               A EXEKUTA funciona como uma operação estruturada que analisa,
               documenta, executa e acompanha — não como um template genérico de
               agência. O resultado é uma apresentação mais humana, corporativa e
@@ -150,7 +150,7 @@ export default function Sobre() {
               target="_blank"
               rel="noopener noreferrer"
               data-testid="sobre-instagram-link"
-              className="group mt-7 inline-flex items-center gap-2 text-sm font-semibold text-zinc-300 transition-colors hover:text-acid"
+              className="group mt-7 inline-flex items-center gap-2 text-sm font-semibold text-muted transition-colors hover:text-acid"
             >
               @exekuta.agencia
               <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:rotate-45" />
@@ -180,13 +180,13 @@ export default function Sobre() {
               <SectionHead eyebrow="Fundador" title={<>Liderança com<br />direção de negócio.</>} />
               <Reveal delay={0.15}>
                 <p className="mt-8 font-display text-2xl font-bold tracking-tight sm:text-3xl">Alessandro Pimentel</p>
-                <p className="mt-2 font-mono text-xs uppercase tracking-[0.25em] text-zinc-500">CEO &amp; Founder</p>
-                <p className="mt-6 max-w-xl leading-relaxed text-zinc-400">
+                <p className="mt-2 font-mono text-xs uppercase tracking-[0.25em] text-muted">CEO &amp; Founder</p>
+                <p className="mt-6 max-w-xl leading-relaxed text-muted">
                   {about.fundadorBio}
                 </p>
                 <div className="mt-8 space-y-3">
                   {["Diagnóstico com leitura técnica e comercial", "Execução acompanhada por indicadores", "Comunicação transparente em cada etapa"].map((item) => (
-                    <p key={item} className="flex items-start gap-3 text-sm text-zinc-300">
+                    <p key={item} className="flex items-start gap-3 text-sm text-muted">
                       <Check className="mt-0.5 h-4 w-4 shrink-0 text-acid" />
                       {item}
                     </p>

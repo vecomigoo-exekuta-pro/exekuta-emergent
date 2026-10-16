@@ -25,7 +25,7 @@ export default function AdminLogin({ onLogin }) {
   };
 
   const inputCls =
-    "w-full rounded-xl border border-white/15 bg-black px-4 py-3 text-sm text-paper placeholder:text-zinc-600 outline-none focus:border-acid";
+    "w-full rounded-xl border border-white/15 bg-black px-4 py-3 text-sm text-paper placeholder:text-muted outline-none focus:border-acid";
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-ink px-4" data-testid="admin-login-page">
@@ -39,13 +39,13 @@ export default function AdminLogin({ onLogin }) {
         </p>
         <div className="mt-7 space-y-4">
           <div>
-            <label htmlFor="admin-email" className="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-500">
+            <label htmlFor="admin-email" className="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
               E-mail
             </label>
             <input id="admin-email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} data-testid="admin-login-email" className={inputCls} placeholder="admin@exekuta.com.br" autoComplete="username" />
           </div>
           <div>
-            <label htmlFor="admin-password" className="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-500">
+            <label htmlFor="admin-password" className="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
               Senha
             </label>
             <input id="admin-password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} data-testid="admin-login-password" className={inputCls} placeholder="••••••••" autoComplete="current-password" />
@@ -64,7 +64,7 @@ export default function AdminLogin({ onLogin }) {
         >
           {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Entrar"}
         </button>
-        <Link to="/" data-testid="admin-back-to-site" className="mt-6 flex items-center justify-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-500 transition-colors hover:text-acid">
+        <Link to="/" data-testid="admin-back-to-site" className="mt-6 flex items-center justify-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-muted transition-colors hover:text-acid">
           <ArrowLeft className="h-3.5 w-3.5" />
           Voltar ao site
         </Link>

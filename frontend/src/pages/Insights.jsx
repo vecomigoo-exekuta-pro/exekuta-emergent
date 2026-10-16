@@ -42,7 +42,7 @@ export default function Insights() {
               </span>
             </h1>
             <FadeIn delay={0.5} className="mt-7 max-w-xl">
-              <p className="text-base leading-relaxed text-zinc-400 sm:text-lg">
+              <p className="text-base leading-relaxed text-muted sm:text-lg">
                 Análises e guias para equipes que precisam tomar decisões
                 melhores sobre estratégia, técnica, conteúdo, presença local e
                 mensuração.
@@ -71,10 +71,10 @@ export default function Insights() {
               </h2>
             </div>
             <div className="relative w-full max-w-sm">
-              <label htmlFor="insight-search" className="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">
+              <label htmlFor="insight-search" className="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
                 Buscar nos insights
               </label>
-              <Search className="pointer-events-none absolute bottom-3.5 left-4 h-4 w-4 text-zinc-600" />
+              <Search className="pointer-events-none absolute bottom-3.5 left-4 h-4 w-4 text-muted" />
               <input
                 id="insight-search"
                 type="search"
@@ -82,7 +82,7 @@ export default function Insights() {
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Ex.: rastreamento, estratégia, local"
                 data-testid="insights-search-input"
-                className="w-full rounded-xl border border-white/15 bg-card2 py-3.5 pl-11 pr-4 text-sm text-paper placeholder:text-zinc-600 outline-none transition-colors focus:border-acid"
+                className="w-full rounded-xl border border-white/15 bg-card2 py-3.5 pl-11 pr-4 text-sm text-paper placeholder:text-muted outline-none transition-colors focus:border-acid"
               />
             </div>
           </div>
@@ -100,7 +100,7 @@ export default function Insights() {
                 className={`rounded-full border px-5 py-2.5 text-sm font-semibold transition-all duration-300 ${
                   filter === f
                     ? "border-acid bg-acid text-ink"
-                    : "border-white/20 text-zinc-300 hover:border-acid hover:text-acid"
+                    : "border-white/20 text-muted hover:border-acid hover:text-acid"
                 }`}
               >
                 {f}
@@ -110,7 +110,7 @@ export default function Insights() {
         </Reveal>
 
         {list.length === 0 ? (
-          <p className="mt-16 text-center text-zinc-500" data-testid="insights-empty">
+          <p className="mt-16 text-center text-muted" data-testid="insights-empty">
             Nenhum insight encontrado para essa busca.
           </p>
         ) : (
@@ -128,9 +128,9 @@ export default function Insights() {
                   <h3 className="mt-5 font-display text-xl font-bold leading-snug tracking-tight transition-colors group-hover:text-acid">
                     {a.title}
                   </h3>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-zinc-400">{a.excerpt}</p>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{a.excerpt}</p>
                   <div className="mt-6 flex items-center justify-between">
-                    <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-600">
+                    <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
                       {a.readTime}
                     </span>
                     <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 transition-all duration-300 group-hover:rotate-45 group-hover:border-acid group-hover:text-acid">

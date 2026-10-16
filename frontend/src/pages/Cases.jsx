@@ -31,7 +31,7 @@ export default function Cases() {
               </span>
             </h1>
             <FadeIn delay={0.5} className="mt-7 max-w-xl">
-              <p className="text-base leading-relaxed text-zinc-400 sm:text-lg">
+              <p className="text-base leading-relaxed text-muted sm:text-lg">
                 Projetos autorizados informados pelo cliente como posicionados
                 na primeira página do Google com técnicas de SEO de Alessandro
                 Pimentel. As páginas individuais podem receber contexto,
@@ -68,7 +68,7 @@ export default function Cases() {
                 <div className="flex h-full flex-col bg-ink p-7 transition-colors duration-300 hover:bg-card2">
                   <span className="text-outline font-display text-4xl font-extrabold">0{i + 1}</span>
                   <h3 className="mt-8 font-display text-lg font-bold tracking-tight">{c.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-zinc-400">{c.desc}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted">{c.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -83,7 +83,7 @@ export default function Cases() {
             <h2 className="mt-4 font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
               Projetos autorizados
             </h2>
-            <p className="mt-5 max-w-3xl font-mono text-[11px] uppercase leading-relaxed tracking-[0.14em] text-zinc-600">
+            <p className="mt-5 max-w-3xl font-mono text-[11px] uppercase leading-relaxed tracking-[0.14em] text-muted">
               {CASE_DISCLAIMER}
             </p>
           </Reveal>
@@ -108,8 +108,8 @@ export default function Cases() {
                       {c.name}
                     </span>
                     <h3 className="mt-4 font-display text-lg font-bold tracking-tight">{c.cardTitle}</h3>
-                    <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-zinc-400">{c.lead}</p>
-                    <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-zinc-300 transition-colors group-hover:text-acid">
+                    <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-muted">{c.lead}</p>
+                    <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-muted transition-colors group-hover:text-acid">
                       Ver case no portfólio
                       <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                     </span>
@@ -124,7 +124,7 @@ export default function Cases() {
       <section className="py-24" data-testid="cases-cta">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
           <Reveal>
-            <p className="max-w-2xl mx-auto font-mono text-[11px] uppercase leading-relaxed tracking-[0.14em] text-zinc-600">
+            <p className="max-w-2xl mx-auto font-mono text-[11px] uppercase leading-relaxed tracking-[0.14em] text-muted">
               {CASE_NOTE}
             </p>
             <h2 className="mt-8 font-display text-3xl font-extrabold uppercase tracking-tight sm:text-5xl">

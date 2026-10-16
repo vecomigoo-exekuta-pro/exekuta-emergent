@@ -86,7 +86,7 @@ function Hero() {
             />
           </h1>
           <FadeIn delay={0.55} className="mt-7 max-w-xl">
-            <p className="text-base leading-relaxed text-zinc-400 sm:text-lg">
+            <p className="text-base leading-relaxed text-muted sm:text-lg">
               {home.heroLead}
             </p>
           </FadeIn>
@@ -107,7 +107,7 @@ function Hero() {
               {home.heroCta2}
             </Link>
           </FadeIn>
-          <FadeIn delay={0.85} className="mt-10 flex flex-wrap gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">
+          <FadeIn delay={0.85} className="mt-10 flex flex-wrap gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
             <span>Dados antes de decisões</span>
             <span className="text-acid">/</span>
             <span>Estratégia antes da execução</span>
@@ -120,7 +120,7 @@ function Hero() {
       </div>
 
       <FadeIn delay={0.9} className="relative border-t border-white/10 bg-surface/60 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-4 font-mono text-[11px] uppercase tracking-[0.24em] text-zinc-400 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-4 font-mono text-[11px] uppercase tracking-[0.24em] text-muted sm:px-6 lg:px-8">
           {tickerItems.map((t, i) => (
             <span key={`${t}-${i}`} className="flex items-center gap-4">
               <span className={i === Math.min(2, tickerItems.length - 1) ? "text-acid" : ""}>{t}</span>
@@ -149,12 +149,12 @@ function Showcase() {
           <h2 className="mt-4 font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
             {home.showcaseTitle}
           </h2>
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-zinc-400">
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-muted">
             {home.showcaseLead}
           </p>
           <ul className="mt-7 space-y-3.5">
             {items.map((item) => (
-              <li key={item} className="flex items-start gap-3 text-sm text-zinc-300">
+              <li key={item} className="flex items-start gap-3 text-sm text-muted">
                 <Check className="mt-0.5 h-4 w-4 shrink-0 text-acid" />
                 {item}
               </li>
@@ -176,7 +176,7 @@ function Outcomes() {
           <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
             {home.outcomesTitle}
           </h2>
-          <p className="mt-5 max-w-xl text-zinc-400">
+          <p className="mt-5 max-w-xl text-muted">
             {home.outcomesLead}
           </p>
         </Reveal>
@@ -200,7 +200,7 @@ function OutcomesCards() {
           <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-ink p-8 transition-all duration-300 hover:-translate-y-1 hover:border-acid/50">
             <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-acid">{o.tag}</span>
             <h3 className="mt-8 font-display text-xl font-bold tracking-tight">{o.title}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-zinc-400">{o.desc}</p>
+            <p className="mt-3 text-sm leading-relaxed text-muted">{o.desc}</p>
           </div>
         </Reveal>
       ))}
@@ -223,7 +223,7 @@ function Pillars() {
           <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
             {home.pilaresTitle}
           </h2>
-          <p className="mt-5 max-w-xl text-zinc-400">
+          <p className="mt-5 max-w-xl text-muted">
             {home.pilaresLead}
           </p>
         </Reveal>
@@ -233,7 +233,7 @@ function Pillars() {
               <div className="group flex h-full flex-col rounded-2xl border border-white/10 bg-card2 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-acid/50">
                 <span className="text-outline font-display text-5xl font-extrabold">{p.num}</span>
                 <h3 className="mt-14 font-display text-2xl font-bold tracking-tight">{p.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-zinc-400">{p.desc}</p>
+                <p className="mt-3 text-sm leading-relaxed text-muted">{p.desc}</p>
               </div>
             </Reveal>
           ))}
@@ -253,7 +253,7 @@ function Services() {
           <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
             {home.servicesTitle}
           </h2>
-          <p className="mt-5 max-w-xl text-zinc-400">
+          <p className="mt-5 max-w-xl text-muted">
             {home.servicesLead}
           </p>
         </Reveal>
@@ -280,8 +280,8 @@ function Services() {
                   </span>
                 </div>
                 <h3 className="mt-12 font-display text-xl font-bold tracking-tight">{s.name}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-zinc-400">{s.card}</p>
-                <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-zinc-300 transition-colors group-hover:text-acid">
+                <p className="mt-3 text-sm leading-relaxed text-muted">{s.card}</p>
+                <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-muted transition-colors group-hover:text-acid">
                   Conhecer serviço
                   <ArrowRight className="h-4 w-4" />
                 </span>
@@ -310,7 +310,7 @@ function Method() {
           <Link
             to="/metodo"
             data-testid="home-metodo-link"
-            className="group mt-8 inline-flex items-center gap-2 text-sm font-semibold text-zinc-300 transition-colors hover:text-acid"
+            className="group mt-8 inline-flex items-center gap-2 text-sm font-semibold text-muted transition-colors hover:text-acid"
           >
             Conhecer o método em detalhe
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
@@ -337,7 +337,7 @@ function MethodSteps() {
           <div className="flex h-full flex-col bg-ink p-7 transition-colors duration-300 hover:bg-card2">
             <span className="text-outline font-display text-5xl font-extrabold">{m.num}</span>
             <h3 className="mt-8 font-display text-lg font-bold tracking-tight">{m.title}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-zinc-400">{m.desc}</p>
+            <p className="mt-3 text-sm leading-relaxed text-muted">{m.desc}</p>
           </div>
         </Reveal>
       ))}
@@ -363,14 +363,14 @@ function Differentials() {
           <h2 className="mt-4 font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
             {cms.home?.diffTitle ? splitAcid(home.diffTitle) : <>Não entregamos tarefas. Construímos <span className="text-acid">performance.</span></>}
           </h2>
-          <p className="mt-5 max-w-md text-zinc-400">
+          <p className="mt-5 max-w-md text-muted">
             {home.diffLead}
           </p>
         </Reveal>
         <div className="grid gap-x-8 sm:grid-cols-2">
           {points.map((d, i) => (
             <Reveal key={d} delay={i * 0.06}>
-              <div className="flex items-start gap-3 border-b border-white/10 py-4 text-sm text-zinc-300">
+              <div className="flex items-start gap-3 border-b border-white/10 py-4 text-sm text-muted">
                 <Check className="mt-0.5 h-4 w-4 shrink-0 text-acid" />
                 {d}
               </div>
@@ -414,14 +414,14 @@ function CasesPreview() {
                     {c.name}
                   </span>
                   <h3 className="mt-4 font-display text-lg font-bold tracking-tight">{c.cardTitle}</h3>
-                  <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-zinc-400">{c.lead}</p>
+                  <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">{c.lead}</p>
                 </div>
               </Link>
             </Reveal>
           ))}
         </div>
         <Reveal delay={0.15}>
-          <p className="mt-8 max-w-3xl font-mono text-[11px] uppercase leading-relaxed tracking-[0.14em] text-zinc-600">
+          <p className="mt-8 max-w-3xl font-mono text-[11px] uppercase leading-relaxed tracking-[0.14em] text-muted">
             Esta seção documenta somente projetos autorizados. Não são publicados percentuais, volumes de tráfego ou prazos que não tenham sido fornecidos.
           </p>
         </Reveal>
@@ -440,7 +440,7 @@ function DashboardSection() {
           <h2 className="mt-4 font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
             {home.dashTitle}
           </h2>
-          <p className="mt-5 max-w-xl text-zinc-400">
+          <p className="mt-5 max-w-xl text-muted">
             {home.dashLead}
           </p>
         </Reveal>
@@ -469,12 +469,12 @@ function AboutPreview() {
           <h2 className="mt-4 font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
             {home.aboutTitle}
           </h2>
-          <p className="mt-5 max-w-xl text-zinc-400">
+          <p className="mt-5 max-w-xl text-muted">
             {home.aboutLead}
           </p>
           <div className="founder-line mt-7 flex items-center gap-4 border-l-2 border-acid pl-4">
             <div>
-              <span className="block font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">Fundador</span>
+              <span className="block font-mono text-[11px] uppercase tracking-[0.2em] text-muted">Fundador</span>
               <strong className="font-display text-lg font-bold tracking-tight">Alessandro Pimentel</strong>
               <span className="block text-sm text-acid">CEO &amp; Founder</span>
             </div>
@@ -482,7 +482,7 @@ function AboutPreview() {
           <Link
             to="/sobre"
             data-testid="home-sobre-link"
-            className="group mt-7 inline-flex items-center gap-2 text-sm font-semibold text-zinc-300 transition-colors hover:text-acid"
+            className="group mt-7 inline-flex items-center gap-2 text-sm font-semibold text-muted transition-colors hover:text-acid"
           >
             Conhecer posicionamento e manifesto
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
@@ -517,14 +517,14 @@ function Insights() {
                 data-testid={`home-insight-card-${a.slug}`}
                 className="group flex h-full flex-col rounded-2xl border border-white/10 bg-ink p-7 transition-all duration-300 hover:-translate-y-1 hover:border-acid/50"
               >
-                <span className="w-fit rounded-full border border-white/15 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-400">
+                <span className="w-fit rounded-full border border-white/15 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
                   {a.category}
                 </span>
                 <h3 className="mt-5 font-display text-lg font-bold leading-snug tracking-tight transition-colors group-hover:text-acid">
                   {a.title}
                 </h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-zinc-400">{a.excerpt}</p>
-                <span className="mt-5 font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-600">
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{a.excerpt}</p>
+                <span className="mt-5 font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
                   {a.readTime}
                 </span>
               </Link>
@@ -568,7 +568,7 @@ function Faq() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     transition={{ duration: 0.4, ease: EASE }}
-                    className="max-w-2xl overflow-hidden pb-6 text-sm leading-relaxed text-zinc-400 sm:text-base"
+                    className="max-w-2xl overflow-hidden pb-6 text-sm leading-relaxed text-muted sm:text-base"
                   >
                     {f.a}
                   </motion.p>
@@ -594,7 +594,7 @@ function Cta() {
             <h2 className="mt-6 font-display text-3xl font-extrabold uppercase tracking-tight leading-[1.02] sm:text-5xl">
               {cms.home?.ctaTitle ? splitAcid(home.ctaTitle) : <>Não fazemos marketing. <span className="text-acid">Executamos crescimento.</span></>}
             </h2>
-            <p className="mx-auto mt-6 max-w-xl text-zinc-400">
+            <p className="mx-auto mt-6 max-w-xl text-muted">
               {home.ctaLead}
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
@@ -614,7 +614,7 @@ function Cta() {
                 Falar sobre o cenário
               </Link>
             </div>
-            <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-600">
+            <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
               Instagram <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" className="text-acid hover:underline" data-testid="home-instagram-link">@exekuta.agencia</a>
             </p>
           </div>

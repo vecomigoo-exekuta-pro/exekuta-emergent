@@ -31,7 +31,7 @@ export default function ArtigoDetail() {
         <div className="hero-grid absolute inset-0" aria-hidden="true" />
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6">
           <FadeIn>
-            <Link to="/insights" data-testid="artigo-back-link" className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-zinc-400 transition-colors hover:text-acid">
+            <Link to="/insights" data-testid="artigo-back-link" className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-muted transition-colors hover:text-acid">
               ← Insights
             </Link>
           </FadeIn>
@@ -44,9 +44,9 @@ export default function ArtigoDetail() {
             </span>
           </h1>
           <FadeIn delay={0.45} className="mt-7">
-            <p className="text-lg leading-relaxed text-zinc-300">{a.lead}</p>
+            <p className="text-lg leading-relaxed text-muted">{a.lead}</p>
           </FadeIn>
-          <FadeIn delay={0.55} className="mt-6 flex flex-wrap gap-x-5 gap-y-1 font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-500">
+          <FadeIn delay={0.55} className="mt-6 flex flex-wrap gap-x-5 gap-y-1 font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
             <span>Por EXEKUTA</span>
             <span className="text-acid">/</span>
             <span>{a.date}</span>
@@ -63,7 +63,7 @@ export default function ArtigoDetail() {
               <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-acid">Sumário</p>
               <ol className="mt-5 space-y-3">
                 {a.sections.map((s, i) => (
-                  <li key={s.id} className="flex gap-3 text-sm text-zinc-400">
+                  <li key={s.id} className="flex gap-3 text-sm text-muted">
                     <span className="font-mono text-xs text-acid">{String(i + 1).padStart(2, "0")}</span>
                     <a href={`#${s.id}`} className="transition-colors hover:text-acid">
                       {s.title}
@@ -88,7 +88,7 @@ export default function ArtigoDetail() {
               <section id={s.id} className="scroll-mt-28 border-t border-white/10 py-10 first:border-t-0 first:pt-2" data-testid={`artigo-secao-${s.id}`}>
                 <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">{s.title}</h2>
                 {s.paras.map((p, i) => (
-                  <p key={i} className={`mt-5 leading-relaxed ${i === 0 ? "text-zinc-300" : "text-zinc-400"}`}>
+                  <p key={i} className={`mt-5 leading-relaxed ${i === 0 ? "text-muted" : "text-muted"}`}>
                     {p}
                   </p>
                 ))}
@@ -99,7 +99,7 @@ export default function ArtigoDetail() {
           <Reveal>
             <div className="mt-6 rounded-2xl border border-acid/25 bg-card2 p-8">
               <Eyebrow>Aplicação responsável</Eyebrow>
-              <p className="mt-4 text-sm leading-relaxed text-zinc-400">
+              <p className="mt-4 text-sm leading-relaxed text-muted">
                 As recomendações dependem de contexto, acesso, capacidade de
                 implementação e dados. Nenhum conteúdo deste site representa
                 garantia de posição ou resultado.
@@ -125,13 +125,13 @@ export default function ArtigoDetail() {
                   data-testid={`artigo-relacionado-${r.slug}`}
                   className="group flex h-full flex-col rounded-2xl border border-white/10 bg-ink p-7 transition-all duration-300 hover:-translate-y-1 hover:border-acid/50"
                 >
-                  <span className="w-fit rounded-full border border-white/15 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-400">
+                  <span className="w-fit rounded-full border border-white/15 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
                     {r.category}
                   </span>
                   <h3 className="mt-5 font-display text-xl font-bold leading-snug tracking-tight transition-colors group-hover:text-acid">
                     {r.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-zinc-400">{r.excerpt}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted">{r.excerpt}</p>
                 </Link>
               </Reveal>
             ))}

@@ -33,7 +33,7 @@ export default function CaseDetail() {
         <div className="hero-grid absolute inset-0" aria-hidden="true" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <FadeIn>
-            <Link to="/cases" data-testid="case-back-link" className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-zinc-400 transition-colors hover:text-acid">
+            <Link to="/cases" data-testid="case-back-link" className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-muted transition-colors hover:text-acid">
               ← Todos os cases
             </Link>
           </FadeIn>
@@ -49,7 +49,7 @@ export default function CaseDetail() {
             </span>
           </h1>
           <FadeIn delay={0.45} className="mt-7 max-w-2xl">
-            <p className="text-base leading-relaxed text-zinc-400 sm:text-lg">{c.lead}</p>
+            <p className="text-base leading-relaxed text-muted sm:text-lg">{c.lead}</p>
           </FadeIn>
           <FadeIn delay={0.6} className="mt-9 flex flex-wrap gap-4">
             {c.visitUrl && (
@@ -63,7 +63,7 @@ export default function CaseDetail() {
             </Link>
           </FadeIn>
           <FadeIn delay={0.7}>
-            <p className="mt-8 max-w-2xl font-mono text-[11px] uppercase leading-relaxed tracking-[0.14em] text-zinc-600">
+            <p className="mt-8 max-w-2xl font-mono text-[11px] uppercase leading-relaxed tracking-[0.14em] text-muted">
               {CASE_NOTE}
             </p>
           </FadeIn>
@@ -80,7 +80,7 @@ export default function CaseDetail() {
               ["Resultado informado", CASE_RESULT],
             ].map(([k, v]) => (
               <div key={k} className="bg-surface px-6 py-5">
-                <span className="block font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">{k}</span>
+                <span className="block font-mono text-[10px] uppercase tracking-[0.18em] text-muted">{k}</span>
                 <strong className="mt-2 block font-display text-base font-bold leading-snug tracking-tight text-paper">{v}</strong>
               </div>
             ))}
@@ -100,8 +100,8 @@ export default function CaseDetail() {
           </div>
           <div className="lg:col-span-7">
             <Reveal delay={0.1}>
-              <p className="text-lg leading-relaxed text-zinc-300">{c.contexto}</p>
-              <p className="mt-5 leading-relaxed text-zinc-400">{CASE_DISCLAIMER}</p>
+              <p className="text-lg leading-relaxed text-muted">{c.contexto}</p>
+              <p className="mt-5 leading-relaxed text-muted">{CASE_DISCLAIMER}</p>
             </Reveal>
           </div>
         </div>
@@ -115,7 +115,7 @@ export default function CaseDetail() {
               <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold uppercase tracking-tight leading-[1.05] sm:text-4xl">
                 Como a estrutura se conecta à busca e ao negócio.
               </h2>
-              <p className="mt-5 max-w-2xl text-zinc-400">
+              <p className="mt-5 max-w-2xl text-muted">
                 As frentes abaixo descrevem aspectos visíveis e compatíveis com o
                 projeto fornecido, sem extrapolar dados de execução que ainda não
                 foram documentados.
@@ -127,7 +127,7 @@ export default function CaseDetail() {
                   <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-ink p-8 transition-all duration-300 hover:-translate-y-1 hover:border-acid/50">
                     <span className="font-mono text-xs tracking-[0.25em] text-acid">0{i + 1}</span>
                     <h3 className="mt-10 font-display text-xl font-bold tracking-tight">{f.title}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-zinc-400">{f.desc}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-muted">{f.desc}</p>
                   </div>
                 </Reveal>
               ))}
@@ -141,7 +141,7 @@ export default function CaseDetail() {
           <Reveal>
             <figure className="overflow-hidden rounded-2xl border border-white/10 bg-card2">
               <img src={c.screenshot} alt={`Captura do site ${c.name}, projeto incluído no portfólio da EXEKUTA`} className="max-h-[560px] w-full object-cover object-top sm:object-top" loading="lazy" />
-              <figcaption className="border-t border-white/10 px-6 py-4 font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-600">
+              <figcaption className="border-t border-white/10 px-6 py-4 font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
                 Imagem do projeto fornecida para composição do portfólio. O recorte visual não representa métricas de desempenho.
               </figcaption>
             </figure>
@@ -161,7 +161,7 @@ export default function CaseDetail() {
               <p className="mt-4 font-display text-3xl font-extrabold uppercase tracking-tight transition-colors group-hover:text-acid sm:text-5xl">
                 {next.name}
               </p>
-              <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">
+              <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
                 {next.segment}
               </p>
             </div>

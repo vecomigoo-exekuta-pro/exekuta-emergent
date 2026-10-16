@@ -77,8 +77,8 @@ export default function Diagnostico() {
   };
 
   const inputCls =
-    "w-full rounded-xl border border-white/15 bg-card2 px-4 py-3.5 text-sm text-paper placeholder:text-zinc-600 outline-none transition-colors focus:border-acid";
-  const labelCls = "mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500";
+    "w-full rounded-xl border border-white/15 bg-card2 px-4 py-3.5 text-sm text-paper placeholder:text-muted outline-none transition-colors focus:border-acid";
+  const labelCls = "mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-muted";
 
   return (
     <div data-testid="diagnostico-page">
@@ -102,7 +102,7 @@ export default function Diagnostico() {
             </span>
           </h1>
           <FadeIn delay={0.5} className="mt-7 max-w-xl">
-            <p className="text-base leading-relaxed text-zinc-400 sm:text-lg">
+            <p className="text-base leading-relaxed text-muted sm:text-lg">
               Compartilhe contexto suficiente para orientar uma conversa inicial
               sobre visibilidade, técnica, conteúdo, conversão e mensuração.
             </p>
@@ -113,7 +113,7 @@ export default function Diagnostico() {
               "Sem proposta genérica antes do cenário",
               "Dados usados apenas para retorno e qualificação",
             ].map((t) => (
-              <p key={t} className="flex items-start gap-3 text-sm text-zinc-300">
+              <p key={t} className="flex items-start gap-3 text-sm text-muted">
                 <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-acid" />
                 {t}
               </p>
@@ -121,7 +121,7 @@ export default function Diagnostico() {
           </FadeIn>
           <FadeIn delay={0.8} className="mt-8 max-w-xl rounded-2xl border border-acid/25 bg-card2 p-6">
             <strong className="font-display text-base font-bold tracking-tight text-acid">O que acontece depois?</strong>
-            <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+            <p className="mt-2 text-sm leading-relaxed text-muted">
               As informações ajudam a avaliar aderência, pontos que precisam de
               esclarecimento e o próximo passo adequado.
             </p>
@@ -188,7 +188,7 @@ export default function Diagnostico() {
               </div>
             </div>
 
-            <label className="mt-6 flex cursor-pointer items-start gap-3 text-sm text-zinc-400" data-testid="diagnostico-lgpd-label">
+            <label className="mt-6 flex cursor-pointer items-start gap-3 text-sm text-muted" data-testid="diagnostico-lgpd-label">
               <input type="checkbox" checked={form.lgpd} onChange={set("lgpd")} data-testid="diagnostico-input-lgpd" className="mt-0.5 h-4 w-4 shrink-0 accent-[#B7FF00]" />
               Li a Política de Privacidade e concordo com o uso dos dados para retorno sobre esta solicitação. *
             </label>
@@ -226,7 +226,7 @@ export default function Diagnostico() {
               <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-ink p-8 transition-all duration-300 hover:border-acid/50">
                 <Icon className="h-6 w-6 text-acid" />
                 <h2 className="mt-6 font-display text-xl font-bold tracking-tight">{title}</h2>
-                <p className="mt-3 text-sm leading-relaxed text-zinc-400">{desc}</p>
+                <p className="mt-3 text-sm leading-relaxed text-muted">{desc}</p>
               </div>
             </Reveal>
           ))}

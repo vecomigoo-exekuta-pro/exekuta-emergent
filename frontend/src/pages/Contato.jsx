@@ -48,7 +48,7 @@ export default function Contato() {
   };
 
   const inputCls =
-    "w-full rounded-xl border border-white/15 bg-card2 px-4 py-3.5 text-sm text-paper placeholder:text-zinc-600 outline-none transition-colors focus:border-acid";
+    "w-full rounded-xl border border-white/15 bg-card2 px-4 py-3.5 text-sm text-paper placeholder:text-muted outline-none transition-colors focus:border-acid";
 
   return (
     <div data-testid="contato-page">
@@ -73,7 +73,7 @@ export default function Contato() {
               </span>
             </h1>
             <FadeIn delay={0.5} className="mt-7 max-w-xl">
-              <p className="text-base leading-relaxed text-zinc-400 sm:text-lg">
+              <p className="text-base leading-relaxed text-muted sm:text-lg">
                 Explique o objetivo, o momento e o principal obstáculo. A
                 conversa começa pela compreensão do cenário — não por uma
                 solução pronta.
@@ -100,10 +100,10 @@ export default function Contato() {
                 <div className="rounded-2xl border border-white/10 bg-card2 p-6">
                   <span className="font-mono text-xs tracking-[0.25em] text-acid">01</span>
                   <h3 className="mt-4 font-display text-lg font-bold tracking-tight">Diagnóstico</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+                  <p className="mt-2 text-sm leading-relaxed text-muted">
                     Para apresentar site, desafio, objetivo e capacidade de execução.
                   </p>
-                  <Link to="/diagnostico" data-testid="contato-card-diagnostico" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-zinc-300 transition-colors hover:text-acid">
+                  <Link to="/diagnostico" data-testid="contato-card-diagnostico" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-muted transition-colors hover:text-acid">
                     Abrir diagnóstico
                     <ArrowRight className="h-4 w-4" />
                   </Link>
@@ -111,10 +111,10 @@ export default function Contato() {
                 <div className="rounded-2xl border border-white/10 bg-card2 p-6">
                   <span className="font-mono text-xs tracking-[0.25em] text-acid">02</span>
                   <h3 className="mt-4 font-display text-lg font-bold tracking-tight">Instagram</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+                  <p className="mt-2 text-sm leading-relaxed text-muted">
                     Canal social confirmado na identidade da marca.
                   </p>
-                  <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" data-testid="contato-card-instagram" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-zinc-300 transition-colors hover:text-acid">
+                  <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" data-testid="contato-card-instagram" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-muted transition-colors hover:text-acid">
                     @exekuta.agencia
                     <ArrowUpRight className="h-4 w-4" />
                   </a>
@@ -122,10 +122,10 @@ export default function Contato() {
                 <div className="rounded-2xl border border-white/10 bg-card2 p-6">
                   <span className="font-mono text-xs tracking-[0.25em] text-acid">03</span>
                   <h3 className="mt-4 font-display text-lg font-bold tracking-tight">WhatsApp</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+                  <p className="mt-2 text-sm leading-relaxed text-muted">
                     Conversa direta para entender o cenário antes do diagnóstico.
                   </p>
-                  <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" data-testid="contato-card-whatsapp" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-zinc-300 transition-colors hover:text-acid">
+                  <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" data-testid="contato-card-whatsapp" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-muted transition-colors hover:text-acid">
                     Falar com especialista
                     <ArrowUpRight className="h-4 w-4" />
                   </a>
@@ -139,38 +139,38 @@ export default function Contato() {
               <form onSubmit={onSubmit} data-testid="contato-form" className="rounded-2xl border border-white/10 bg-card2 p-7 sm:p-10">
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="nome" className="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">
+                    <label htmlFor="nome" className="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
                       Nome *
                     </label>
                     <input id="nome" required value={form.nome} onChange={set("nome")} data-testid="contato-input-nome" className={inputCls} placeholder="Seu nome" />
                   </div>
                   <div>
-                    <label htmlFor="email" className="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">
+                    <label htmlFor="email" className="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
                       E-mail *
                     </label>
                     <input id="email" type="email" required value={form.email} onChange={set("email")} data-testid="contato-input-email" className={inputCls} placeholder="voce@empresa.com" />
                   </div>
                   <div>
-                    <label htmlFor="whatsapp" className="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">
+                    <label htmlFor="whatsapp" className="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
                       WhatsApp *
                     </label>
                     <input id="whatsapp" type="tel" required value={form.whatsapp} onChange={set("whatsapp")} data-testid="contato-input-whatsapp" className={inputCls} placeholder="(00) 00000-0000" />
                   </div>
                   <div>
-                    <label htmlFor="empresa" className="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">
+                    <label htmlFor="empresa" className="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
                       Empresa
                     </label>
                     <input id="empresa" value={form.empresa} onChange={set("empresa")} data-testid="contato-input-empresa" className={inputCls} placeholder="Nome da empresa" />
                   </div>
                   <div className="sm:col-span-2">
-                    <label htmlFor="mensagem" className="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">
+                    <label htmlFor="mensagem" className="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
                       Mensagem *
                     </label>
                     <textarea id="mensagem" required rows={5} value={form.mensagem} onChange={set("mensagem")} data-testid="contato-input-mensagem" className={`${inputCls} resize-none`} placeholder="Objetivo, momento e principal obstáculo." />
                   </div>
                 </div>
 
-                <label className="mt-6 flex cursor-pointer items-start gap-3 text-sm text-zinc-400" data-testid="contato-lgpd-label">
+                <label className="mt-6 flex cursor-pointer items-start gap-3 text-sm text-muted" data-testid="contato-lgpd-label">
                   <input type="checkbox" checked={form.lgpd} onChange={set("lgpd")} data-testid="contato-input-lgpd" className="mt-0.5 h-4 w-4 shrink-0 accent-[#B7FF00]" />
                   Li a Política de Privacidade e concordo com o uso dos dados para retorno sobre esta solicitação.
                 </label>
@@ -201,7 +201,7 @@ export default function Contato() {
                   ["Sem proposta genérica antes do cenário"],
                   ["Dados usados apenas para retorno"],
                 ].map(([t]) => (
-                  <p key={t} className="flex items-start gap-3 text-sm text-zinc-400">
+                  <p key={t} className="flex items-start gap-3 text-sm text-muted">
                     <Check className="mt-0.5 h-4 w-4 shrink-0 text-acid" />
                     {t}
                   </p>

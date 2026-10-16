@@ -13,7 +13,7 @@ export default function PerformanceBoard({ id = "board", compact = false }) {
           </span>
           <strong className="font-display text-sm font-bold tracking-tight">Painel de performance</strong>
         </div>
-        <span className="rounded-full border border-white/15 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-400">
+        <span className="rounded-full border border-white/15 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
           Visualização conceitual
         </span>
       </div>
@@ -55,12 +55,12 @@ export default function PerformanceBoard({ id = "board", compact = false }) {
           ["Conversões", "Medir"],
         ].map(([k, v]) => (
           <div key={k} className="bg-surface px-4 py-3.5">
-            <span className="block font-mono text-[10px] uppercase tracking-[0.14em] text-zinc-500">{k}</span>
+            <span className="block font-mono text-[10px] uppercase tracking-[0.14em] text-muted">{k}</span>
             <strong className="mt-1 block font-display text-sm font-bold text-acid">{v}</strong>
           </div>
         ))}
       </div>
-      <figcaption className="border-t border-white/10 px-5 py-3 font-mono text-[10px] uppercase tracking-[0.14em] text-zinc-600">
+      <figcaption className="border-t border-white/10 px-5 py-3 font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
         Estrutura demonstrativa preparada para receber dados reais e períodos validados.
       </figcaption>
     </figure>

@@ -71,7 +71,7 @@ export default function AnaliseSeo() {
             </span>
           </h1>
           <FadeIn delay={0.5} className="mt-7">
-            <p className="max-w-xl text-base leading-relaxed text-zinc-400 sm:text-lg">
+            <p className="max-w-xl text-base leading-relaxed text-muted sm:text-lg">
               Análise rápida de uma página: verificação técnica, on-page e de
               indexação — relatório na hora, sem cadastro.
             </p>
@@ -85,7 +85,7 @@ export default function AnaliseSeo() {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="exemplo.com.br"
                 data-testid="analise-input"
-                className="w-full rounded-xl border border-white/15 bg-card2 px-4 py-4 text-sm text-paper placeholder:text-zinc-600 outline-none transition-colors focus:border-acid"
+                className="w-full rounded-xl border border-white/15 bg-card2 px-4 py-4 text-sm text-paper placeholder:text-muted outline-none transition-colors focus:border-acid"
               />
               <button
                 type="submit"
@@ -121,7 +121,7 @@ export default function AnaliseSeo() {
             <div className="lg:col-span-4">
               <Reveal>
                 <div className="rounded-2xl border border-white/10 bg-card2 p-8 text-center">
-                  <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-zinc-500">Score on-page</p>
+                  <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted">Score on-page</p>
                   <div className="relative mx-auto mt-6 h-44 w-44">
                     <svg viewBox="0 0 120 120" className="h-full w-full -rotate-90">
                       <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(245,247,245,0.08)" strokeWidth="10" />
@@ -140,10 +140,10 @@ export default function AnaliseSeo() {
                       <strong className="font-display text-5xl font-extrabold" style={{ color: scoreColor }}>
                         {score}
                       </strong>
-                      <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">/ 100</span>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">/ 100</span>
                     </div>
                   </div>
-                  <p className="mt-6 break-all font-mono text-xs text-zinc-500">{state.result.url}</p>
+                  <p className="mt-6 break-all font-mono text-xs text-muted">{state.result.url}</p>
                   <Link
                     to="/diagnostico"
                     data-testid="analise-cta-diagnostico"
@@ -152,7 +152,7 @@ export default function AnaliseSeo() {
                     Solicitar diagnóstico
                     <ArrowRight className="h-4 w-4" />
                   </Link>
-                  <p className="mt-5 font-mono text-[10px] uppercase leading-relaxed tracking-[0.14em] text-zinc-600">
+                  <p className="mt-5 font-mono text-[10px] uppercase leading-relaxed tracking-[0.14em] text-muted">
                     Análise automatizada e inicial — não substitui diagnóstico completo.
                   </p>
                 </div>
@@ -179,7 +179,7 @@ export default function AnaliseSeo() {
                               {meta.label}
                             </span>
                           </p>
-                          <p className="mt-1 truncate text-sm text-zinc-400">{c.detail}</p>
+                          <p className="mt-1 truncate text-sm text-muted">{c.detail}</p>
                         </div>
                       </div>
                     );
@@ -199,7 +199,7 @@ export default function AnaliseSeo() {
               <p className="mt-5 font-display text-xl font-bold tracking-tight">
                 O relatório aparece aqui após a análise.
               </p>
-              <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-zinc-400">
+              <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted">
                 Digite um domínio acima para verificar títulos, descrições,
                 estrutura de headings, imagens, indexação e mais — em segundos.
               </p>

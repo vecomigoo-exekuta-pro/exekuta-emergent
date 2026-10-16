@@ -31,7 +31,7 @@ export default function Servicos() {
               </span>
             </h1>
             <FadeIn delay={0.5} className="mt-7 max-w-xl">
-              <p className="text-base leading-relaxed text-zinc-400 sm:text-lg">
+              <p className="text-base leading-relaxed text-muted sm:text-lg">
                 A melhor solução não começa pelo nome do serviço. Começa pelo
                 problema, pelo impacto e pela capacidade de execução. Use o
                 orientador abaixo para identificar a frente mais relacionada ao
@@ -61,7 +61,7 @@ export default function Servicos() {
             title={<>Qual é o seu<br className="hidden sm:block" /> principal desafio?</>}
           />
           <Reveal delay={0.1}>
-            <p className="mt-5 max-w-xl text-zinc-400">
+            <p className="mt-5 max-w-xl text-muted">
               Selecione a situação mais próxima do momento atual. A recomendação
               é inicial e não substitui diagnóstico.
             </p>
@@ -113,8 +113,8 @@ export default function Servicos() {
                     </span>
                   </div>
                   <h3 className="mt-8 font-display text-xl font-bold tracking-tight">{s.name}</h3>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-zinc-400">{s.card}</p>
-                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-zinc-300 transition-colors group-hover:text-acid">
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{s.card}</p>
+                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-muted transition-colors group-hover:text-acid">
                     Conhecer serviço
                     <ArrowRight className="h-4 w-4" />
                   </span>
@@ -155,11 +155,11 @@ export default function Servicos() {
                       <Reveal key={item.title} delay={i * 0.06} className="h-full">
                         <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-card2 p-7 transition-all duration-300 hover:-translate-y-1 hover:border-acid/50">
                           <h4 className="font-display text-lg font-bold tracking-tight">{item.title}</h4>
-                          <p className="mt-3 flex-1 text-sm leading-relaxed text-zinc-400">{item.desc}</p>
+                          <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{item.desc}</p>
                           <Link
                             to="/diagnostico"
                             data-testid={`servicos-item-cta-${cat.id}-${i}`}
-                            className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-zinc-300 transition-colors hover:text-acid"
+                            className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-muted transition-colors hover:text-acid"
                           >
                             Solicitar proposta
                             <ArrowUpRight className="h-4 w-4" />
@@ -181,7 +181,7 @@ export default function Servicos() {
             <h2 className="font-display text-3xl font-extrabold uppercase tracking-tight sm:text-5xl">
               Não sabe por onde começar?
             </h2>
-            <p className="mx-auto mt-5 max-w-lg text-zinc-400">
+            <p className="mx-auto mt-5 max-w-lg text-muted">
               O diagnóstico define onde competir, por quê e em qual ordem.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
