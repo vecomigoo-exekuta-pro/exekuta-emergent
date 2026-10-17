@@ -75,8 +75,21 @@ Swiss high-contrast monochrome editorial: black #000, white, acid accent #E2FE00
 - Correção: MediaPicker reescrito com 3 formas — colar URL, "Enviar do computador" (upload imediato → URL aplicada) e Biblioteca; preview com fundo xadrez para transparência PNG/SVG; hint de formatos; botão Remover. Aplicado a TODOS os campos de imagem (logo principal, logo rodapé, favicon, serviços, cases). Backend aceita image/jpg também.
 - Testado no navegador: upload de PNG aplicou a URL no campo automaticamente, salvou com backup, e /api/cms/public refletiu; SVG também testado. Restaurado o brand com a logo oficial. deployment_agent: PASS.
 
+## Implemented (2026-10-16, 2a iteração — chatbot semiautomático de leads)
+- Widget flutuante no site (ícone discreto acima do WhatsApp): boas-vindas, opções rápidas, indicador de digitação, histórico persistente no MongoDB (sobrevive a reload), aviso "Assistente virtual" e LGPD; respota do WhatsApp não alterada (reposicionado 0,5rem acima).
+- Modos automático/semiautomático (padrão)/manual controláveis por conversa no painel; modo manual pausa o bot; respostas comerciais (preço/orçamento) sempre sinalizam especialista.
+- IA gpt-5.4 (EMERGENT_LLM_KEY no servidor via .env, emergentintegrations) com prompt restrito ao material verificado — sem inventar preços/prazos/resultados; fallback para respostas predefinidas se IA indisponível.
+- Captação progressiva: e-mail, telefone e URL extraídos por regex; lead criado no MongoDB (nome, empresa, site, e-mail, telefone, serviço, objetivo, dificuldade, prazo, status, consentimento LGPD, histórico da conversa).
+- Painel: aba Chatbot (Conversas com resposta como especialista + mudança de modo + qualificação; Leads com busca/filtros/export CSV/exclusão de dados pessoais; Configuração com modo, mensagem inicial e FAQs aprovadas).
+- Testado: fluxo completo por API (start → FAQ → captura → comercial sinaliza humano → manual bloqueia bot → admin responde → CSV) e por navegador (widget mobile, painel desktop). Site público sem alterações visuais.
+
 ## Backlog (P2+)
 - Analisador de 10 páginas com relatório (pacote usa Supabase; versão atual analisa 1 página).
 - Páginas legais (Privacidade, Termos, Cookies) do pacote.
 - E-mail transacional (Resend) para resposta automática de contatos.
 - Painel admin simples para ler contatos e diagnósticos recebidos.
+
+## Bugfix (2026-10-17) — desbloqueio do chatbot
+- Erro de lint bloqueante corrigido: `Input` não estava importado em ChatbotPanel.jsx (o componente já existia em FieldsEditor.jsx; adicionado ao import). Projeto inteiro com oxlint: 0 erros.
+- Melhoria de captação: HUMAN_RE agora reconhece "pessoa" além de "pessoa real" — mensagens como "quero falar com uma pessoa" setam needs_human e exibem a faixa "SINALIZADO PARA ATENDIMENTO HUMANO" no widget (antes a resposta prometia o especialista, mas o painel não destacava a conversa).
+- Verificado por API (start → FAQ responde → humano sinalizado → conversas no /admin com 1 lead visível) e por screenshot desktop (1440px) + mobile (390px): widget abre, responde, sinaliza, sem overflow e sem alteração no design público.

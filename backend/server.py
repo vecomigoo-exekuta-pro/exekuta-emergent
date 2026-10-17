@@ -438,6 +438,416 @@ async def seed_admin_user():
     except Exception as e:
         logger.error(f"seed_admin: {e}")
 
+# ============ CHATBOT SEMIAUTOMÁTICO DE CAPTAÇÃO DE LEADS ============
+import re
+from emergentintegrations.llm.chat import LlmChat, UserMessage
+
+CHAT_MODES = {"auto", "semiauto", "manual"}
+
+DEFAULT_CHAT_CONFIG = {
+    "mode": "semiauto",
+    "welcome": "Olá! Seja bem-vindo à EXEKUTA. Posso ajudar você a identificar oportunidades para melhorar o desempenho orgânico do seu site, atrair visitantes qualificados e desenvolver uma estratégia digital orientada a resultados. O que você gostaria de melhorar?",
+    "quickReplies": [
+        "Quero melhorar o SEO do meu site.",
+        "Preciso aumentar meu tráfego orgânico.",
+        "Quero melhorar os conteúdos do meu site ou blog.",
+        "Preciso de análise de dados ou automação.",
+        "Quero conhecer os serviços da EXEKUTA.",
+        "Quero falar com um especialista.",
+    ],
+    "faqs": [
+        {"q": "Quero melhorar o SEO do meu site.", "a": "Ótimo! O diagnóstico da EXEKUTA começa pela leitura do cenário: dados, técnica, conteúdo e concorrência. Me conta: qual é a URL do seu site e qual resultado você espera alcançar?"},
+        {"q": "Preciso aumentar meu tráfego orgânico.", "a": "Tráfego orgânico cresce quando estratégia, técnica e conteúdo operam no mesmo fluxo. Me diga qual é o seu objetivo comercial (mais leads, mais vendas, mais autoridade?) e qual é a maior dificuldade hoje."},
+        {"q": "Quero melhorar os conteúdos do meu site ou blog.", "a": "Conteúdo eficaz segue a intenção de busca e a jornada comercial. Me conta qual é o site e o que você já produz hoje — assim consigo indicar o próximo passo adequado."},
+        {"q": "Preciso de análise de dados ou automação.", "a": "Análise e automação reduzem tarefas manuais e orientam decisões por indicadores. Qual processo hoje consome mais tempo da sua equipe?"},
+        {"q": "Quero conhecer os serviços da EXEKUTA.", "a": "Atuamos em 5 pilares: Desenvolvimento; Marketing & Performance (tráfego pago, marketing digital, analytics); SEO & Google (estratégia, técnico, on-page, local, autoridade digital); Automação & IA; e Suporte & Infraestrutura. Qual deles se aproxima do seu cenário?"},
+        {"q": "Quero falar com um especialista.", "a": "Sem problemas! Já sinalizei o atendimento humano. Se quiser, deixe seu nome e um e-mail ou WhatsApp — um especialista da EXEKUTA retorna em seguida."},
+    ],
+}
+
+
+async def get_chat_config():
+    cfg = await db.chat_config.find_one({"key": "chatbot"})
+    if not cfg or not cfg.get("data"):
+        await db.chat_config.update_one({"key": "chatbot"}, {"$set": {"data": DEFAULT_CHAT_CONFIG}}, upsert=True)
+        return DEFAULT_CHAT_CONFIG
+    return {**DEFAULT_CHAT_CONFIG, **cfg["data"]}
+
+
+EMAIL_RE = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
+PHONE_RE = re.compile(r"\+?\d{0,3}[\s-]?\(?\d{2}\)?[\s-]?\d{4,5}[\s-]?\d{4}")
+URL_RE = re.compile(r"(https?://[^\s]+|www\.[^\s]+|(?:[a-z0-9-]+\.)+(?:com|com\.br|br|net|org|io|co)(?:/[^\s]*)?)", re.I)
+HUMAN_RE = re.compile(r"especialista|humano|atendente|pessoa real|pessoa\b|falar com algu", re.I)
+COMMERCIAL_RE = re.compile(r"pre[çc]o|or[çc]amento|proposta|desconto|quanto custa|valor do projeto", re.I)
+
+
+async def upsert_chat_lead(conv, patch: dict):
+    lead = conv.get("lead") or {}
+    changed = False
+    for k, v in patch.items():
+        if v and not lead.get(k):
+            lead[k] = v
+            changed = True
+    lead_id = conv.get("lead_id")
+    now = datetime.now(timezone.utc).isoformat()
+    if lead_id:
+        await db.chat_leads.update_one({"_id": ObjectId(lead_id)}, {"$set": {**lead, "updated_at": now}})
+    elif changed:
+        doc = {
+            "nome": lead.get("nome", ""),
+            "empresa": lead.get("empresa", ""),
+            "site": lead.get("site", ""),
+            "email": lead.get("email", ""),
+            "telefone": lead.get("telefone", ""),
+            "servico": lead.get("servico", ""),
+            "objetivo": lead.get("objetivo", ""),
+            "dificuldade": lead.get("dificuldade", ""),
+            "prazo": lead.get("prazo", ""),
+            "origem": "chatbot",
+            "status": lead.get("status", "novo"),
+            "consent": lead.get("consent", False),
+            "conversation_id": str(conv["_id"]),
+            "session_id": conv.get("session_id"),
+            "created_at": now,
+            "updated_at": now,
+        }
+        res = await db.chat_leads.insert_one(doc)
+        lead_id = str(res.inserted_id)
+        await db.chat_conversations.update_one({"_id": conv["_id"]}, {"$set": {"lead_id": lead_id, "lead": {**lead, "status": doc["status"], "consent": lead.get("consent", False)}}})
+        return lead, lead_id
+    await db.chat_conversations.update_one({"_id": conv["_id"]}, {"$set": {"lead": lead}})
+    return lead, lead_id
+
+
+async def ai_reply(conv, config, user_text):
+    api_key = os.environ.get("EMERGENT_LLM_KEY", "")
+    if not api_key:
+        return None
+    try:
+        history = "\n".join(
+            f"{'Visitante' if m['role'] == 'user' else 'Assistente'}: {m['text']}"
+            for m in conv.get("messages", [])[-10:]
+        )
+        system = (
+            "Você é o assistente comercial virtual da EXEKUTA, agência de SEO orientada por dados "
+            "(Rio de Janeiro, Brasil). Regras absolutas: responda APENAS em português do Brasil, com no máximo "
+            "3 frases curtas e objetivas. Use somente informações verificadas abaixo — NUNCA invente preços, "
+            "descontos, prazos, resultados garantidos, estudos de caso, depoimentos ou clientes. Se perguntarem "
+            "valores/prazos/proposta, diga que o diagnóstico define o escopo e que um especialista fará essa "
+            "conversa. Serviços (5 pilares): Desenvolvimento (sites, landing pages, e-commerce); Marketing & "
+            "Performance (tráfego pago, marketing digital, analytics); SEO & Google (estratégia, técnico, "
+            "on-page, local, autoridade digital); Automação & IA; Suporte & Infraestrutura (manutenção, "
+            "performance, segurança). Método: Diagnóstico → Estratégia → Execução → Monitoramento → Escala. "
+            "Próximo passo sempre: solicitar diagnóstico pelo site ou falar com especialista. LGPD: só peça "
+            "dados de contato explicando o motivo e com consentimento. Se o visitante pedir atendimento "
+            "humano, diga que sinalizou para um especialista.\n\nConversa recente:\n" + history
+        )
+        chat = LlmChat(api_key=api_key, session_id=f"exk-chat-{conv['_id']}", system_message=system).with_model("openai", "gpt-5.4")
+        reply = await chat.send_message(UserMessage(text=user_text))
+        return (reply or "").strip()[:900] or None
+    except Exception as e:
+        logger.warning(f"chatbot IA indisponível: {e}")
+        return None
+
+
+class ChatStartIn(BaseModel):
+    sessionId: str
+
+
+class ChatMessageIn(BaseModel):
+    sessionId: str
+    text: str
+
+
+class ChatAdminReply(BaseModel):
+    text: str
+
+
+class ChatModeIn(BaseModel):
+    mode: str
+
+
+class ChatConfigIn(BaseModel):
+    data: Any
+_rate_limit = {}
+
+
+@api_router.post("/chat/start")
+async def chat_start(input: ChatStartIn):
+    sid = (input.sessionId or "")[:64]
+    if not sid:
+        raise HTTPException(status_code=400, detail="Sessão inválida")
+    config = await get_chat_config()
+    conv = await db.chat_conversations.find_one({"session_id": sid})
+    if not conv:
+        doc = {
+            "session_id": sid,
+            "mode": config.get("mode", "semiauto"),
+            "status": "ativo",
+            "needs_human": False,
+            "lead": {},
+            "lead_id": None,
+            "messages": [{"role": "bot", "text": config.get("welcome", ""), "at": datetime.now(timezone.utc).isoformat()}],
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "updated_at": datetime.now(timezone.utc).isoformat(),
+        }
+        res = await db.chat_conversations.insert_one(doc)
+        conv = await db.chat_conversations.find_one({"_id": res.inserted_id})
+    return {
+        "ok": True,
+        "conversationId": str(conv["_id"]),
+        "mode": conv.get("mode"),
+        "messages": conv.get("messages", []),
+        "quickReplies": config.get("quickReplies", []),
+        "lead": conv.get("lead", {}),
+    }
+
+
+@api_router.post("/chat/message")
+async def chat_message(input: ChatMessageIn):
+    text = (input.text or "").strip()[:1000]
+    if not text:
+        raise HTTPException(status_code=400, detail="Mensagem vazia")
+    conv = await db.chat_conversations.find_one({"session_id": (input.sessionId or "")[:64]})
+    if not conv:
+        raise HTTPException(status_code=404, detail="Conversa não encontrada. Recarregue o chat.")
+    config = await get_chat_config()
+    now = datetime.now(timezone.utc).isoformat()
+
+    # proteção simples contra abuso
+    key = conv["session_id"]
+    hits = [t for t in _rate_limit.get(key, []) if now[:17] == t[:17]]
+    if len(hits) >= 25:
+        raise HTTPException(status_code=429, detail="Muitas mensagens em sequência. Aguarde alguns instantes.")
+    _rate_limit[key] = hits + [now]
+
+    lead_patch = {}
+    if m := EMAIL_RE.search(text):
+        lead_patch["email"] = m.group(0)
+    if m := URL_RE.search(text.replace("https://", "").replace("http://", "")):
+        lead_patch["site"] = m.group(0)
+    if m := PHONE_RE.search(text):
+        cand = m.group(0)
+        if len(re.sub(r"\D", "", cand)) >= 10:
+            lead_patch["telefone"] = cand
+    lead, lead_id = await upsert_chat_lead(conv, lead_patch)
+
+    update = {"$push": {"messages": {"role": "user", "text": text, "at": now}}, "$set": {"updated_at": now}}
+    await db.chat_conversations.update_one({"_id": conv["_id"]}, update)
+    conv = await db.chat_conversations.find_one({"_id": conv["_id"]})
+
+    mode = conv.get("mode", "semiauto")
+    reply = None
+    needs_human = False
+
+    if mode == "manual":
+        await db.chat_conversations.update_one({"_id": conv["_id"]}, {"$set": {"needs_human": True}})
+        return {"ok": True, "reply": None, "mode": mode, "needsHuman": True, "quickReplies": []}
+
+    if HUMAN_RE.search(text):
+        reply = config["faqs"][-1]["a"] if config.get("faqs") else "Já sinalizei o atendimento humano para um especialista da EXEKUTA."
+        needs_human = True
+        if lead_id:
+            await db.chat_leads.update_one({"_id": ObjectId(lead_id)}, {"$set": {"status": "atendimento_humano"}})
+    elif COMMERCIAL_RE.search(text):
+        reply = "Entendo a intenção! Valores e propostas são definidos pelo time comercial da EXEKUTA depois do diagnóstico — eu não passo valores em nome da agência. Já sinalizei para um especialista continuar essa conversa com você."
+        needs_human = True
+        await upsert_chat_lead(conv, {"dificuldade": text})
+    else:
+        best, best_score = None, 0
+        for faq in config.get("faqs", []):
+            words = [w for w in re.findall(r"[a-zà-ú0-9]{4,}", text.lower()) if w not in {"quero", "preciso", "meu", "minha", "para", "como", "muito"}]
+            score = sum(1 for w in words if w in faq["q"].lower())
+            if score > best_score:
+                best, best_score = faq["a"], score
+        if best:
+            reply = best
+        else:
+            reply = await ai_reply(conv, config, text)
+        if not reply:
+            reply = "Boa pergunta! Não tenho essa resposta aprovada em meu material, mas posso te ajudar com: SEO, conteúdo, tráfego orgânico, análise de dados e automação. Se preferir, sinalizo o atendimento com um especialista da EXEKUTA."
+            if mode == "semiauto":
+                needs_human = True
+
+    msg_update = {
+        "$push": {"messages": {"role": "bot", "text": reply, "at": datetime.now(timezone.utc).isoformat()}},
+        "$set": {"needs_human": needs_human, "updated_at": datetime.now(timezone.utc).isoformat()},
+    }
+    await db.chat_conversations.update_one({"_id": conv["_id"]}, msg_update)
+    return {"ok": True, "reply": reply, "mode": mode, "needsHuman": needs_human, "quickReplies": config.get("quickReplies", [])}
+
+
+@api_router.get("/chat/history/{session_id}")
+async def chat_history(session_id: str):
+    conv = await db.chat_conversations.find_one({"session_id": session_id[:64]})
+    if not conv:
+        return {"ok": True, "messages": [], "mode": "semiauto"}
+    return {"ok": True, "messages": conv.get("messages", []), "mode": conv.get("mode"), "needsHuman": conv.get("needs_human", False)}
+
+
+@api_router.get("/admin/chat/config")
+async def admin_chat_config(request: Request):
+    await require_admin(request)
+    return {"ok": True, "config": await get_chat_config()}
+
+
+@api_router.put("/admin/chat/config")
+async def admin_chat_config_save(input: ChatConfigIn, request: Request):
+    await require_admin(request)
+    data = input.data if isinstance(input.data, dict) else {}
+    if data.get("mode") not in CHAT_MODES:
+        data["mode"] = "semiauto"
+    await db.chat_config.update_one({"key": "chatbot"}, {"$set": {"data": data}}, upsert=True)
+    await bump_content_version()
+    return {"ok": True}
+
+
+@api_router.get("/admin/chat/conversations")
+async def admin_chat_list(request: Request):
+    await require_admin(request)
+    out = []
+    async for c in db.chat_conversations.find({}).sort("updated_at", -1).limit(200):
+        out.append({
+            "id": str(c["_id"]),
+            "mode": c.get("mode"),
+            "needs_human": c.get("needs_human", False),
+            "status": c.get("status"),
+            "lead": c.get("lead", {}),
+            "messages_count": len(c.get("messages", [])),
+            "last_message": (c.get("messages") or [{}])[-1].get("text", "")[:120],
+            "updated_at": c.get("updated_at"),
+        })
+    return {"ok": True, "items": out}
+
+
+@api_router.get("/admin/chat/conversations/{conversation_id}")
+async def admin_chat_detail(conversation_id: str, request: Request):
+    await require_admin(request)
+    c = await db.chat_conversations.find_one({"_id": ObjectId(conversation_id)})
+    if not c:
+        raise HTTPException(status_code=404, detail="Conversa não encontrada")
+    return {
+        "ok": True,
+        "id": str(c["_id"]),
+        "mode": c.get("mode"),
+        "needs_human": c.get("needs_human", False),
+        "lead": c.get("lead", {}),
+        "messages": c.get("messages", []),
+    }
+
+
+@api_router.post("/admin/chat/conversations/{conversation_id}/reply")
+async def admin_chat_reply(conversation_id: str, input: ChatAdminReply, request: Request):
+    await require_admin(request)
+    text = (input.text or "").strip()[:1000]
+    if not text:
+        raise HTTPException(status_code=400, detail="Resposta vazia")
+    now = datetime.now(timezone.utc).isoformat()
+    await db.chat_conversations.update_one(
+        {"_id": ObjectId(conversation_id)},
+        {"$push": {"messages": {"role": "admin", "text": text, "at": now}},
+         "$set": {"mode": "manual", "needs_human": False, "updated_at": now}},
+    )
+    await db.chat_leads.update_one({"conversation_id": conversation_id}, {"$set": {"status": "atendimento_humano"}})
+    return {"ok": True}
+
+
+@api_router.post("/admin/chat/conversations/{conversation_id}/mode")
+async def admin_chat_mode(conversation_id: str, input: ChatModeIn, request: Request):
+    await require_admin(request)
+    if input.mode not in CHAT_MODES:
+        raise HTTPException(status_code=400, detail="Modo inválido")
+    await db.chat_conversations.update_one(
+        {"_id": ObjectId(conversation_id)}, {"$set": {"mode": input.mode, "updated_at": datetime.now(timezone.utc).isoformat()}}
+    )
+    return {"ok": True}
+
+
+@api_router.post("/admin/chat/conversations/{conversation_id}/qualify")
+async def admin_chat_qualify(conversation_id: str, request: Request):
+    await require_admin(request)
+    body = await request.json()
+    status = body.get("status")
+    if status not in {"qualificado", "nao_qualificado"}:
+        raise HTTPException(status_code=400, detail="Status inválido")
+    lead_id = None
+    conv = await db.chat_conversations.find_one({"_id": ObjectId(conversation_id)}, {"lead_id": 1})
+    if conv:
+        lead_id = conv.get("lead_id")
+    if lead_id:
+        await db.chat_leads.update_one({"_id": ObjectId(lead_id)}, {"$set": {"status": status}})
+    await db.chat_conversations.update_one({"_id": ObjectId(conversation_id)}, {"$set": {"status": status}})
+    return {"ok": True}
+
+
+@api_router.get("/admin/chat/leads")
+async def admin_chat_leads(request: Request, search: str = "", status: str = "", servico: str = ""):
+    await require_admin(request)
+    query = {}
+    if status:
+        query["status"] = status
+    if servico:
+        query["servico"] = {"$regex": re.escape(servico), "$options": "i"}
+    if search:
+        rx = {"$regex": re.escape(search), "$options": "i"}
+        query["$or"] = [{"nome": rx}, {"empresa": rx}, {"site": rx}, {"email": rx}, {"telefone": rx}]
+    out = []
+    async for l in db.chat_leads.find(query).sort("created_at", -1).limit(500):
+        out.append({
+            "id": str(l["_id"]),
+            "nome": l.get("nome", ""),
+            "empresa": l.get("empresa", ""),
+            "site": l.get("site", ""),
+            "email": l.get("email", ""),
+            "telefone": l.get("telefone", ""),
+            "servico": l.get("servico", ""),
+            "objetivo": l.get("objetivo", ""),
+            "dificuldade": l.get("dificuldade", ""),
+            "prazo": l.get("prazo", ""),
+            "status": l.get("status", "novo"),
+            "consent": l.get("consent", False),
+            "conversation_id": l.get("conversation_id"),
+            "created_at": l.get("created_at"),
+        })
+    return {"ok": True, "items": out}
+
+
+@api_router.get("/admin/chat/leads/export")
+async def admin_chat_leads_export(request: Request):
+    await require_admin(request)
+    import csv
+    import io
+    buf = io.StringIO()
+    writer = csv.writer(buf, delimiter=";")
+    writer.writerow(["id", "nome", "empresa", "site", "email", "telefone", "servico", "objetivo", "dificuldade", "prazo", "status", "consentimento", "criado_em"])
+    async for l in db.chat_leads.find({}).sort("created_at", -1):
+        writer.writerow([
+            str(l["_id"]), l.get("nome", ""), l.get("empresa", ""), l.get("site", ""),
+            l.get("email", ""), l.get("telefone", ""), l.get("servico", ""),
+            l.get("objetivo", ""), l.get("dificuldade", ""), l.get("prazo", ""),
+            l.get("status", ""), "sim" if l.get("consent") else "não", l.get("created_at", ""),
+        ])
+    return Response(
+        content=buf.getvalue(),
+        media_type="text/csv",
+        headers={"Content-Disposition": "attachment; filename=leads-exekuta.csv", "Cache-Control": "no-store"},
+    )
+
+
+@api_router.delete("/admin/chat/leads/{lead_id}")
+async def admin_chat_lead_delete(lead_id: str, request: Request):
+    await require_admin(request)
+    l = await db.chat_leads.find_one({"_id": ObjectId(lead_id)})
+    if not l:
+        raise HTTPException(status_code=404, detail="Lead não encontrado")
+    if l.get("conversation_id"):
+        await db.chat_conversations.update_one(
+            {"_id": ObjectId(l["conversation_id"])},
+            {"$set": {"lead": {}, "lead_id": None, "anonimizado": True, "updated_at": datetime.now(timezone.utc).isoformat()}},
+        )
+    await db.chat_leads.delete_one({"_id": ObjectId(lead_id)})
+    return {"ok": True}
+
 # Include the router in the main app
 app.include_router(api_router)
 

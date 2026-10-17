@@ -8,6 +8,7 @@ import FieldsEditor from "@/admin/FieldsEditor";
 import FaqEditor from "@/admin/FaqEditor";
 import ListEditor from "@/admin/ListEditor";
 import MediaLibrary from "@/admin/MediaLibrary";
+import ChatbotPanel from "@/admin/ChatbotPanel";
 import { getToken, setToken, me, getCms, saveCms, getBackups, restoreBackup, cacheClear } from "@/cms/adminApi";
 import { BRAND, FOOTER, HOME, ABOUT } from "@/cms/defaults";
 import { FAQ } from "@/data/site";
@@ -22,6 +23,7 @@ const TABS = [
   { id: "faq", label: "FAQ" },
   { id: "servicos", label: "Serviços" },
   { id: "cases", label: "Cases" },
+  { id: "chatbot", label: "Chatbot" },
   { id: "imagens", label: "Imagens" },
   { id: "backup", label: "Backup" },
 ];
@@ -195,6 +197,7 @@ export default function AdminApp() {
     faq: "Perguntas frequentes",
     servicos: "Serviços",
     cases: "Cases",
+    chatbot: "Chatbot de captação de leads",
     imagens: "Biblioteca de imagens",
     backup: "Backups por seção",
   };
@@ -279,6 +282,8 @@ export default function AdminApp() {
 
           {tab === "imagens" ? (
             <MediaLibrary />
+          ) : tab === "chatbot" ? (
+            <ChatbotPanel />
           ) : tab === "backup" ? (
             <BackupPanel />
           ) : tab === "faq" ? (

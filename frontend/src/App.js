@@ -21,6 +21,8 @@ import Diagnostico from "@/pages/Diagnostico";
 import AnaliseSeo from "@/pages/AnaliseSeo";
 import NotFound from "@/pages/NotFound";
 import AdminApp from "@/admin/AdminApp";
+import ChatbotPanel from "@/admin/ChatbotPanel";
+import ChatWidget from "@/components/ChatWidget";
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -67,6 +69,7 @@ function PublicLayout() {
       </main>
       <Footer />
       <WhatsAppFloat />
+      <ChatWidget />
     </>
   );
 }
