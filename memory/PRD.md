@@ -93,3 +93,16 @@ Swiss high-contrast monochrome editorial: black #000, white, acid accent #E2FE00
 - Erro de lint bloqueante corrigido: `Input` não estava importado em ChatbotPanel.jsx (o componente já existia em FieldsEditor.jsx; adicionado ao import). Projeto inteiro com oxlint: 0 erros.
 - Melhoria de captação: HUMAN_RE agora reconhece "pessoa" além de "pessoa real" — mensagens como "quero falar com uma pessoa" setam needs_human e exibem a faixa "SINALIZADO PARA ATENDIMENTO HUMANO" no widget (antes a resposta prometia o especialista, mas o painel não destacava a conversa).
 - Verificado por API (start → FAQ responde → humano sinalizado → conversas no /admin com 1 lead visível) e por screenshot desktop (1440px) + mobile (390px): widget abre, responde, sinaliza, sem overflow e sem alteração no design público.
+
+## Implemented (2026-10-17 — Loja de Artes Gráficas)
+- Decisões do usuário: catálogo + pedido via WhatsApp (sem pagamento online), produtos digitais E impressos físicos, carrinho completo, gestão no /admin. Subdomínio: loja nasce em /loja; após o Deploy, apontar loja.exekuta.com.br no DNS.
+- Backend (server.py, seção LOJA): GET /api/loja/products + /{slug} + /config (público); POST /api/loja/order (recalcula preços no servidor, valida LGPD/nome/WhatsApp/endereço condicional para impressos, gera código EXK-XXXX sequencial e link wa.me com resumo completo); admin Bearer: CRUD de produtos (slug único com índice, tipo digital|fisico, preço, preço promocional, ordem, ativo, imagem via MediaPicker, arquivo de entrega), GET/PUT config (nome_loja, whatsapp), lista de pedidos + mudança de status (novo|pago|producao|entregue|cancelado). 4 produtos de exemplo semeados no startup se coleção vazia.
+- Frontend: /loja (LojaPage: hero, filtros Todos/Digitais/Impressos, grid, modal de produto com quantidade); CartContext (localStorage); CartDrawer (carrinho → checkout com endereço condicional e LGPD → sucesso com código + botão wa.me). Link "LOJA" no menu (NAV). Menu desktop agora xl (>=1280px) para acomodar o 8º link; abaixo disso, menu mobile em tela cheia.
+- Admin: aba Loja com Produtos/Pedidos/Configuração.
+- Testes: 19/19 pytest em /app/backend/tests/test_loja.py; fluxos Playwright 100% (catálogo, filtros, modal, carrinho+persistência, checkout digital e físico, sucesso com wa.me, admin CRUD+status, nav 1440/1024/390 sem overflow). Resíduos de teste limpos (0 pedidos, 4 produtos).
+
+## Backlog (P2+) — atualizado 2026-10-17
+- Modularizar server.py (1188 linhas): mover bloco LOJA para /app/backend/routers/loja.py.
+- Pagamento online na loja (Stripe/Pix) se o usuário quiser depois.
+- Entrega automática de arquivos digitais após confirmação de pagamento.
+- Analisador de 10 páginas com relatório; páginas legais; e-mail transacional (Resend); painel de contatos/diagnósticos.

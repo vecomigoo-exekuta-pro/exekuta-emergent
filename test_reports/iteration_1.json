@@ -1,0 +1,35 @@
+{
+  "summary": "Backend+Frontend testing for EXEKUTA Loja de Artes Gráficas feature. 19/19 backend pytest tests pass (public catalog, product detail, order validation incl. LGPD/empty cart/invalid WhatsApp/invalid product id/fisico-requires-address, order creation digital & fisico, admin auth, admin product CRUD, admin order list + status persistence + invalid status, admin config GET/PUT). Frontend Playwright flows all passed: catalog loads 5 products (4 seed + 1 persistent TEST product from prior iteration), filters Todos/Digitais/Impressos correctly segment (3+2=5), product modal opens via COMPRAR button, qty inc works, add-to-cart updates cart badge, 2 different products added, localStorage persists cart across reload, cart drawer opens, qty +/- and remove-item work, checkout with fisico shows address section and validations fire (LGPD + endereço), full order created EXK-0008 with correct wa.me/552120381079 link, digital-only cart correctly HIDES address section, no horizontal overflow at 1440/1024/390, nav-link-loja present on desktop, hamburger shown at 1024, admin login OK, aba Loja + sub-abas Produtos/Pedidos/Configuração renderizam, admin pedidos listam 8 EXK-* orders, status change EXK-0008→pago persistiu após reload.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "POST /api/admin/loja/products", "issue": "Resposta retorna {ok, id, slug} em vez de {ok, product:{...}} — pequena inconsistência com GET que retorna 'items'. Não é bug, apenas padronização."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": ["/app/backend/tests/test_loja.py", "/app/test_reports/pytest/loja_results.xml"],
+  "action_items": [
+    "(Opcional) Padronizar resposta de POST /api/admin/loja/products para retornar o produto completo (como GET), facilitando o front atualizar lista sem refetch.",
+    "(Opcional) Limpar produto 'TEST Produto QA' persistente no banco (resíduo de teste anterior) — não afeta funcionalidade.",
+    "(Opcional) Como o backend valida LGPD antes do endereço, mas no teste manual com fisico sem LGPD e sem endereço o erro exibido foi 'Preencha o endereço' — provavelmente o frontend faz uma validação local de endereço antes de enviar; verificar se a mensagem de LGPD é visível quando usuário tem só item digital e não marca o checkbox."
+  ],
+  "critical_code_review_comments": [
+    "server.py está com 1188 linhas — está perto do limite de 700 recomendado; considerar modularizar o bloco LOJA (851-1188) em um router separado /app/backend/routers/loja.py para manutenção.",
+    "Boa prática presente: preços recalculados no servidor em /api/loja/order, imune a tampering do cliente.",
+    "Boa prática: _id do Mongo nunca é vazado (loja_product_out converte para 'id').",
+    "Validações robustas no POST /api/loja/order (LGPD, nome, WhatsApp com DDD, carrinho, endereço condicional).",
+    "Índice único em slug + resolução de colisão com sufixo numérico — OK."
+  ],
+  "updated_files": ["/app/backend/tests/test_loja.py"],
+  "success_rate": {"backend": "100% (19/19)", "frontend": "100% (fluxos principais)"},
+  "test_credentials": "admin@exekuta.com.br / Exekuta@2026 (validado)",
+  "seed_data_creation": "Nenhum seed novo necessário. Pedidos de teste criados durante os testes: EXK-0006, EXK-0007, EXK-0008. Produto admin criado e deletado no mesmo teste (CRUD completo).",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Teste pytest está em /app/backend/tests/test_loja.py — reutilizar para regressão. BASE_URL vem de REACT_APP_BACKEND_URL. Produto persistente 'TEST Produto QA' (slug=test-produto-qa) existe no banco por acumulação de iterações anteriores — por isso o catálogo mostra 5 e não 4 produtos; filtros ainda funcionam corretamente (3 digitais + 2 impressos). Pedidos EXK-0001..EXK-0008 estão criados.",
+  "rca of the issue": "Nenhum bug crítico identificado — feature está funcionando end-to-end em backend e frontend."
+}
