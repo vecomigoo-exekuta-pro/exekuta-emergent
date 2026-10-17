@@ -31,7 +31,7 @@ export default function Navbar() {
             <Logo />
           </Link>
 
-          <nav className="hidden items-center gap-7 lg:flex" aria-label="Navegação principal">
+          <nav className="hidden items-center gap-7 xl:flex" aria-label="Navegação principal">
             {NAV.map((l) => (
               <NavLink
                 key={l.to}
@@ -58,7 +58,7 @@ export default function Navbar() {
           </nav>
 
           <button
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-paper lg:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-paper xl:hidden"
             onClick={() => setOpen(true)}
             data-testid="nav-mobile-open-button"
             aria-label="Abrir menu"

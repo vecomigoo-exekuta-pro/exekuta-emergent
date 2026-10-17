@@ -5,6 +5,7 @@ export const NAV = [
   { to: "/metodo", label: "Método" },
   { to: "/cases", label: "Cases" },
   { to: "/insights", label: "Insights" },
+  { to: "/loja", label: "Loja" },
   { to: "/contato", label: "Contato" },
 ];
 

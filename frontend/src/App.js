@@ -19,6 +19,7 @@ import ArtigoDetail from "@/pages/ArtigoDetail";
 import Contato from "@/pages/Contato";
 import Diagnostico from "@/pages/Diagnostico";
 import AnaliseSeo from "@/pages/AnaliseSeo";
+import LojaPage from "@/loja/LojaPage";
 import NotFound from "@/pages/NotFound";
 import AdminApp from "@/admin/AdminApp";
 import ChatbotPanel from "@/admin/ChatbotPanel";
@@ -112,6 +113,7 @@ function App() {
                 <Route path="/contato" element={<Contato />} />
                 <Route path="/diagnostico" element={<Diagnostico />} />
                 <Route path="/analise-seo" element={<AnaliseSeo />} />
+                <Route path="/loja" element={<LojaPage />} />
                 <Route path="*" element={<NotFound />} />
               </Route>
               <Route path="/admin" element={<AdminApp />} />

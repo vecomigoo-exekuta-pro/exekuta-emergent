@@ -848,6 +848,322 @@ async def admin_chat_lead_delete(lead_id: str, request: Request):
     await db.chat_leads.delete_one({"_id": ObjectId(lead_id)})
     return {"ok": True}
 
+# ============ LOJA DE ARTES GRÁFICAS (catálogo + pedido via WhatsApp) ============
+from typing import Optional
+from urllib.parse import quote
+from pymongo import ReturnDocument
+
+
+def slugify_loja(text: str) -> str:
+    import unicodedata
+    s = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii").lower()
+    return re.sub(r"[^a-z0-9]+", "-", s).strip("-")[:60] or "produto"
+
+
+def format_brl(v: float) -> str:
+    return f"R$ {v:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+
+
+DEFAULT_LOJA_CONFIG = {
+    "ativo": True,
+    "nome_loja": "EXEKUTA Artes",
+    "whatsapp": "552120381079",
+    "aviso_digital": "Arquivos digitais são enviados pelo WhatsApp e e-mail após a confirmação do pagamento.",
+    "aviso_fisico": "Impressos produzidos sob demanda. Frete e prazo combinados no WhatsApp.",
+}
+
+
+async def get_loja_config():
+    cfg = await db.loja_config.find_one({"key": "loja"})
+    return {**DEFAULT_LOJA_CONFIG, **(cfg or {}).get("data", {})}
+
+
+class LojaProductIn(BaseModel):
+    nome: str
+    slug: str = ""
+    descricao: str = ""
+    tipo: str
+    preco: float
+    preco_promocional: Optional[float] = None
+    imagem: str = ""
+    arquivo_entrega: str = ""
+    ativo: bool = True
+    ordem: int = 0
+
+
+class LojaConfigIn(BaseModel):
+    data: Any
+
+
+class LojaItemIn(BaseModel):
+    produto_id: str
+    qtd: int = 1
+
+
+class LojaOrderIn(BaseModel):
+    nome: str
+    whatsapp: str
+    email: str = ""
+    itens: List[LojaItemIn]
+    observacoes: str = ""
+    endereco: dict = {}
+    lgpd: bool
+
+
+class LojaStatusIn(BaseModel):
+    status: str
+
+
+LOJA_ORDER_STATUS = {"novo", "pago", "producao", "entregue", "cancelado"}
+
+
+def loja_product_out(p: dict, include_file: bool = False) -> dict:
+    out = {
+        "id": str(p["_id"]),
+        "nome": p.get("nome", ""),
+        "slug": p.get("slug", ""),
+        "descricao": p.get("descricao", ""),
+        "tipo": p.get("tipo", "digital"),
+        "preco": p.get("preco", 0),
+        "preco_promocional": p.get("preco_promocional"),
+        "imagem": p.get("imagem", ""),
+        "ativo": p.get("ativo", True),
+        "ordem": p.get("ordem", 0),
+    }
+    if include_file:
+        out["arquivo_entrega"] = p.get("arquivo_entrega", "")
+    return out
+
+
+@api_router.get("/loja/config")
+async def loja_config_public():
+    cfg = await get_loja_config()
+    return {"ok": True, **cfg}
+
+
+@api_router.get("/loja/products")
+async def loja_products_public():
+    items = []
+    async for p in db.loja_products.find({"ativo": True}).sort([("ordem", 1), ("criado_em", -1)]):
+        items.append(loja_product_out(p))
+    return {"ok": True, "items": items}
+
+
+@api_router.get("/loja/products/{slug}")
+async def loja_product_detail(slug: str):
+    p = await db.loja_products.find_one({"slug": slug, "ativo": True})
+    if not p:
+        raise HTTPException(status_code=404, detail="Produto não encontrado")
+    return {"ok": True, "product": loja_product_out(p)}
+
+
+@api_router.post("/loja/order")
+async def loja_order(input: LojaOrderIn):
+    if not input.lgpd:
+        raise HTTPException(status_code=400, detail="É necessário aceitar o uso dos dados para concluir o pedido.")
+    if not input.nome.strip():
+        raise HTTPException(status_code=400, detail="Informe seu nome.")
+    wa_digits = re.sub(r"\D", "", input.whatsapp)
+    if len(wa_digits) < 10:
+        raise HTTPException(status_code=400, detail="Informe um WhatsApp válido com DDD.")
+    if not input.itens:
+        raise HTTPException(status_code=400, detail="Seu carrinho está vazio.")
+
+    resolved, tem_fisico, subtotal = [], False, 0.0
+    for item in input.itens:
+        qtd = max(1, min(int(item.qtd or 1), 99))
+        try:
+            p = await db.loja_products.find_one({"_id": ObjectId(item.produto_id), "ativo": True})
+        except Exception:
+            raise HTTPException(status_code=400, detail="Produto inválido no carrinho.")
+        if not p:
+            raise HTTPException(status_code=400, detail="Há itens desatualizados no carrinho. Remova-os e tente novamente.")
+        preco = p.get("preco_promocional") or p.get("preco", 0)
+        subtotal += preco * qtd
+        tem_fisico = tem_fisico or p.get("tipo") == "fisico"
+        resolved.append({"produto_id": str(p["_id"]), "nome": p.get("nome", ""), "tipo": p.get("tipo", "digital"), "preco": preco, "qtd": qtd})
+
+    endereco = {}
+    if tem_fisico:
+        obrigatorios = ["cep", "rua", "numero", "cidade", "uf"]
+        faltando = [k for k in obrigatorios if not (input.endereco or {}).get(k, "").strip()]
+        if faltando:
+            raise HTTPException(status_code=400, detail="Preencha o endereço de entrega completo.")
+        endereco = {k: (input.endereco or {}).get(k, "").strip()[:120] for k in ["cep", "rua", "numero", "complemento", "bairro", "cidade", "uf"]}
+
+    cfg = await get_loja_config()
+    seq_doc = await db.loja_counters.find_one_and_update(
+        {"key": "pedidos"}, {"$inc": {"seq": 1}}, upsert=True, return_document=ReturnDocument.AFTER
+    )
+    codigo = f"EXK-{(seq_doc or {}).get('seq', 1):04d}"
+    now = datetime.now(timezone.utc).isoformat()
+    doc = {
+        "codigo": codigo,
+        "cliente": {"nome": input.nome.strip()[:80], "whatsapp": wa_digits, "email": (input.email or "").strip()[:80]},
+        "itens": resolved,
+        "subtotal": round(subtotal, 2),
+        "tem_fisico": tem_fisico,
+        "endereco": endereco,
+        "observacoes": (input.observacoes or "").strip()[:500],
+        "status": "novo",
+        "criado_em": now,
+    }
+    await db.loja_orders.insert_one(doc)
+
+    lines = [f"*NOVO PEDIDO — {cfg.get('nome_loja', 'Loja')}*", f"Código: {codigo}", "", "*Itens*"]
+    for it in resolved:
+        tipo = "Digital" if it["tipo"] == "digital" else "Impresso"
+        lines.append(f"- {it['qtd']}x {it['nome']} ({tipo}) — {format_brl(it['preco'] * it['qtd'])}")
+    lines.append(f"*Total: {format_brl(subtotal)}*")
+    lines += ["", "*Cliente*", f"Nome: {doc['cliente']['nome']}", f"WhatsApp: {doc['cliente']['whatsapp']}"]
+    if doc["cliente"]["email"]:
+        lines.append(f"E-mail: {doc['cliente']['email']}")
+    if tem_fisico:
+        e = endereco
+        comp = f" — {e.get('complemento', '')}" if e.get("complemento") else ""
+        bairro = f" — {e.get('bairro', '')}" if e.get("bairro") else ""
+        lines += ["", "*Entrega*", f"{e.get('rua', '')}, {e.get('numero', '')}{comp}", f"CEP {e.get('cep', '')}{bairro} — {e.get('cidade', '')}/{e.get('uf', '')}"]
+    if doc["observacoes"]:
+        lines += ["", f"Observações: {doc['observacoes']}"]
+    wa_url = f"https://wa.me/{cfg.get('whatsapp', '')}?text={quote(chr(10).join(lines))}"
+    return {"ok": True, "codigo": codigo, "subtotal": round(subtotal, 2), "tem_fisico": tem_fisico, "whatsapp_url": wa_url}
+
+
+@api_router.get("/admin/loja/products")
+async def admin_loja_products(request: Request):
+    await require_admin(request)
+    items = []
+    async for p in db.loja_products.find({}).sort([("ordem", 1), ("criado_em", -1)]):
+        items.append(loja_product_out(p, include_file=True))
+    return {"ok": True, "items": items}
+
+
+@api_router.post("/admin/loja/products")
+async def admin_loja_product_create(input: LojaProductIn, request: Request):
+    await require_admin(request)
+    if input.tipo not in {"digital", "fisico"}:
+        raise HTTPException(status_code=400, detail="Tipo deve ser digital ou fisico")
+    if input.preco <= 0:
+        raise HTTPException(status_code=400, detail="Informe um preço maior que zero")
+    slug = slugify_loja(input.slug or input.nome)
+    base, n = slug, 2
+    while await db.loja_products.find_one({"slug": slug}):
+        slug = f"{base}-{n}"
+        n += 1
+    doc = input.model_dump()
+    doc["slug"] = slug
+    doc["criado_em"] = datetime.now(timezone.utc).isoformat()
+    res = await db.loja_products.insert_one(doc)
+    await bump_content_version()
+    return {"ok": True, "id": str(res.inserted_id), "slug": slug}
+
+
+@api_router.put("/admin/loja/products/{product_id}")
+async def admin_loja_product_update(product_id: str, input: LojaProductIn, request: Request):
+    await require_admin(request)
+    if input.tipo not in {"digital", "fisico"}:
+        raise HTTPException(status_code=400, detail="Tipo deve ser digital ou fisico")
+    if input.preco <= 0:
+        raise HTTPException(status_code=400, detail="Informe um preço maior que zero")
+    doc = input.model_dump()
+    doc.pop("slug", None)  # slug nunca muda (índice único)
+    doc["atualizado_em"] = datetime.now(timezone.utc).isoformat()
+    res = await db.loja_products.update_one({"_id": ObjectId(product_id)}, {"$set": doc})
+    if res.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Produto não encontrado")
+    await bump_content_version()
+    return {"ok": True}
+
+
+@api_router.delete("/admin/loja/products/{product_id}")
+async def admin_loja_product_delete(product_id: str, request: Request):
+    await require_admin(request)
+    res = await db.loja_products.delete_one({"_id": ObjectId(product_id)})
+    if res.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Produto não encontrado")
+    await bump_content_version()
+    return {"ok": True}
+
+
+@api_router.get("/admin/loja/config")
+async def admin_loja_config(request: Request):
+    await require_admin(request)
+    return {"ok": True, "config": await get_loja_config()}
+
+
+@api_router.put("/admin/loja/config")
+async def admin_loja_config_save(input: LojaConfigIn, request: Request):
+    await require_admin(request)
+    data = input.data if isinstance(input.data, dict) else {}
+    if data.get("whatsapp"):
+        digits = re.sub(r"\D", "", str(data["whatsapp"]))
+        if len(digits) < 10:
+            raise HTTPException(status_code=400, detail="WhatsApp inválido (use código do país + DDD + número)")
+        data["whatsapp"] = digits
+    await db.loja_config.update_one({"key": "loja"}, {"$set": {"data": data}}, upsert=True)
+    await bump_content_version()
+    return {"ok": True}
+
+
+@api_router.get("/admin/loja/orders")
+async def admin_loja_orders(request: Request):
+    await require_admin(request)
+    out = []
+    async for o in db.loja_orders.find({}).sort("criado_em", -1).limit(300):
+        out.append({
+            "id": str(o["_id"]),
+            "codigo": o.get("codigo"),
+            "cliente": o.get("cliente", {}),
+            "itens": o.get("itens", []),
+            "subtotal": o.get("subtotal", 0),
+            "tem_fisico": o.get("tem_fisico", False),
+            "endereco": o.get("endereco", {}),
+            "observacoes": o.get("observacoes", ""),
+            "status": o.get("status", "novo"),
+            "criado_em": o.get("criado_em"),
+        })
+    return {"ok": True, "items": out}
+
+
+@api_router.put("/admin/loja/orders/{order_id}/status")
+async def admin_loja_order_status(order_id: str, input: LojaStatusIn, request: Request):
+    await require_admin(request)
+    if input.status not in LOJA_ORDER_STATUS:
+        raise HTTPException(status_code=400, detail="Status inválido")
+    res = await db.loja_orders.update_one({"_id": ObjectId(order_id)}, {"$set": {"status": input.status}})
+    if res.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Pedido não encontrado")
+    return {"ok": True}
+
+
+SEED_LOJA_PRODUCTS = [
+    {"nome": "Kit 12 Templates para Instagram", "slug": "kit-templates-instagram", "tipo": "digital", "preco": 97.0, "ordem": 1,
+     "descricao": "Pacote com 12 templates editáveis para feed e stories, no padrão visual da sua marca. Entrega em arquivo editável.",
+     "imagem": "/loja/kit-templates-instagram.svg"},
+    {"nome": "Logo Assinatura Minimalista", "slug": "logo-assinatura-minimalista", "tipo": "digital", "preco": 349.0, "ordem": 2,
+     "descricao": "Logo desenhada sob briefing: conceito, versões principal e reduzida, cores e manual simples de uso.",
+     "imagem": "/loja/logo-assinatura-minimalista.svg"},
+    {"nome": "Cartão de Visita Premium (100 un.)", "slug": "cartao-visita-premium", "tipo": "fisico", "preco": 189.0, "ordem": 3,
+     "descricao": "100 cartões em papel 300g com verniz localizado e cantos retos. Design incluso a partir do seu material.",
+     "imagem": "/loja/cartao-visita-premium.svg"},
+    {"nome": "Banner para Feira 90x200cm", "slug": "banner-feira-90x200", "tipo": "fisico", "preco": 249.0, "ordem": 4,
+     "descricao": "Banner em lona fosca com acabamento reforçado e ilhós. Arte finalizada a partir dos seus arquivos.",
+     "imagem": "/loja/banner-feira-90x200.svg"},
+]
+
+
+@app.on_event("startup")
+async def seed_loja():
+    try:
+        await db.loja_products.create_index("slug", unique=True)
+        if await db.loja_products.count_documents({}) == 0:
+            now = datetime.now(timezone.utc).isoformat()
+            await db.loja_products.insert_many([{**p, "ativo": True, "criado_em": now} for p in SEED_LOJA_PRODUCTS])
+            logger.info("Produtos de exemplo da loja criados")
+    except Exception as e:
+        logger.error(f"seed_loja: {e}")
+
+
 # Include the router in the main app
 app.include_router(api_router)
 

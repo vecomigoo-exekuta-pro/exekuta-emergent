@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+  <defs>
+    <pattern id="g" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M60 0H0V60" fill="none" stroke="#1C2224" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="900" fill="#101415"/>
+  <rect width="1200" height="900" fill="url(#g)"/>
+  <circle cx="180" cy="780" r="260" fill="#B7FF00" opacity="0.08"/>
+  <circle cx="900" cy="300" r="190" fill="#050708" stroke="#B7FF00" stroke-width="3"/>
+  <text x="900" y="330" font-family="Bricolage Grotesque, Archivo, Arial, sans-serif" font-size="120" font-weight="800" fill="#B7FF00" text-anchor="middle">M</text>
+  <text x="900" y="560" font-family="Archivo, Arial, sans-serif" font-size="30" letter-spacing="10" fill="#8A8F91" text-anchor="middle">MARCA &amp; CO.</text>
+  <rect x="80" y="80" width="180" height="44" rx="22" fill="none" stroke="#B7FF00" stroke-width="2"/>
+  <text x="170" y="109" font-family="Archivo, Arial, sans-serif" font-size="17" font-weight="700" letter-spacing="4" fill="#B7FF00" text-anchor="middle">DIGITAL</text>
+  <text x="80" y="470" font-family="Archivo, Arial, sans-serif" font-size="84" font-weight="800" fill="#F5F5F5">LOGO ASSINATURA</text>
+  <text x="80" y="560" font-family="Archivo, Arial, sans-serif" font-size="84" font-weight="800" fill="#B7FF00">MINIMALISTA</text>
+  <text x="80" y="640" font-family="Archivo, Arial, sans-serif" font-size="30" fill="#8A8F91">Conceito, versões, cores e manual de uso</text>
+  <text x="80" y="820" font-family="Archivo, Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="6" fill="#8A8F91">EXEKUTA ARTES</text>
+</svg>
