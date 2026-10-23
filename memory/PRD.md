@@ -106,3 +106,10 @@ Swiss high-contrast monochrome editorial: black #000, white, acid accent #E2FE00
 - Pagamento online na loja (Stripe/Pix) se o usuário quiser depois.
 - Entrega automática de arquivos digitais após confirmação de pagamento.
 - Analisador de 10 páginas com relatório; páginas legais; e-mail transacional (Resend); painel de contatos/diagnósticos.
+
+## Implemented (2026-10-23 — Atualização completa de SEO, domínio confirmado: https://www.exekuta.com.br)
+- Head estático (public/index.html): title/description da home, canonical, robots, OG completo (og-exekuta.jpg 1200x630), Twitter card, JSON-LD Organization+WebSite, noscript com conteúdo real, apple-mobile-web-app-title corrigido ("Ex Pro"→"EXEKUTA"), lang pt-BR.
+- SEO por rota sem novas dependências: src/components/Seo.jsx (title/description/canonical/robots/og/twitter no cliente; prerender de bots captura no deploy) + wrapper Meta no App.js com constantes *_SEO para todas as rotas estáticas; ServicoDetail/CaseDetail/ArtigoDetail com meta por item e noindex em não-encontrado; noindex em /admin e 404.
+- Nova página /criacao-de-sites (Criação de Sites Profissionais no Rio de Janeiro): hero, tipos (institucional/landing/e-commerce), problema/para quem, processo 4 passos, FAQ visível (4 Q&As), CTA; JSON-LD @graph Service+BreadcrumbList+FAQPage; links internos do Footer e do catálogo /servicos (item Criação de Sites → href /criacao-de-sites).
+- SEO técnico: robots.txt (grupos * + crawlers de IA, Disallow /api/ e /admin, Sitemap), sitemap.xml com 28 URLs (rotas estáticas + 8 cases + 3 insights, sem URLs de preview), llms.txt. Títulos exclusivos por rota verificados (24 rotas, zero duplicatas); /servicos/seo-tecnico = "Otimização de Sites e SEO Técnico | EXEKUTA", /servicos/seo-local = "SEO Local no Rio de Janeiro | EXEKUTA" (rotas existentes usadas, evitando canibalização com novas páginas).
+- Testes: testing agent iter 2 (24 rotas, noindex 100%, JSON-LD sem invenções, sem overflow 1440/390, regressão de contato/análise/loja/chatbot/admin OK). Pendências externas: redeploy + toggle de prerender de bots + Google Search Console.

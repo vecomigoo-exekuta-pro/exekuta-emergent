@@ -157,11 +157,11 @@ export default function Servicos() {
                           <h4 className="font-display text-lg font-bold tracking-tight">{item.title}</h4>
                           <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{item.desc}</p>
                           <Link
-                            to="/diagnostico"
+                            to={item.href || "/diagnostico"}
                             data-testid={`servicos-item-cta-${cat.id}-${i}`}
                             className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-muted transition-colors hover:text-acid"
                           >
-                            Solicitar proposta
+                            {item.href ? "Conhecer o serviço" : "Solicitar proposta"}
                             <ArrowUpRight className="h-4 w-4" />
                           </Link>
                         </div>

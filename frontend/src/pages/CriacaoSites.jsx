@@ -63,16 +63,6 @@ const FAQ_LOCAL = [
   },
 ];
 
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ_LOCAL.map((f) => ({
-    "@type": "Question",
-    name: f.q,
-    acceptedAnswer: { "@type": "Answer", text: f.a },
-  })),
-};
-
 const serviceJsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -92,6 +82,14 @@ const serviceJsonLd = {
         { "@type": "ListItem", position: 2, name: "Serviços", item: "https://www.exekuta.com.br/servicos" },
         { "@type": "ListItem", position: 3, name: "Criação de Sites", item: "https://www.exekuta.com.br/criacao-de-sites" },
       ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: FAQ_LOCAL.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
     },
   ],
 };

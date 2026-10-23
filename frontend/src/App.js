@@ -209,7 +209,7 @@ function App() {
                 <Route path="/criacao-de-sites" element={<CriacaoSites />} />
                 <Route path="*" element={<NotFound />} />
               </Route>
-              <Route path="/admin" element={<><Seo title="Painel Administrativo | EXEKUTA" description="Acesso restrito ao painel de gestão de conteúdo." noindex /><AdminApp /></>} />
+              <Route path="/admin" element={<><Seo title="Painel Administrativo | EXEKUTA" description="Acesso restrito ao painel de gestão de conteúdo." path="/admin" noindex /><AdminApp /></>} />
             </Routes>
             <Toaster position="bottom-left" theme="dark" />
           </div>

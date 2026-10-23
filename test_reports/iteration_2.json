@@ -1,0 +1,42 @@
+{
+  "summary": "SEO + regression testing EXEKUTA. (1) 19 rotas indexáveis verificadas via DOM: títulos únicos (zero duplicatas), descriptions presentes, canonicals apontando para https://www.exekuta.com.br/<rota>, robots=index/follow, exatamente 1 h1 por página. Títulos específicos conferidos: /servicos/seo-tecnico='Otimização de Sites e SEO Técnico | EXEKUTA' OK; /servicos/seo-local='SEO Local no Rio de Janeiro | EXEKUTA' OK. (2) Noindex correto em /admin, /404 (rota qualquer inexistente), /servicos/slug-inexistente, /cases/slug-inexistente, /insights/slug-inexistente. (3) /criacao-de-sites renderiza completa: hero, 3 cards (institucional/landing/ecommerce — renderizados após scroll por Reveal/whileInView), 4 passos, 4 FAQs, CTAs /diagnostico e /analise-seo, link /metodo, 1 h1. JSON-LD agora com Service+BreadcrumbList+FAQPage (bug corrigido durante teste). (4) Home: FAQPage JSON-LD com 7 perguntas presente. (5) robots.txt, sitemap.xml (17 URLs), llms.txt servidos como text/plain e application/xml reais pelo preview URL. (6) Footer tem data-testid=footer-service-criacao-de-sites apontando /criacao-de-sites e navega corretamente. (7) Regressão: Home com vídeo hero OK, /contato com form OK, /analise-seo com H1 OK, /loja com 4 botões COMPRAR OK, chatbot toggle presente OK, admin login admin@exekuta.com.br/Exekuta@2026 OK e abas Marca/Rodapé/Home/Sobre/FAQ/Serviços/Cases/Chatbot/Loja/Imagens/Backup carregam. (8) Sem overflow horizontal em 1440 nem em 390 em /criacao-de-sites (sw=cw). Nenhum erro novo de console durante toda a navegação.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "CriacaoSites.jsx (JSON-LD)", "issue": "FAQPage JSON-LD estava DEFINIDO como const faqJsonLd mas NUNCA passado ao componente <Seo/> (apenas serviceJsonLd ia). O head não tinha FAQPage em /criacao-de-sites, violando o requisito. CORRIGIDO durante este teste: faqJsonLd foi mesclado dentro do @graph do serviceJsonLd (agora head traz Service+BreadcrumbList+FAQPage) e a const órfã foi removida.", "selector": "script[type=application/ld+json] em /criacao-de-sites", "priority": "HIGH"}
+    ],
+    "integration_issues": [
+      {"flow": "Catálogo de serviços → Criação de Sites", "issue": "A página /servicos NÃO tem um link do catálogo apontando para /criacao-de-sites. O único link para /criacao-de-sites na página /servicos é o do Footer. O requisito pede 'link do item Criação de Sites do catálogo' com testid 'servicos-card-exekuta-reborn' — este testid não existe no DOM atual. Sem esse link interno visível no catálogo, a nova página fica dependente só do Footer para descoberta pelo usuário em /servicos.", "affected_selectors": ["[data-testid=\"servicos-card-exekuta-reborn\"]"]}
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_loja.py (regressão da iteração 1, não re-executada aqui — foco foi SEO/UI)",
+    "/app/test_reports/iteration_2.json"
+  ],
+  "action_items": [
+    "Adicionar na página /servicos (Servicos.jsx) um card/link visível no catálogo apontando para /criacao-de-sites com data-testid='servicos-card-exekuta-reborn' (ou outro testid combinado) — hoje só o Footer referencia a nova página.",
+    "(Opcional) Avaliar se o lazy render via Reveal/whileInView dos cards (criacao-card-institucional/landing/ecommerce) é adequado para crawlers que não executam JS com scroll. Para SEO renderizado por bots está OK porque Googlebot executa JS, mas se o deploy depender de prerender estático, garantir que esses cards estejam no HTML inicial."
+  ],
+  "critical_code_review_comments": [
+    "CriacaoSites.jsx tinha código morto (faqJsonLd declarado e nunca usado) — típico de refactor incompleto. Já removido no fix.",
+    "App.js: wrapper <Meta seo={...}> + constantes *_SEO está limpo e DRY, bom padrão para SEO por rota.",
+    "Seo.jsx: usa upsertMeta e remove/reinjeta <script id='route-jsonld'> no cleanup correto. Nota: as tags og:/twitter:/robots nunca são REMOVIDAS entre rotas, apenas sobrescritas — como todas as rotas indexáveis setam todas as metas, não há vazamento. Mas se futuramente alguma rota omitir uma propriedade, ela permanecerá da rota anterior. Considerar reset explícito.",
+    "/admin canonical ficou como https://www.exekuta.com.br/ (default path='/') em vez de /admin — como é noindex, não impacta SEO, mas conceitualmente é inconsistente; passar path='/admin' ao <Seo/> em App.js.",
+    "Sitemap.xml tem 17 URLs mas não inclui as 5 páginas de case (/cases/wishclean, /cases/rio-quadras, /cases/terraplanagem-rio, /cases/sinteko) nem os artigos de /insights/*. Verificar com o cliente se é intencional (apenas rotas estáticas no sitemap, cases/insights indexados via descoberta pelo /cases e /insights)."
+  ],
+  "updated_files": [
+    "/app/frontend/src/pages/CriacaoSites.jsx (adicionado FAQPage ao @graph do JSON-LD; removida const faqJsonLd órfã)",
+    "/app/test_reports/iteration_2.json"
+  ],
+  "success_rate": {"backend": "100% (regressão N/A — iteração anterior 19/19)", "frontend": "95% — SEO uniqueness 100%, noindex 100%, nova página 100%, 1 integração faltando (link em /servicos)"},
+  "test_credentials": "admin@exekuta.com.br / Exekuta@2026 (validado — login OK, CMS carrega abas)",
+  "seed_data_creation": "Nenhum seed novo. Nenhum pedido criado nesta iteração.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "SEO está sólido: 24 rotas verificadas, zero duplicatas de title, canonicals OK, noindex onde esperado, h1 único por página. Único gap funcional restante: /servicos não tem link visível de catálogo para /criacao-de-sites (apenas Footer). O FAQPage JSON-LD em /criacao-de-sites já foi corrigido nesta iteração. Para regressão de /loja, reutilizar /app/backend/tests/test_loja.py (19/19 na iter 1).",
+  "rca of the issue": "Bug do FAQPage ausente em /criacao-de-sites: durante a implementação da nova página, o autor definiu dois objetos JSON-LD (faqJsonLd e serviceJsonLd) mas na chamada <Seo jsonLd={{...serviceJsonLd}} /> só o segundo foi passado — a const faqJsonLd ficou órfã. Fix aplicado: adicionar o nó FAQPage dentro do @graph do serviceJsonLd (um único script com Service+BreadcrumbList+FAQPage, que é a forma recomendada pelo schema.org) e remover a const não usada. Verificado via DOM que o head agora traz os 3 tipos."
+}

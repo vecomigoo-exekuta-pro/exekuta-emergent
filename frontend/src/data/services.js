@@ -93,7 +93,7 @@ export const FULL_CATALOG = [
     tagline: "Presença digital construída para crescer.",
     image: "https://images.unsplash.com/photo-1629904853893-c2c8981a1dc5?q=80&w=1200&auto=format&fit=crop",
     items: [
-      { title: "Criação de Sites", desc: "Sites profissionais, institucionais e WordPress com estratégia, performance e estrutura preparada para aquisição." },
+      { title: "Criação de Sites", desc: "Sites profissionais, institucionais e WordPress com estratégia, performance e estrutura preparada para aquisição.", href: "/criacao-de-sites" },
       { title: "Landing Pages", desc: "Páginas de conversão com mensagem, experiência e mensuração conectadas a uma ação de negócio." },
       { title: "Lojas Virtuais / E-commerce", desc: "E-commerce com arquitetura comercial, experiência, performance e base técnica preparada para aquisição e crescimento." },
     ],
