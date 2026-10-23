@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Eyebrow } from "@/components/ui-motions";
+import Seo from "@/components/Seo";
 
 export default function NotFound() {
   return (
     <div className="relative flex min-h-[80vh] flex-col items-center justify-center gap-6 px-6 pt-20 text-center" data-testid="not-found-page">
+      <Seo title="Página não encontrada | EXEKUTA" description="A página solicitada não existe ou foi movida." path="/404" noindex />
       <Eyebrow>404</Eyebrow>
       <h1 className="font-display text-4xl font-extrabold uppercase tracking-tight sm:text-6xl">
         Página não <span className="text-acid">encontrada.</span>

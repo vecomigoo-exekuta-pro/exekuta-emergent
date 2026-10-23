@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Eyebrow, FadeIn, Reveal } from "@/components/ui-motions";
 import { INSIGHTS } from "@/data/insights";
+import Seo from "@/components/Seo";
 
 export default function ArtigoDetail() {
   const { slug } = useParams();
@@ -11,6 +12,7 @@ export default function ArtigoDetail() {
   if (!a) {
     return (
       <div className="flex min-h-[70vh] flex-col items-center justify-center gap-6 px-6 pt-20 text-center" data-testid="artigo-not-found">
+        <Seo noindex title="Artigo não encontrado | EXEKUTA" description="O artigo solicitado não existe." path={`/insights/${slug}`} />
         <Eyebrow>404</Eyebrow>
         <h1 className="font-display text-3xl font-extrabold uppercase tracking-tight sm:text-5xl">
           Artigo não encontrado.
@@ -27,6 +29,7 @@ export default function ArtigoDetail() {
 
   return (
     <div data-testid="artigo-page">
+      <Seo title={`${a.title} | EXEKUTA`} description={a.excerpt} path={`/insights/${a.slug}`} />
       <header className="relative overflow-hidden pb-14 pt-40 lg:pt-48">
         <div className="hero-grid absolute inset-0" aria-hidden="true" />
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6">

@@ -64,6 +64,15 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  to="/criacao-de-sites"
+                  data-testid="footer-service-criacao-de-sites"
+                  className="text-sm text-muted transition-colors hover:text-acid"
+                >
+                  Criação de Sites
+                </Link>
+              </li>
             </ul>
           </div>
 

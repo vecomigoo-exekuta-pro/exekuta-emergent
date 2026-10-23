@@ -1,0 +1,33 @@
+# EXEKUTA
+
+Agência de SEO orientada por dados, sediada no Rio de Janeiro. A EXEKUTA organiza estratégia, SEO técnico, conteúdo e mensuração em um método de crescimento orgânico para empresas: analisar, planejar, executar, medir e otimizar.
+
+## Páginas
+
+- / — Agência de SEO no Rio de Janeiro: visão geral da operação, serviços e diagnóstico inicial.
+- /sobre — Sobre a EXEKUTA: metodologia de análise, planejamento e execução de estratégias de SEO.
+- /servicos — Serviços de SEO e marketing digital: frentes de SEO, desenvolvimento, marketing e performance.
+- /servicos/estrategia-seo — Estratégia SEO: diagnóstico, pesquisa e priorização para definir onde competir.
+- /servicos/seo-tecnico — Otimização de sites e SEO técnico: rastreamento, indexação, arquitetura e performance.
+- /servicos/seo-on-page — SEO On-Page: conteúdo, estrutura semântica e intenção de busca.
+- /servicos/seo-local — SEO Local no Rio de Janeiro: presença regional, consistência de dados e buscas próximas.
+- /servicos/autoridade-digital — Autoridade digital: conteúdo, reputação e aquisição ética de relevância.
+- /servicos/analytics-performance — Analytics e performance: monitoramento, relatórios e ciclos de melhoria.
+- /criacao-de-sites — Criação de sites profissionais: sites institucionais, landing pages e e-commerce com base preparada para SEO.
+- /metodo — Método EXEKUTA: pilares, critérios e ciclos de execução.
+- /cases — Cases autorizados de projetos com cenário, execução e métricas verificadas.
+- /insights — Artigos e análises sobre SEO, busca e desempenho digital.
+- /contato — Contato para apresentar cenário, site e objetivo.
+- /diagnostico — Diagnóstico de SEO para empresas.
+- /analise-seo — Análise técnica e on-page gratuita de um site.
+- /loja — Loja de artes gráficas da EXEKUTA: produtos digitais e impressos com pedido via WhatsApp.
+
+## Como funciona o primeiro contato
+
+A empresa apresenta contexto, site, desafio e objetivo. A EXEKUTA organiza as informações necessárias para avaliar o cenário e indicar o próximo passo adequado — diagnóstico, auditoria independente ou proposta de execução.
+
+## Contato
+
+- Região de atendimento: Rio de Janeiro e região metropolitana
+- Telefone (publicado no site): +55 21 2038-1079
+- Instagram: https://www.instagram.com/exekuta.agencia/

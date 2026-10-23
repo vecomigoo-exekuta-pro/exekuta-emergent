@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Eyebrow, FadeIn, Reveal } from "@/components/ui-motions";
 import { useSiteData } from "@/cms/CmsContext";
 import { CASE_NOTE, CASE_DISCLAIMER, CASE_RESULT } from "@/data/cases";
+import Seo from "@/components/Seo";
 
 export default function CaseDetail() {
   const { slug } = useParams();
@@ -13,6 +14,7 @@ export default function CaseDetail() {
   if (!c) {
     return (
       <div className="flex min-h-[70vh] flex-col items-center justify-center gap-6 px-6 pt-20 text-center" data-testid="case-not-found">
+        <Seo noindex title="Case não encontrado | EXEKUTA" description="O case solicitado não existe." path={`/cases/${slug}`} />
         <Eyebrow>404</Eyebrow>
         <h1 className="font-display text-3xl font-extrabold uppercase tracking-tight sm:text-5xl">
           Case não encontrado.
@@ -29,6 +31,11 @@ export default function CaseDetail() {
 
   return (
     <div data-testid="case-detail-page">
+      <Seo
+        title={`${c.name} | Case de SEO | EXEKUTA`}
+        description={`Case ${c.name} — ${c.segment}: cenário, decisões de execução e critérios de verificação de um projeto autorizado da EXEKUTA.`}
+        path={`/cases/${c.slug}`}
+      />
       <section className="relative overflow-hidden pb-14 pt-40 lg:pb-20 lg:pt-48">
         <div className="hero-grid absolute inset-0" aria-hidden="true" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

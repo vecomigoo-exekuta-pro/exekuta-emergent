@@ -4,6 +4,34 @@ import { Eyebrow, FadeIn, Reveal } from "@/components/ui-motions";
 import PerformanceBoard from "@/components/PerformanceBoard";
 import { useSiteData } from "@/cms/CmsContext";
 import { SERVICES } from "@/data/services";
+import Seo from "@/components/Seo";
+
+const SERVICE_META = {
+  "estrategia-seo": {
+    title: "Estratégia SEO: Diagnóstico e Priorização | EXEKUTA",
+    description: "Defina onde competir e por quê: diagnóstico de SEO, pesquisa de oportunidades e um plano de prioridades executável para o seu negócio.",
+  },
+  "seo-tecnico": {
+    title: "Otimização de Sites e SEO Técnico | EXEKUTA",
+    description: "Melhore a estrutura, a velocidade, a indexação e o desempenho orgânico do seu site com uma estratégia técnica de SEO.",
+  },
+  "seo-on-page": {
+    title: "SEO On-Page: Otimização de Páginas | EXEKUTA",
+    description: "Alinhe conteúdo, estrutura semântica e intenção de busca para que cada página responda melhor ao Google e à jornada do cliente.",
+  },
+  "seo-local": {
+    title: "SEO Local no Rio de Janeiro | EXEKUTA",
+    description: "Fortaleça a presença da sua empresa nas buscas locais com estratégias de SEO local, otimização de páginas e relevância regional.",
+  },
+  "autoridade-digital": {
+    title: "Autoridade Digital: Conteúdo e Reputação | EXEKUTA",
+    description: "Construa autoridade com conteúdo relevante, reputação consistente e aquisição ética de relevância para o seu mercado.",
+  },
+  "analytics-performance": {
+    title: "Analytics e Performance de Sites | EXEKUTA",
+    description: "Monitore indicadores, entenda perdas e priorize testes: mensuração conectada a objetivos reais de crescimento.",
+  },
+};
 
 export default function ServicoDetail() {
   const { slug } = useParams();
@@ -13,6 +41,7 @@ export default function ServicoDetail() {
   if (!s) {
     return (
       <div className="flex min-h-[70vh] flex-col items-center justify-center gap-6 px-6 pt-20 text-center" data-testid="servico-not-found">
+        <Seo noindex title="Serviço não encontrado | EXEKUTA" description="A página de serviço solicitada não existe." path={`/servicos/${slug}`} />
         <Eyebrow>404</Eyebrow>
         <h1 className="font-display text-3xl font-extrabold uppercase tracking-tight sm:text-5xl">
           Serviço não encontrado.
@@ -25,8 +54,11 @@ export default function ServicoDetail() {
     );
   }
 
+  const meta = SERVICE_META[s.slug] || { title: `${s.name} | EXEKUTA`, description: s.card };
+
   return (
     <div data-testid="servico-detail-page">
+      <Seo title={meta.title} description={meta.description} path={`/servicos/${s.slug}`} />
       <section className="relative overflow-hidden pb-14 pt-40 lg:pb-20 lg:pt-48">
         <div className="hero-grid absolute inset-0" aria-hidden="true" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
