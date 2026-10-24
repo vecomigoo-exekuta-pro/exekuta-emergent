@@ -1,0 +1,19 @@
+{
+  "summary": "Testada a nova seção 'Planos de Gestão de Sites com SEO' (home + /planos-seo + admin). Backend CMS scope 'planos' funcional (GET /api/cms/public retorna 4 planos, PUT /api/admin/cms/planos aceita wrapper {data:[...]}). Frontend valida 4 cards resumidos na Home com preços corretos (890/1490/2490/3990), selo Destaque no Ouro, link '+N entregas' apontando para /planos-seo (Prata/Ouro/Diamante — Bronze corretamente omite por ter apenas 3 entregas). Página /planos-seo com title único, canonical https://www.exekuta.com.br/planos-seo, robots index, 1 h1, JSON-LD OfferCatalog (4 Offers com price BRL numéricos) + BreadcrumbList, distribuição progressiva correta (3/4/5/6 entregas, Diamante inclui AEO/GEO). Sem overflow horizontal @1440 e @390. Sitemap retorna 29 URLs incluindo /planos-seo; llms.txt menciona /planos-seo; footer tem link 'Planos de SEO' → /planos-seo. Fluxo admin: login OK, aba admin-tab-planos clicável, admin-planos renderiza, edição de preço do Bronze (R$ 999/mês TEST) salvou (v=25), persistiu em /api/cms/public e refletiu em Home e /planos-seo. Revertido via API PUT /api/admin/cms/planos (v=26) com payload original — todos os 4 planos restaurados (Bronze R$ 890 3 entregas; Prata R$ 1.490 4; Ouro R$ 2.490 destaque 5; Diamante R$ 3.990 6 incluindo AEO/GEO). Rotas gerais respondendo 200/301. Nenhum bug encontrado.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": ["/app/test_reports/iteration_3.json"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "PlansSection: Bronze (3 entregas) não exibe link '+N entregas no plano completo' porque não há 'rest' — comportamento correto, mas usuário final poderia perder a entrada para /planos-seo a partir do card Bronze. Considerar exibir sempre o link 'Ver plano completo' (opcional/estético). Não bloqueante.",
+    "Backend endpoint PUT /api/admin/cms/{scope} requer payload no formato {\"data\": [...]} (CmsSave model). O frontend já usa esse formato (saveScope). Documentar se outros clientes forem integrar."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "test_credentials": "admin@exekuta.com.br / Exekuta@2026 (OK)",
+  "seed_data_creation": "Nenhum. Dados de teste (Bronze R$ 999/mês TEST) foram criados temporariamente e REVERTIDOS para o estado original (v=26). Estado atual = valores originais da especificação.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "A seção de Planos está integralmente funcional. CMS versão atual v=26 com os valores originais restaurados. OfferCatalog JSON-LD inclui price numérico em BRL. O admin usa SaveBar que envia {data: planos}. Qualquer teste futuro deve wrappear o payload PUT como {\"data\":[...]} para não receber 422.",
+  "rca of the issue": "N/A — nenhum bug encontrado."
+}
