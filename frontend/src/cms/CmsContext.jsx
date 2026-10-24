@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { BRAND, FOOTER, HOME, ABOUT } from "@/cms/defaults";
+import { BRAND, FOOTER, HOME, ABOUT, PLANOS } from "@/cms/defaults";
 import { FAQ } from "@/data/site";
 import { SERVICES } from "@/data/services";
 import { CASES } from "@/data/cases";
@@ -53,6 +53,7 @@ export function useSiteData() {
       home: { ...HOME, ...(cms.home || {}) },
       about: { ...ABOUT, ...(cms.about || {}) },
       faq: cms.faq?.length ? cms.faq : FAQ,
+      planos: cms.planos?.length ? cms.planos : PLANOS,
       services: activeSorted(cms.services, SERVICES),
       cases: activeSorted(cms.cases, CASES),
     };

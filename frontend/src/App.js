@@ -21,6 +21,7 @@ import Diagnostico from "@/pages/Diagnostico";
 import AnaliseSeo from "@/pages/AnaliseSeo";
 import LojaPage from "@/loja/LojaPage";
 import CriacaoSites from "@/pages/CriacaoSites";
+import PlanosSeo from "@/pages/PlanosSeo";
 import NotFound from "@/pages/NotFound";
 import Seo from "@/components/Seo";
 import { FAQ } from "@/data/site";
@@ -112,6 +113,13 @@ const LOJA_SEO = {
   description:
     "Templates, logos e materiais gráficos em formato digital e impresso. Monte o carrinho e finalize o pedido pelo WhatsApp.",
   path: "/loja",
+};
+
+const PLANOSSEO_SEO = {
+  title: "Planos de Gestão de Sites com SEO | EXEKUTA",
+  description:
+    "Planos de gestão de sites com SEO: auditoria técnica, SEO técnico, conteúdo, link building, AEO/GEO e relatórios periódicos de métricas e posicionamento.",
+  path: "/planos-seo",
 };
 import AdminApp from "@/admin/AdminApp";
 import ChatbotPanel from "@/admin/ChatbotPanel";
@@ -207,6 +215,7 @@ function App() {
                 <Route path="/analise-seo" element={<Meta seo={ANALISESEO_SEO}><AnaliseSeo /></Meta>} />
                 <Route path="/loja" element={<Meta seo={LOJA_SEO}><LojaPage /></Meta>} />
                 <Route path="/criacao-de-sites" element={<CriacaoSites />} />
+                <Route path="/planos-seo" element={<Meta seo={PLANOSSEO_SEO}><PlanosSeo /></Meta>} />
                 <Route path="*" element={<NotFound />} />
               </Route>
               <Route path="/admin" element={<><Seo title="Painel Administrativo | EXEKUTA" description="Acesso restrito ao painel de gestão de conteúdo." path="/admin" noindex /><AdminApp /></>} />

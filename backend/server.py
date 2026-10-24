@@ -194,7 +194,7 @@ from fastapi.responses import Response, JSONResponse
 from motor.motor_asyncio import AsyncIOMotorGridFSBucket
 
 JWT_ALGORITHM = "HS256"
-CMS_SCOPES = {"brand", "footer", "home", "about", "faq", "services", "cases"}
+CMS_SCOPES = {"brand", "footer", "home", "about", "faq", "services", "cases", "planos"}
 fs_bucket = AsyncIOMotorGridFSBucket(db)
 
 

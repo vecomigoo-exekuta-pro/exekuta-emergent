@@ -6,6 +6,8 @@ import { Logo, LogoMark } from "@/components/Logo";
 import AdminLogin from "@/admin/AdminLogin";
 import FieldsEditor from "@/admin/FieldsEditor";
 import FaqEditor from "@/admin/FaqEditor";
+import PlanosEditor from "@/admin/PlanosEditor";
+import { PLANOS } from "@/cms/defaults";
 import ListEditor from "@/admin/ListEditor";
 import MediaLibrary from "@/admin/MediaLibrary";
 import ChatbotPanel from "@/admin/ChatbotPanel";
@@ -22,6 +24,7 @@ const TABS = [
   { id: "home", label: "Home" },
   { id: "sobre", label: "Sobre" },
   { id: "faq", label: "FAQ" },
+  { id: "planos", label: "Planos" },
   { id: "servicos", label: "Serviços" },
   { id: "cases", label: "Cases" },
   { id: "chatbot", label: "Chatbot" },
@@ -200,6 +203,7 @@ export default function AdminApp() {
     servicos: "Serviços",
     cases: "Cases",
     chatbot: "Chatbot de captação de leads",
+    planos: "Planos de gestão de sites com SEO",
     loja: "Loja de artes gráficas",
     imagens: "Biblioteca de imagens",
     backup: "Backups por seção",
@@ -296,6 +300,13 @@ export default function AdminApp() {
               values={merged("faq", FAQ)}
               onChange={(d) => setContent((c) => ({ ...c, faq: d }))}
               onSave={() => saveScope("faq", content.faq ?? FAQ)}
+              saving={saving}
+            />
+          ) : tab === "planos" ? (
+            <PlanosEditor
+              values={merged("planos", PLANOS)}
+              onChange={(d) => setContent((c) => ({ ...c, planos: d }))}
+              onSave={() => saveScope("planos", content.planos ?? PLANOS)}
               saving={saving}
             />
           ) : tab === "servicos" ? (

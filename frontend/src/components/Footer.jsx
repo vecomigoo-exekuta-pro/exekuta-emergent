@@ -73,6 +73,15 @@ export default function Footer() {
                   Criação de Sites
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/planos-seo"
+                  data-testid="footer-service-planos"
+                  className="text-sm text-muted transition-colors hover:text-acid"
+                >
+                  Planos de SEO
+                </Link>
+              </li>
             </ul>
           </div>
 

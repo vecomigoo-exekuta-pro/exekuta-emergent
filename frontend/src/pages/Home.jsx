@@ -14,6 +14,7 @@ import PerformanceBoard from "@/components/PerformanceBoard";
 import { LogoMark } from "@/components/Logo";
 import { useSiteData } from "@/cms/CmsContext";
 import { INSTAGRAM } from "@/data/site";
+import PlansSection from "@/components/PlansSection";
 
 const EASE = [0.16, 1, 0.3, 1];
 
@@ -642,6 +643,11 @@ export default function Home() {
       <AboutPreview />
       <Insights />
       <Faq />
+      <section className="py-24 lg:py-32" data-testid="home-planos">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <PlansSection />
+        </div>
+      </section>
       <Cta />
     </>
   );

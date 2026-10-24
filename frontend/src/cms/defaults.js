@@ -78,3 +78,56 @@ export const ABOUT = {
   fundadorBio:
     "À frente da EXEKUTA, Alessandro une análise profunda, execução técnica e acompanhamento responsável — uma abordagem que conecta SEO ao negócio, garantindo que cada ação tenha um papel definido dentro de uma arquitetura e jornada.",
 };
+
+export const PLANOS = [
+  {
+    id: "bronze",
+    nome: "Bronze",
+    preco: "R$ 890/mês",
+    destaque: false,
+    entregas: [
+      "Diagnóstico e Auditoria Técnica Inicial",
+      "SEO Técnico: tags, meta-descrições, sitemap, Schema.org e mobile",
+      "Relatórios periódicos de métricas e posicionamento",
+    ],
+  },
+  {
+    id: "prata",
+    nome: "Prata",
+    preco: "R$ 1.490/mês",
+    destaque: false,
+    entregas: [
+      "Diagnóstico e Auditoria Técnica Inicial",
+      "SEO Técnico: tags, meta-descrições, sitemap, Schema.org e mobile",
+      "Estratégia de Conteúdo e Palavras-Chave",
+      "Relatórios periódicos de métricas e posicionamento",
+    ],
+  },
+  {
+    id: "ouro",
+    nome: "Ouro",
+    preco: "R$ 2.490/mês",
+    destaque: true,
+    entregas: [
+      "Diagnóstico e Auditoria Técnica Inicial",
+      "SEO Técnico: tags, meta-descrições, sitemap, Schema.org e mobile",
+      "Estratégia de Conteúdo e Palavras-Chave",
+      "Link Building",
+      "Relatórios periódicos de métricas e posicionamento",
+    ],
+  },
+  {
+    id: "diamante",
+    nome: "Diamante",
+    preco: "R$ 3.990/mês",
+    destaque: false,
+    entregas: [
+      "Diagnóstico e Auditoria Técnica Inicial",
+      "SEO Técnico: tags, meta-descrições, sitemap, Schema.org e mobile",
+      "Estratégia de Conteúdo e Palavras-Chave",
+      "Link Building",
+      "Otimização para IA e buscas generativas (AEO/GEO)",
+      "Relatórios periódicos de métricas e posicionamento",
+    ],
+  },
+];

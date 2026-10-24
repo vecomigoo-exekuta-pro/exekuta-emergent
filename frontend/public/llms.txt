@@ -21,6 +21,7 @@ Agência de SEO orientada por dados, sediada no Rio de Janeiro. A EXEKUTA organi
 - /diagnostico — Diagnóstico de SEO para empresas.
 - /analise-seo — Análise técnica e on-page gratuita de um site.
 - /loja — Loja de artes gráficas da EXEKUTA: produtos digitais e impressos com pedido via WhatsApp.
+- /planos-seo — Planos de gestão de sites com SEO (Bronze, Prata, Ouro e Diamante): auditoria técnica, SEO técnico, estratégia de conteúdo, link building, otimização para IA (AEO/GEO) e relatórios de métricas.
 
 ## Como funciona o primeiro contato
 
