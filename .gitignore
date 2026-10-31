@@ -90,3 +90,8 @@ android-sdk/
 
 # Scripts internos do ambiente Emergent
 .emergent/cron/
+*.env
+credentials.json
+*.key
+.credentials
+frontend/node_modules/.cache/default-development/0.pack
